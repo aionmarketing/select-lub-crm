@@ -1,0 +1,76 @@
+// Tables owned by the `scheduling` module. Ownership is declared in ownership.json;
+// this file and that entry are kept in agreement by schema-ownership.test.ts.
+// Only `module_scheduling` may write them.
+
+/// One reminder a return sends about itself: the text, plus the scheduled
+/// messages that carry it. A return may hold several — a different wording gets
+/// its own schedule.
+///
+/// There is no separate trigger table. A trigger IS a ScheduledMessage row: the
+/// alternative, a plan a worker expands when due, was considered and rejected
+/// because it needs a second scheduler and breaks "stores frozen text" — the
+/// attendant would approve a template rather than the words that arrive.
+model ReturnReminderMessage {
+  id              String             @id @default(cuid())
+  vehicleReturnId String             @map("vehicle_return_id")
+  vehicleReturn   VehicleReturn      @relation(fields: [vehicleReturnId], references: [id], onDelete: Cascade)
+  templateId      String?            @map("template_id")
+  template        Template?          @relation(fields: [templateId], references: [id], onDelete: SetNull)
+  /// The body as the attendant left it, placeholders unresolved. Each scheduled
+  /// message freezes its own resolved copy, because elapsed time differs per
+  /// send moment — five months a month early, six on the day.
+  bodyTemplate    String             @map("body_template")
+  createdByUserId String             @map("created_by_user_id") @db.Uuid
+  createdByUser   User               @relation(fields: [createdByUserId], references: [id], onDelete: Restrict)
+  createdAt       DateTime           @default(now()) @map("created_at")
+  cancelledAt     DateTime?          @map("cancelled_at")
+  scheduledMessages ScheduledMessage[]
+
+  @@index([vehicleReturnId])
+  @@map("return_reminder_message")
+}
+
+model ScheduledMessage {
+  id                  String        @id @default(cuid())
+  customerId          String?       @map("customer_id")
+  customer            Customer?     @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  conversationId      String?       @map("conversation_id")
+  conversation        Conversation? @relation(fields: [conversationId], references: [id], onDelete: SetNull)
+  /// The service this was prefilled from. No longer unique: one return can carry
+  /// several reminders, and a return comes from one service, so per-service
+  /// uniqueness forbade the two-touch plan. Uniqueness moved to
+  /// (return_reminder_message_id, scheduled_at) — see the partial index in SQL.
+  serviceId           String?       @map("service_id")
+  service             Service?      @relation(fields: [serviceId], references: [id], onDelete: SetNull)
+  /// Set when this row is one send moment of a return reminder. Denormalised
+  /// rather than reached through a join because the partial unique index that
+  /// stops a double confirm has to live on this table.
+  returnReminderMessageId String?   @map("return_reminder_message_id")
+  returnReminderMessage   ReturnReminderMessage? @relation(fields: [returnReminderMessageId], references: [id], onDelete: Cascade)
+  /// Days before the return's `returnDate` this row was set to fire. Null means
+  /// the attendant named an absolute date, which a later edit to the return date
+  /// MUST NOT move. Kept after the fact so the cascade knows which rows follow.
+  leadDays            Int?          @map("lead_days")
+  templateId          String?       @map("template_id")
+  template            Template?     @relation(fields: [templateId], references: [id], onDelete: SetNull)
+  frozenText          String        @map("frozen_text")
+  suggestedAt         DateTime?     @map("suggested_at")
+  suggestionSource    String?       @map("suggestion_source")
+  intervalRuleId      String?       @map("interval_rule_id")
+  intervalRule        IntervalRule? @relation(fields: [intervalRuleId], references: [id], onDelete: SetNull)
+  intervalRuleVersion Int?          @map("interval_rule_version")
+  scheduledAt         DateTime      @map("scheduled_at")
+  timeZone            String        @default("America/Sao_Paulo") @map("time_zone")
+  status              String
+  idempotencyKey      String        @unique @map("idempotency_key")
+  lastError           String?       @map("last_error")
+  createdByUserId     String        @map("created_by_user_id") @db.Uuid
+  createdByUser       User          @relation(fields: [createdByUserId], references: [id], onDelete: Restrict)
+  createdAt           DateTime      @default(now()) @map("created_at")
+  sentAt              DateTime?     @map("sent_at")
+  cancelledAt         DateTime?     @map("cancelled_at")
+  serviceAttributions ServiceScheduledAttribution[]
+
+  @@index([status, scheduledAt])
+  @@map("scheduled_message")
+}

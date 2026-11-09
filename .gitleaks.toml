@@ -1,0 +1,83 @@
+title = "select-lub-crm"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "supabase-service-role-key"
+description = "Supabase service_role JWT (SUPABASE_SERVICE_ROLE_KEY)"
+regex = '''eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]*service_role[A-Za-z0-9_-]*\.[A-Za-z0-9_-]+'''
+keywords = ["service_role", "SUPABASE_SERVICE_ROLE_KEY"]
+
+[[rules]]
+id = "supabase-production-database-url"
+description = "Supabase Postgres URL (DATABASE_URL / DIRECT_URL)"
+regex = '''postgres(?:ql)?://[^\s:]+:[^\s@]+@(?:db\.[a-z0-9]+\.supabase\.co|[a-z0-9.-]+\.pooler\.supabase\.com)'''
+keywords = ["DATABASE_URL", "DIRECT_URL"]
+
+[[rules]]
+id = "openai-api-key"
+description = "OpenAI API key (OPENAI_API_KEY)"
+regex = '''sk-[A-Za-z0-9_-]{20,}'''
+keywords = ["OPENAI_API_KEY"]
+
+[[rules]]
+id = "fly-api-token"
+description = "Fly.io API token (FLY_API_TOKEN)"
+regex = '''FlyV1\s+[A-Za-z0-9._+/=-]+'''
+keywords = ["FLY_API_TOKEN"]
+
+[[rules]]
+id = "evolution-hex-secret-assignment"
+description = "Evolution AUTHENTICATION_API_KEY or EVOLUTION_WEBHOOK_SECRET assigned a hex value"
+regex = '''(?i)(?:AUTHENTICATION_API_KEY|EVOLUTION_WEBHOOK_SECRET)\s*=\s*['\"]?[A-Fa-f0-9]{32,}'''
+keywords = ["AUTHENTICATION_API_KEY", "EVOLUTION_WEBHOOK_SECRET"]
+
+[[rules]]
+id = "omie-app-secret-assignment"
+description = "Omie OMIE_APP_SECRET / OMIE_APP_KEY assignment with a non-placeholder value"
+regex = '''(?i)(?:OMIE_APP_SECRET|OMIE_APP_KEY)=[A-Za-z0-9._-]{8,}'''
+keywords = ["OMIE_APP_SECRET", "OMIE_APP_KEY", "app_secret", "app_key"]
+
+[[allowlists]]
+description = "generated, lockfile, local env, and gitignored webhook dumps"
+paths = [
+  '''(^|/)pnpm-lock\.yaml$''',
+  '''(^|/)coverage/''',
+  '''(^|/)dist/''',
+  '''(^|/)node_modules/''',
+  '''(^|/)\.env$''',
+  '''(^|/)\.env\.local$''',
+  # The Motul fixtures' vehicle cache keys ("key", "cacheKey") are hex ids that
+  # generic-api-key flags. Two paths, because the scan walks history:
+  # packages/motul/fixtures/ is where every commit before wave 5.1a holds them,
+  # and it must stay exempt for those historical copies...
+  '''(^|/)packages/motul/fixtures/''',
+  # ...and kernel/clients/motul/fixtures/ is where 5.1a moved them, for the tree.
+  '''(^|/)packages/core/src/kernel/clients/motul/fixtures/''',
+  '''(^|/)artifacts/''',
+]
+
+[[allowlists]]
+description = "generic-api-key false positives: Tecfil APLICACAO property access, and the public Builder.io CMS key documented in docs/tecfil-catalogo-expresso-api.md"
+regexes = [
+  '''row\.ComplementoAplicacao3_\d+''',
+  '''87af19bd07fb4458a92d5f4c3a2f61b7''',
+]
+
+# The two placeholder Supabase hosts used by the database-target tests. Those
+# tests exist to prove the seed and live-test gates REFUSE a hosted target, so
+# they must contain a string shaped like a hosted URL — which is exactly what
+# `supabase-production-database-url` is built to catch. Eight findings, all of
+# them this, and a scanner that is always red is a scanner nobody reads.
+#
+# Allowlisted by VALUE, not by path. Path-allowlisting the test files would
+# blind the rule to a genuine project ref appearing in those same files, which
+# is a plausible mistake precisely because they are where connection strings
+# get written. A real ref is 20 random lowercase letters and matches neither
+# of these.
+[[allowlists]]
+description = "placeholder Supabase hosts in the database-target and seed-guard tests"
+regexes = [
+  '''db\.(?:example|abcdefgh)\.supabase\.co''',
+]

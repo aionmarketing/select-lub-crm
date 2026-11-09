@@ -1,0 +1,801 @@
+{
+  "success": true,
+  "data": [
+    {
+      "Codigo": 39,
+      "Descricao": "ADAMS"
+    },
+    {
+      "Codigo": 40,
+      "Descricao": "AGCO"
+    },
+    {
+      "Codigo": 1,
+      "Descricao": "AGRALE"
+    },
+    {
+      "Codigo": 513,
+      "Descricao": "Ahlmann"
+    },
+    {
+      "Codigo": 2,
+      "Descricao": "ALFA ROMEO"
+    },
+    {
+      "Codigo": 230,
+      "Descricao": "AMHOIST"
+    },
+    {
+      "Codigo": 3,
+      "Descricao": "ASIA MOTORS"
+    },
+    {
+      "Codigo": 231,
+      "Descricao": "ATLAS-COPCO"
+    },
+    {
+      "Codigo": 4,
+      "Descricao": "AUDI"
+    },
+    {
+      "Codigo": 232,
+      "Descricao": "AUSTIN WESTERN"
+    },
+    {
+      "Codigo": 663,
+      "Descricao": "BAJAJ"
+    },
+    {
+      "Codigo": 356,
+      "Descricao": "BAM BOZZI"
+    },
+    {
+      "Codigo": 233,
+      "Descricao": "BARBER GREEN"
+    },
+    {
+      "Codigo": 599,
+      "Descricao": "BLUE BIIRD"
+    },
+    {
+      "Codigo": 5,
+      "Descricao": "BMW"
+    },
+    {
+      "Codigo": 45,
+      "Descricao": "BOB CAT"
+    },
+    {
+      "Codigo": 339,
+      "Descricao": "BOMAG"
+    },
+    {
+      "Codigo": 213,
+      "Descricao": "BRASTOFT"
+    },
+    {
+      "Codigo": 235,
+      "Descricao": "BUCYRUS ERIE"
+    },
+    {
+      "Codigo": 656,
+      "Descricao": "BYD"
+    },
+    {
+      "Codigo": 365,
+      "Descricao": "CADILLAC"
+    },
+    {
+      "Codigo": 632,
+      "Descricao": "CARRIER TRANSICOLD"
+    },
+    {
+      "Codigo": 49,
+      "Descricao": "CASE"
+    },
+    {
+      "Codigo": 608,
+      "Descricao": "CASE IH"
+    },
+    {
+      "Codigo": 50,
+      "Descricao": "CATERPILLAR"
+    },
+    {
+      "Codigo": 52,
+      "Descricao": "CBT"
+    },
+    {
+      "Codigo": 6,
+      "Descricao": "CHANA MOTORS"
+    },
+    {
+      "Codigo": 56,
+      "Descricao": "CHERY"
+    },
+    {
+      "Codigo": 514,
+      "Descricao": "Chicago Pneumatic"
+    },
+    {
+      "Codigo": 8,
+      "Descricao": "CHRYSLER"
+    },
+    {
+      "Codigo": 236,
+      "Descricao": "CIBER"
+    },
+    {
+      "Codigo": 237,
+      "Descricao": "CIBI"
+    },
+    {
+      "Codigo": 58,
+      "Descricao": "CIFALI"
+    },
+    {
+      "Codigo": 9,
+      "Descricao": "CITROEN"
+    },
+    {
+      "Codigo": 366,
+      "Descricao": "CLAAS"
+    },
+    {
+      "Codigo": 59,
+      "Descricao": "CLARK"
+    },
+    {
+      "Codigo": 359,
+      "Descricao": "CN AUTO"
+    },
+    {
+      "Codigo": 60,
+      "Descricao": "COMPAIR"
+    },
+    {
+      "Codigo": 63,
+      "Descricao": "CUMMINS"
+    },
+    {
+      "Codigo": 11,
+      "Descricao": "DAEWOO"
+    },
+    {
+      "Codigo": 65,
+      "Descricao": "DAF"
+    },
+    {
+      "Codigo": 363,
+      "Descricao": "DAFRA"
+    },
+    {
+      "Codigo": 12,
+      "Descricao": "DAIHATSU"
+    },
+    {
+      "Codigo": 68,
+      "Descricao": "DEUTZ"
+    },
+    {
+      "Codigo": 344,
+      "Descricao": "DODGE"
+    },
+    {
+      "Codigo": 436,
+      "Descricao": "Dongfeng"
+    },
+    {
+      "Codigo": 494,
+      "Descricao": "Doosan"
+    },
+    {
+      "Codigo": 511,
+      "Descricao": "Ducati"
+    },
+    {
+      "Codigo": 71,
+      "Descricao": "DYNAPAC"
+    },
+    {
+      "Codigo": 72,
+      "Descricao": "EATON YALE"
+    },
+    {
+      "Codigo": 485,
+      "Descricao": "Eberspacher"
+    },
+    {
+      "Codigo": 325,
+      "Descricao": "EFFA"
+    },
+    {
+      "Codigo": 13,
+      "Descricao": "ENGESA"
+    },
+    {
+      "Codigo": 333,
+      "Descricao": "FG WILSON"
+    },
+    {
+      "Codigo": 14,
+      "Descricao": "FIAT"
+    },
+    {
+      "Codigo": 80,
+      "Descricao": "FIAT ALLIS"
+    },
+    {
+      "Codigo": 245,
+      "Descricao": "FIAT HITACHI"
+    },
+    {
+      "Codigo": 81,
+      "Descricao": "FIAT IVECO"
+    },
+    {
+      "Codigo": 15,
+      "Descricao": "FORD"
+    },
+    {
+      "Codigo": 406,
+      "Descricao": "Foton"
+    },
+    {
+      "Codigo": 410,
+      "Descricao": "Freightliner"
+    },
+    {
+      "Codigo": 246,
+      "Descricao": "FURUKAWA"
+    },
+    {
+      "Codigo": 247,
+      "Descricao": "GALION"
+    },
+    {
+      "Codigo": 89,
+      "Descricao": "GARDNER DENVER"
+    },
+    {
+      "Codigo": 463,
+      "Descricao": "Geely"
+    },
+    {
+      "Codigo": 387,
+      "Descricao": "GEHL"
+    },
+    {
+      "Codigo": 16,
+      "Descricao": "GENERAL MOTORS"
+    },
+    {
+      "Codigo": 249,
+      "Descricao": "GROVE"
+    },
+    {
+      "Codigo": 17,
+      "Descricao": "GURGEL"
+    },
+    {
+      "Codigo": 660,
+      "Descricao": "GWM"
+    },
+    {
+      "Codigo": 195,
+      "Descricao": "HARLEY DAVIDSON"
+    },
+    {
+      "Codigo": 364,
+      "Descricao": "HINO"
+    },
+    {
+      "Codigo": 250,
+      "Descricao": "HITACHI"
+    },
+    {
+      "Codigo": 640,
+      "Descricao": "HOBART"
+    },
+    {
+      "Codigo": 95,
+      "Descricao": "HOLMAN"
+    },
+    {
+      "Codigo": 18,
+      "Descricao": "HONDA"
+    },
+    {
+      "Codigo": 97,
+      "Descricao": "HOSS VOEGELE"
+    },
+    {
+      "Codigo": 253,
+      "Descricao": "HUBER WABCO"
+    },
+    {
+      "Codigo": 369,
+      "Descricao": "HUMMER"
+    },
+    {
+      "Codigo": 98,
+      "Descricao": "HYSTER"
+    },
+    {
+      "Codigo": 19,
+      "Descricao": "HYUNDAI"
+    },
+    {
+      "Codigo": 99,
+      "Descricao": "IDEAL"
+    },
+    {
+      "Codigo": 449,
+      "Descricao": "Infiniti"
+    },
+    {
+      "Codigo": 102,
+      "Descricao": "INGERSOLL RAND"
+    },
+    {
+      "Codigo": 650,
+      "Descricao": "INTERNACIONAL"
+    },
+    {
+      "Codigo": 104,
+      "Descricao": "INTERNATIONAL"
+    },
+    {
+      "Codigo": 107,
+      "Descricao": "ISUZU"
+    },
+    {
+      "Codigo": 20,
+      "Descricao": "IVECO"
+    },
+    {
+      "Codigo": 224,
+      "Descricao": "J.I. CASE"
+    },
+    {
+      "Codigo": 337,
+      "Descricao": "JAC MOTORS"
+    },
+    {
+      "Codigo": 256,
+      "Descricao": "JACTO"
+    },
+    {
+      "Codigo": 668,
+      "Descricao": "JAECOO"
+    },
+    {
+      "Codigo": 360,
+      "Descricao": "Jaguar"
+    },
+    {
+      "Codigo": 109,
+      "Descricao": "JCB"
+    },
+    {
+      "Codigo": 345,
+      "Descricao": "JEEP"
+    },
+    {
+      "Codigo": 680,
+      "Descricao": "JETOUR"
+    },
+    {
+      "Codigo": 110,
+      "Descricao": "JOHN DEERE"
+    },
+    {
+      "Codigo": 326,
+      "Descricao": "JPX"
+    },
+    {
+      "Codigo": 638,
+      "Descricao": "KALMAR"
+    },
+    {
+      "Codigo": 379,
+      "Descricao": "KASINSKI"
+    },
+    {
+      "Codigo": 112,
+      "Descricao": "KAWASAKI"
+    },
+    {
+      "Codigo": 420,
+      "Descricao": "Kenworth"
+    },
+    {
+      "Codigo": 21,
+      "Descricao": "KIA MOTORS"
+    },
+    {
+      "Codigo": 438,
+      "Descricao": "King Long"
+    },
+    {
+      "Codigo": 258,
+      "Descricao": "KOBELCO"
+    },
+    {
+      "Codigo": 114,
+      "Descricao": "KOMATSU"
+    },
+    {
+      "Codigo": 260,
+      "Descricao": "KRANE KAR"
+    },
+    {
+      "Codigo": 670,
+      "Descricao": "KTM"
+    },
+    {
+      "Codigo": 22,
+      "Descricao": "LADA"
+    },
+    {
+      "Codigo": 23,
+      "Descricao": "LAND ROVER"
+    },
+    {
+      "Codigo": 327,
+      "Descricao": "LEXUS"
+    },
+    {
+      "Codigo": 118,
+      "Descricao": "LIEBHERR"
+    },
+    {
+      "Codigo": 338,
+      "Descricao": "LIFAN"
+    },
+    {
+      "Codigo": 263,
+      "Descricao": "LIMA"
+    },
+    {
+      "Codigo": 264,
+      "Descricao": "LINK BELT"
+    },
+    {
+      "Codigo": 334,
+      "Descricao": "LIUGONG"
+    },
+    {
+      "Codigo": 120,
+      "Descricao": "LOMBARDINI"
+    },
+    {
+      "Codigo": 265,
+      "Descricao": "LORAIN"
+    },
+    {
+      "Codigo": 458,
+      "Descricao": "LS Tractor"
+    },
+    {
+      "Codigo": 505,
+      "Descricao": "Macdon"
+    },
+    {
+      "Codigo": 340,
+      "Descricao": "MACK"
+    },
+    {
+      "Codigo": 266,
+      "Descricao": "MADAL"
+    },
+    {
+      "Codigo": 465,
+      "Descricao": "MAHINDRA GOA"
+    },
+    {
+      "Codigo": 206,
+      "Descricao": "MAN"
+    },
+    {
+      "Codigo": 267,
+      "Descricao": "MANITOWOC"
+    },
+    {
+      "Codigo": 268,
+      "Descricao": "MANNESMANN"
+    },
+    {
+      "Codigo": 269,
+      "Descricao": "MARATON"
+    },
+    {
+      "Codigo": 126,
+      "Descricao": "MASSEY FERGUSON"
+    },
+    {
+      "Codigo": 24,
+      "Descricao": "MAZDA"
+    },
+    {
+      "Codigo": 25,
+      "Descricao": "MERCEDES BENZ"
+    },
+    {
+      "Codigo": 225,
+      "Descricao": "MICHIGAN"
+    },
+    {
+      "Codigo": 346,
+      "Descricao": "MINI"
+    },
+    {
+      "Codigo": 26,
+      "Descricao": "MITSUBISHI"
+    },
+    {
+      "Codigo": 134,
+      "Descricao": "MULLER"
+    },
+    {
+      "Codigo": 212,
+      "Descricao": "NAVISTAR"
+    },
+    {
+      "Codigo": 138,
+      "Descricao": "NEW HOLLAND"
+    },
+    {
+      "Codigo": 27,
+      "Descricao": "NISSAN"
+    },
+    {
+      "Codigo": 667,
+      "Descricao": "OMODA"
+    },
+    {
+      "Codigo": 28,
+      "Descricao": "PEGEOUT"
+    },
+    {
+      "Codigo": 332,
+      "Descricao": "PERLINI"
+    },
+    {
+      "Codigo": 409,
+      "Descricao": "Peterbilt"
+    },
+    {
+      "Codigo": 144,
+      "Descricao": "PEUGEOT"
+    },
+    {
+      "Codigo": 272,
+      "Descricao": "PH VILLARES"
+    },
+    {
+      "Codigo": 273,
+      "Descricao": "POCLAIN"
+    },
+    {
+      "Codigo": 671,
+      "Descricao": "POLARIS"
+    },
+    {
+      "Codigo": 347,
+      "Descricao": "PORSCHE"
+    },
+    {
+      "Codigo": 473,
+      "Descricao": "Powerlink"
+    },
+    {
+      "Codigo": 483,
+      "Descricao": "Powerscreen"
+    },
+    {
+      "Codigo": 274,
+      "Descricao": "PPM"
+    },
+    {
+      "Codigo": 29,
+      "Descricao": "PUMA"
+    },
+    {
+      "Codigo": 275,
+      "Descricao": "PUTSMEISTER"
+    },
+    {
+      "Codigo": 659,
+      "Descricao": "RAM"
+    },
+    {
+      "Codigo": 150,
+      "Descricao": "RANDON"
+    },
+    {
+      "Codigo": 30,
+      "Descricao": "RENAULT"
+    },
+    {
+      "Codigo": 669,
+      "Descricao": "ROYAL ENFIELD"
+    },
+    {
+      "Codigo": 277,
+      "Descricao": "S A"
+    },
+    {
+      "Codigo": 154,
+      "Descricao": "SANTA MATILDE"
+    },
+    {
+      "Codigo": 155,
+      "Descricao": "SANTAL"
+    },
+    {
+      "Codigo": 430,
+      "Descricao": "Sany"
+    },
+    {
+      "Codigo": 156,
+      "Descricao": "SCANIA"
+    },
+    {
+      "Codigo": 278,
+      "Descricao": "SCHWING SIWA"
+    },
+    {
+      "Codigo": 622,
+      "Descricao": "SDMO"
+    },
+    {
+      "Codigo": 31,
+      "Descricao": "SEAT"
+    },
+    {
+      "Codigo": 457,
+      "Descricao": "Setra"
+    },
+    {
+      "Codigo": 475,
+      "Descricao": "Shineray"
+    },
+    {
+      "Codigo": 484,
+      "Descricao": "Simon Group"
+    },
+    {
+      "Codigo": 469,
+      "Descricao": "Sinotruk"
+    },
+    {
+      "Codigo": 226,
+      "Descricao": "SLC/ JOHN DEERE"
+    },
+    {
+      "Codigo": 448,
+      "Descricao": "Smart"
+    },
+    {
+      "Codigo": 461,
+      "Descricao": "Spheros"
+    },
+    {
+      "Codigo": 351,
+      "Descricao": "SSANGYONG"
+    },
+    {
+      "Codigo": 32,
+      "Descricao": "SUBARU"
+    },
+    {
+      "Codigo": 279,
+      "Descricao": "SULLAIR"
+    },
+    {
+      "Codigo": 362,
+      "Descricao": "SUNDOWN"
+    },
+    {
+      "Codigo": 33,
+      "Descricao": "SUZUKI"
+    },
+    {
+      "Codigo": 280,
+      "Descricao": "T.C.M."
+    },
+    {
+      "Codigo": 281,
+      "Descricao": "TADANO"
+    },
+    {
+      "Codigo": 434,
+      "Descricao": "Taishan"
+    },
+    {
+      "Codigo": 169,
+      "Descricao": "TEMA TERRA"
+    },
+    {
+      "Codigo": 170,
+      "Descricao": "TEREX"
+    },
+    {
+      "Codigo": 171,
+      "Descricao": "THERMO KING"
+    },
+    {
+      "Codigo": 34,
+      "Descricao": "TOYOTA"
+    },
+    {
+      "Codigo": 424,
+      "Descricao": "Triumph"
+    },
+    {
+      "Codigo": 35,
+      "Descricao": "TROLLER"
+    },
+    {
+      "Codigo": 179,
+      "Descricao": "VALMET"
+    },
+    {
+      "Codigo": 322,
+      "Descricao": "VALMET / VALTRA"
+    },
+    {
+      "Codigo": 321,
+      "Descricao": "VALTRA"
+    },
+    {
+      "Codigo": 678,
+      "Descricao": "VOLARE"
+    },
+    {
+      "Codigo": 36,
+      "Descricao": "VOLKSWAGEN"
+    },
+    {
+      "Codigo": 37,
+      "Descricao": "VOLVO"
+    },
+    {
+      "Codigo": 211,
+      "Descricao": "WABCO"
+    },
+    {
+      "Codigo": 451,
+      "Descricao": "Wirtgen"
+    },
+    {
+      "Codigo": 352,
+      "Descricao": "WOODGATE"
+    },
+    {
+      "Codigo": 189,
+      "Descricao": "WORTHINGTON"
+    },
+    {
+      "Codigo": 353,
+      "Descricao": "XCMG"
+    },
+    {
+      "Codigo": 197,
+      "Descricao": "YAMAHA"
+    },
+    {
+      "Codigo": 192,
+      "Descricao": "YANMAR"
+    },
+    {
+      "Codigo": 474,
+      "Descricao": "YINGTAI"
+    },
+    {
+      "Codigo": 287,
+      "Descricao": "ZOOMLION"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+0.Notes
+0 Notes
+notes
+
+node_modules/
+dist/
+ts-dist/
+coverage/
+playwright-report/
+test-results/
+blob-report/
+*.tsbuildinfo
+.vite/
+
+.env
+.env.local
+.env.*.local
+# Operator copy of the hosted configuration. Holds the production database
+# password, so it must never be committable -- `.env.*.local` above does not
+# match it.
+.env.hosted-backup
+
+# Machine-local generated files. Holds the TIDSCI mock Omie dataset, which is
+# built from real invoices and therefore carries real cadastro (names, CPFs,
+# phones, emails), plus the catalog parse cache. Never commit: no deploy path
+# copies it and the default seed never reads it.
+.local/
+
+artifacts/evolution-webhooks/
+artifacts/demo-seed/
+# 49 MB of published-origin QA stills against a 63 MB .git. The README beside
+# them records the findings and the two commands that regenerate them.
+artifacts/visual-qa/equalize-published-with-local/cursor/
+artifacts/visual-qa/equalize-published-with-local/antigravity/
+# GitHub #6 quality scoring — labeled POC transcripts (PEND-CH-01: do not commit bodies)
+apps/worker/src/prefill/fixtures/poc/*
+!apps/worker/src/prefill/fixtures/poc/README.md
+
+# Canvas review scratch: per-revision artboards and their generators.
+# Kept on disk as the audit trail for rework-follow-up-and-relatorios-ux;
+# the normative canvas is design/mvp-screen-designs/.
+design/review-follow-up-relatorios/
+
+# Playwright MCP scratch output (accessibility snapshots, console logs)
+.playwright-mcp/
+

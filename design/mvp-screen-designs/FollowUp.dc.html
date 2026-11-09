@@ -1,0 +1,644 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <style>
+/* ===== BEGIN SHARED FOUNDATION — byte-identical across all five artboards. Do not edit one copy alone. ===== */
+    :root {
+      /* yellow-cta palette (apps/web/src/theme.ts ROLE_TABLES["yellow-cta"]) */
+      --primary:#EAB63D; --on-primary:#111111;
+      --primary-container:#FFF3C4; --on-primary-container:#111111;
+      --secondary:#303030; --on-secondary:#FFFFFF;
+      --secondary-container:#E4E2E1; --on-secondary-container:#303030;
+      /* shared roles (identical on both palettes) */
+      --tertiary:#5f5e5e; --on-tertiary:#FFFFFF;
+      --tertiary-container:#e4e2e1; --on-tertiary-container:#474747;
+      --surface:#FFFFFF; --surface-variant:#EDEDED; --on-surface:#111111;
+      --outline:#D9D9D9;
+      --error:#B3261E; --on-error:#FFFFFF;
+      --error-container:#ffe0e0; --on-error-container:#8a1c1c;
+      --success-container:#e6f4ea; --on-success-container:#1e4620;
+      --whatsapp:#25D366; --on-whatsapp:#111111;
+      --read-tick:#1565C0;
+      /* Gold fails AA as text on white (~1.9:1), so text and icons that would
+         read as "primary" use charcoal — theme.ts does the same for yellow-cta
+         via MuiButton text/outlined and MuiLink overrides. Gold stays a FILL. */
+      --on-surface-accent:#303030;
+      /* spacing scale 4/8/12/16/24/32/48/64 */
+      --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-6:24px; --sp-8:32px; --sp-12:48px; --sp-16:64px;
+      /* radii — inputs/chips, cards (theme.shape.borderRadius), pill CTAs (spacing(2)) */
+      --radius-sm:4px; --radius-md:8px; --radius-lg:16px;
+      /* type scale */
+      --t-page:26px; --t-section:18px; --t-subsection:15px; --t-body:13px; --t-caption:11px; --t-metric:30px;
+    }
+    body { margin:0; font-family:'Inter', system-ui, sans-serif; color:var(--on-surface); background:var(--surface-variant); }
+    a { color:var(--on-surface-accent); }
+    a:hover { color:var(--on-surface); }
+    .t-page { font-size:var(--t-page); font-weight:800; letter-spacing:-0.02em; margin:0; }
+    .t-section { font-size:var(--t-section); font-weight:700; letter-spacing:-0.01em; margin:0; }
+    .t-subsection { font-size:var(--t-subsection); font-weight:600; margin:0; }
+    .t-body { font-size:var(--t-body); font-weight:400; }
+    .t-caption { font-size:var(--t-caption); font-weight:400; color:var(--tertiary); }
+    .t-metric { font-size:var(--t-metric); font-weight:800; letter-spacing:-0.02em; }
+    /* shell */
+    .shell { display:flex; align-items:center; gap:var(--sp-4); padding:0 var(--sp-6); height:52px;
+      background:var(--secondary); color:var(--on-secondary); flex-shrink:0; }
+    .shell-title { font-size:var(--t-subsection); font-weight:800; letter-spacing:-0.01em; flex:1; }
+    .palette-group { display:flex; background:var(--surface); border-radius:var(--radius-sm); padding:2px; gap:2px; }
+    .palette-opt { padding:4px 12px; border-radius:2px; font-size:var(--t-caption); font-weight:600; color:var(--tertiary); }
+    .palette-opt-on { background:var(--primary); color:var(--on-primary); }
+    /* page nav */
+    .nav { display:flex; align-items:stretch; gap:var(--sp-6); padding:0 var(--sp-6);
+      background:var(--surface); border-bottom:1px solid var(--outline); flex-shrink:0; }
+    .nav-item { display:flex; align-items:center; padding:var(--sp-3) 0; font-size:var(--t-body); font-weight:500;
+      color:var(--tertiary); border-bottom:2px solid transparent; }
+    .nav-item-on { color:var(--on-surface); font-weight:700; border-bottom-color:var(--primary); }
+    /* Follow-up pendency badge: the total of the four section counts, from the
+       same contract the Follow-up screen and the Relatórios alert read, so the
+       three cannot disagree. Zero — and counts unavailable — draw no badge at
+       all; a permanent "0" teaches the eye to ignore the one place the number
+       matters. Gold is a fill, never text, so the pill is gold with charcoal
+       digits rather than gold numerals. */
+    .nav-badge { display:inline-flex; align-items:center; justify-content:center;
+      min-width:18px; height:18px; padding:0 5px; margin-left:6px; border-radius:9px;
+      background:var(--primary); color:var(--on-primary); font-size:var(--t-caption);
+      font-weight:700; line-height:1; font-variant-numeric:tabular-nums; }
+    /* ===== END SHARED FOUNDATION ===== */
+
+    .page { flex:1; overflow:auto; padding:var(--sp-6); display:flex; flex-direction:column; gap:var(--sp-6); }
+    .band { display:flex; flex-direction:column; gap:var(--sp-3); }
+    .card { background:var(--surface); border-radius:var(--radius-md); padding:var(--sp-4);
+      display:flex; flex-direction:column; gap:var(--sp-2); }
+    .stat { background:var(--surface); border-radius:var(--radius-md); padding:var(--sp-4);
+      display:flex; flex-direction:column; gap:var(--sp-1); text-decoration:none; color:inherit;
+      border:1px solid transparent; }
+    .stat:hover { border-color:var(--outline); }
+    .stat-label { font-size:var(--t-caption); font-weight:600; color:var(--tertiary);
+      text-transform:uppercase; letter-spacing:0.04em; }
+    .stat-foot { display:flex; align-items:center; gap:var(--sp-1); font-size:var(--t-caption);
+      font-weight:600; color:var(--on-surface-accent); }
+    .row { display:flex; justify-content:space-between; align-items:center; gap:var(--sp-3);
+      padding:10px 0; border-bottom:1px solid var(--outline); font-size:var(--t-body); }
+    .row:last-child { border-bottom:none; }
+    .row-main { display:flex; flex-direction:column; gap:2px; }
+    .row-actions { display:flex; align-items:center; gap:var(--sp-2); }
+    .action { padding:6px 12px; border-radius:var(--radius-lg); border:1px solid var(--outline);
+      color:var(--on-surface-accent); font-weight:600; font-size:var(--t-caption);
+      text-decoration:none; white-space:nowrap; cursor:pointer; }
+    .action:hover { background:var(--surface-variant); color:var(--on-surface); }
+    .flag { font-size:var(--t-caption); font-weight:600; padding:var(--sp-1) var(--sp-2);
+      border-radius:var(--radius-sm); background:var(--primary-container); color:var(--on-primary-container); }
+    .muted { color:var(--tertiary); font-size:var(--t-body); }
+    .empty { padding:var(--sp-6) 0; text-align:center; }
+    .notice { padding:var(--sp-3) var(--sp-4); border-radius:var(--radius-md); font-size:var(--t-body);
+      background:var(--error-container); color:var(--on-error-container);
+      display:flex; align-items:center; gap:var(--sp-3); flex-wrap:wrap; }
+    .btn-primary { padding:var(--sp-2) var(--sp-4); border-radius:var(--radius-lg); background:var(--primary);
+      color:var(--on-primary); font-weight:600; font-size:var(--t-body); width:fit-content; cursor:pointer; }
+    /* generic shimmer, exempt from the token rule (not a brand or semantic color) */
+    .skel { height:14px; background:linear-gradient(90deg,#eee,#f5f5f5,#eee); border-radius:var(--radius-sm); }
+
+    .pair-row { display:flex; align-items:center; gap:var(--sp-3);
+      padding:10px 0; border-bottom:1px solid var(--outline); font-size:var(--t-body); }
+    .pair-row:last-child { border-bottom:none; }
+    .pair-who { display:flex; flex-direction:column; gap:2px; min-width:300px; }
+    .pair-name { font-weight:600; }
+    .pair-veh { font-size:var(--t-caption); color:var(--tertiary); }
+    .veh-spacer { flex:1; }
+
+    .band-head { display:flex; align-items:baseline; gap:var(--sp-3); flex-wrap:wrap; }
+    .count-note { font-size:var(--t-caption); color:var(--tertiary); }
+    .entry { padding:var(--sp-3) 0; border-bottom:1px solid var(--outline); }
+    .entry:last-child { border-bottom:none; }
+    .entry-head { display:flex; justify-content:space-between; align-items:center; gap:var(--sp-3);
+      font-size:var(--t-body); font-weight:600; }
+    .veh { display:flex; align-items:center; gap:var(--sp-3); padding:var(--sp-2) 0 0 var(--sp-4);
+      font-size:var(--t-body); }
+    .veh-id { min-width:178px; }
+    .veh-plate { color:var(--tertiary); font-size:var(--t-caption); }
+    .veh-age { font-weight:600; color:var(--on-surface-accent); min-width:122px; }
+    .veh-age-soon { font-weight:600; color:var(--tertiary); min-width:122px; }
+    .veh-date { color:var(--tertiary); font-size:var(--t-caption); }
+    .row-age { font-size:var(--t-body); font-weight:600; color:var(--on-surface-accent); }
+    .row-date { font-size:var(--t-caption); color:var(--tertiary); }
+    /* The indicator is the way in, not a badge: it says how many reminders the
+       return holds and when the next lands, and opens them. */
+    .planned { font-size:var(--t-caption); font-weight:600; padding:var(--sp-1) var(--sp-2);
+      border-radius:var(--radius-sm); background:var(--primary-container);
+      color:var(--on-primary-container); white-space:nowrap; cursor:pointer; }
+    .planned:hover { outline:1px solid var(--on-primary-container); }
+    /* Icon-only, never below the 24x24 CSS px WCAG 2.5.8 asks for, with an
+       accessible name: a glyph alone names nothing. */
+    .arch { width:26px; height:26px; border-radius:var(--radius-sm); display:flex;
+      align-items:center; justify-content:center; color:var(--tertiary); cursor:pointer;
+      flex-shrink:0; }
+    .arch:hover { background:var(--surface-variant); color:var(--on-surface); }
+    .recover { display:flex; align-items:center; gap:var(--sp-3); margin-top:var(--sp-2);
+      padding:var(--sp-2) var(--sp-3); border-radius:var(--radius-sm);
+      background:var(--surface-variant); font-size:var(--t-body); }
+    .recover-count { font-weight:600; color:var(--on-surface); }
+    .recover-act { margin-left:auto; padding:6px 12px; border-radius:var(--radius-lg);
+      border:1px solid var(--outline); background:var(--surface); color:var(--on-surface-accent);
+      font-weight:600; font-size:var(--t-caption); cursor:pointer; white-space:nowrap; }
+    .sup-row { display:flex; justify-content:space-between; align-items:center; gap:var(--sp-3);
+      padding:10px 0; border-bottom:1px solid var(--outline); font-size:var(--t-body);
+      color:var(--tertiary); }
+    .sup-row:last-child { border-bottom:none; }
+    .sup-main { display:flex; flex-direction:column; gap:2px; }
+    .sup-name { color:var(--on-surface); }
+    .batch { background:var(--primary-container); color:var(--on-primary-container);
+      border-radius:var(--radius-sm); padding:var(--sp-2) var(--sp-3); font-size:var(--t-caption);
+      display:flex; align-items:center; gap:var(--sp-3); }
+    .batch-act { margin-left:auto; padding:4px 10px; border-radius:var(--radius-lg);
+      border:1px solid var(--on-primary-container); font-weight:600; cursor:pointer;
+      white-space:nowrap; }
+    .scrim { position:absolute; inset:0; background:rgba(0,0,0,0.32); display:flex;
+      align-items:center; justify-content:center; z-index:30; }
+    .panel { width:460px; background:var(--surface); border-radius:var(--radius-md);
+      padding:var(--sp-5); display:flex; flex-direction:column; gap:var(--sp-3);
+      box-shadow:0 8px 32px rgba(0,0,0,0.24); }
+    .panel-wide { width:560px; }
+    .panel-head { display:flex; justify-content:space-between; align-items:center; }
+    .panel-close { cursor:pointer; color:var(--tertiary); font-weight:600; }
+    .panel-sub { font-size:var(--t-caption); color:var(--tertiary); }
+    .loss { background:var(--error-container); color:var(--on-error-container);
+      border-radius:var(--radius-sm); padding:var(--sp-2) var(--sp-3); font-size:var(--t-body); }
+    .panel-foot { display:flex; justify-content:flex-end; gap:var(--sp-2); align-items:center; }
+    .btn-text { padding:var(--sp-2) var(--sp-3); font-size:var(--t-body); font-weight:600;
+      cursor:pointer; }
+    /* One reminder message, its triggers, and what each will say. */
+    .msg { border:1px solid var(--outline); border-radius:var(--radius-sm); padding:var(--sp-3);
+      display:flex; flex-direction:column; gap:var(--sp-2); }
+    .msg-body { font-size:var(--t-body); line-height:1.5; }
+    .msg-trigger { display:flex; align-items:center; gap:var(--sp-3); font-size:var(--t-caption); }
+    .msg-when { min-width:110px; font-weight:600; color:var(--on-surface); }
+    .msg-date { min-width:92px; color:var(--tertiary); }
+    .msg-state { color:var(--tertiary); }
+    .msg-foot { display:flex; gap:var(--sp-2); }
+    .add-msg { align-self:flex-start; padding:6px 12px; border-radius:var(--radius-lg);
+      border:1px dashed var(--outline); color:var(--on-surface-accent); font-weight:600;
+      font-size:var(--t-caption); cursor:pointer; }
+
+    /* A — header and cards-as-filter */
+    .page-head { display:flex; align-items:center; gap:var(--sp-3); flex-wrap:wrap; }
+    .unit-chip { font-size:var(--t-caption); font-weight:600; padding:var(--sp-1) var(--sp-3);
+      border-radius:var(--radius-lg); background:var(--secondary-container);
+      color:var(--on-secondary-container); }
+    .stat-click { cursor:pointer; }
+    .stat-on { border-color:var(--on-surface-accent); background:var(--primary-container); }
+    .stat-on .stat-label { color:var(--on-primary-container); }
+    .filter-note { display:flex; align-items:center; gap:var(--sp-3); font-size:var(--t-body); }
+    .filter-reset { padding:6px 12px; border-radius:var(--radius-lg); border:1px solid var(--outline);
+      color:var(--on-surface-accent); font-weight:600; font-size:var(--t-caption); cursor:pointer;
+      white-space:nowrap; }
+    .section-fail { font-size:var(--t-body); color:var(--on-error-container);
+      background:var(--error-container); border-radius:var(--radius-sm);
+      padding:var(--sp-2) var(--sp-3); }
+  </style>
+</helmet>
+
+<div style="width:1320px; height:1720px; display:flex; flex-direction:column; background:var(--surface-variant); position:relative;">
+
+  <!-- ===== BEGIN SHARED FOUNDATION MARKUP ===== -->
+  <div class="shell">
+    <span class="shell-title">Select Lub CRM</span>
+    <div class="palette-group">
+      <span class="palette-opt palette-opt-on">Amarelo</span>
+      <span class="palette-opt">Preto</span>
+    </div>
+  </div>
+  <div class="nav">
+    <span class="nav-item">Conversas</span>
+    <span class="nav-item">Serviços</span>
+    <span class="nav-item nav-item-on">Follow-up<span class="nav-badge">13</span></span>
+    <span class="nav-item">Relatórios</span>
+    <span class="nav-item">Configurações</span>
+    <span class="nav-item">Usuários</span>
+  </div>
+  <!-- ===== END SHARED FOUNDATION MARKUP ===== -->
+
+  <div class="page">
+    <div class="page-head">
+      <h1 class="t-page">Follow-up</h1>
+      <span class="unit-chip">Unidade Centro</span>
+    </div>
+
+    <sc-if value="{{screen.loading}}" hint-placeholder-val="{{false}}">
+      <div style="display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:var(--sp-4);">
+        <div class="card"><div class="skel" style="width:70%;"></div><div class="skel" style="width:30%; height:30px;"></div></div>
+        <div class="card"><div class="skel" style="width:70%;"></div><div class="skel" style="width:30%; height:30px;"></div></div>
+        <div class="card"><div class="skel" style="width:70%;"></div><div class="skel" style="width:30%; height:30px;"></div></div>
+        <div class="card"><div class="skel" style="width:70%;"></div><div class="skel" style="width:30%; height:30px;"></div></div>
+      </div>
+      <div class="card">
+        <div class="skel" style="width:220px; height:18px; margin-bottom:var(--sp-2);"></div>
+        <div class="skel" style="height:20px;"></div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{screen.showStats}}" hint-placeholder-val="{{true}}">
+      <div style="display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:var(--sp-4);">
+        <div class="stat stat-click {{cards.waitingReply.cls}}" onClick="{{go.filterWaitingReply}}">
+          <span class="stat-label">Mensagens aguardando resposta</span>
+          <span class="t-metric">{{counts.waitingReply}}</span>
+        </div>
+        <div class="stat stat-click {{cards.unansweredQuotes.cls}}" onClick="{{go.filterUnansweredQuotes}}">
+          <span class="stat-label">Orçamentos sem resposta</span>
+          <span class="t-metric">{{counts.unansweredQuotes}}</span>
+        </div>
+        <div class="stat stat-click {{cards.overdueReturns.cls}}" onClick="{{go.filterOverdueReturns}}">
+          <span class="stat-label">Retorno vencido</span>
+          <span class="t-metric">{{counts.overdueReturns}}</span>
+        </div>
+        <div class="stat stat-click {{cards.upcomingReturns.cls}}" onClick="{{go.filterUpcomingReturns}}">
+          <span class="stat-label">Retorno se aproximando</span>
+          <span class="t-metric">{{counts.upcomingReturns}}</span>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{screen.error}}" hint-placeholder-val="{{false}}">
+      <div class="notice">
+        <span>Não foi possível carregar as listas de follow-up. Os contadores acima são os últimos conhecidos.</span>
+        <span class="btn-primary">Tentar de novo</span>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{filter.on}}" hint-placeholder-val="{{false}}">
+      <div class="filter-note">
+        <span class="muted">Mostrando <strong>{{filter.label}}</strong>.</span>
+        <sc-if value="{{filter.isWaiting}}" hint-placeholder-val="{{false}}">
+          <span class="t-caption" style="color:var(--tertiary);">Estas conversas também estão em Conversas, que é onde se responde. Aqui elas são um número — a lista só aparece quando você pede.</span>
+        </sc-if>
+        <span class="filter-reset" onClick="{{go.filterAll}}">Ver todas as seções</span>
+      </div>
+    </sc-if>
+
+      <sc-if value="{{show.unansweredQuotes}}" hint-placeholder-val="{{true}}">
+        <div class="band" id="unansweredQuotes">
+          <div class="band-head">
+            <h2 class="t-section">Orçamentos sem resposta</h2>
+            <span class="count-note">mais antigo primeiro</span>
+          </div>
+          <div class="card">
+            <sc-if value="{{screen.empty}}" hint-placeholder-val="{{false}}">
+              <div class="empty muted">Nenhum orçamento sem resposta.</div>
+            </sc-if>
+            <sc-if value="{{screen.error}}" hint-placeholder-val="{{false}}">
+              <div class="section-fail">Não foi possível carregar esta seção.</div>
+            </sc-if>
+            <sc-if value="{{screen.hasData}}" hint-placeholder-val="{{true}}">
+            <div class="row">
+              <div class="row-main">
+                <span>Marina Costa</span>
+                <span class="row-age">8 dias sem resposta</span>
+                <span class="row-date">orçamento enviado 25/08/2026</span>
+              </div>
+              <div class="row-actions"><a class="action" href="#">Abrir conversa</a><span class="arch" onClick="{{go.arquivarDireto}}" aria-label="Arquivar esta pendência"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></div>
+            </div>
+            <div class="row">
+              <div class="row-main">
+                <span>Roberto Aparecido</span>
+                <span class="row-age">5 dias sem resposta</span>
+                <span class="row-date">orçamento enviado 28/08/2026</span>
+              </div>
+              <div class="row-actions"><a class="action" href="#">Abrir conversa</a><span class="arch" onClick="{{go.arquivarDireto}}" aria-label="Arquivar esta pendência"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></div>
+            </div>
+            <sc-if value="{{arq.unansweredQuotes}}" hint-placeholder-val="{{true}}">
+              <div class="recover">
+                <span class="recover-count">2 arquivados</span>
+                <span class="t-caption" style="color:var(--tertiary);">Beatriz Nunes, Tiago Ferraz</span>
+                <span class="recover-act" onClick="{{go.verArquivados}}">Ver os arquivados</span>
+              </div>
+            </sc-if>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{show.overdueReturns}}" hint-placeholder-val="{{true}}">
+        <div class="band" id="overdueReturns">
+          <div class="band-head">
+            <h2 class="t-section">Retorno vencido</h2>
+            <span class="count-note">2 clientes · 3 veículos · mais atrasado primeiro</span>
+          </div>
+          <div class="card">
+            <sc-if value="{{screen.empty}}" hint-placeholder-val="{{false}}">
+              <div class="empty muted">Nenhum retorno vencido.</div>
+            </sc-if>
+            <sc-if value="{{screen.error}}" hint-placeholder-val="{{false}}">
+              <div class="section-fail">Não foi possível carregar esta seção.</div>
+            </sc-if>
+            <sc-if value="{{screen.hasData}}" hint-placeholder-val="{{true}}">
+            <sc-if value="{{view.list}}" hint-placeholder-val="{{true}}">
+            <div class="entry">
+              <div class="entry-head">
+                <span>Ana Souza</span>
+                <span style="display:flex; align-items:center; gap:var(--sp-2);"><a class="action" href="#">Abrir conversa</a><span class="arch" onClick="{{go.arquivarCliente}}" aria-label="Arquivar os retornos deste cliente. Arquiva só os retornos abertos agora. Um serviço novo em qualquer carro deste cliente abre um retorno novo, que aparece aqui normalmente."><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></span>
+              </div>
+              <span class="t-caption" style="color:var(--tertiary); display:block; margin:-2px 0 var(--sp-1) 0;">Arquiva só os retornos abertos agora. Um serviço novo em qualquer carro deste cliente abre um retorno novo, que aparece aqui normalmente.</span>
+            <div class="veh">
+              <span class="veh-id">Chevrolet Onix <span class="veh-plate">QRS-4B11</span></span>
+              <span class="veh-age">95 dias em atraso</span>
+              <span class="veh-date">previsto 30/05/2026</span>
+              <span class="veh-spacer"></span>
+              <span class="action" onClick="{{go.lembrete}}">Criar lembrete</span>
+              <span class="arch" onClick="{{go.arquivarDireto}}" aria-label="Arquivar este retorno"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span>
+            </div>
+            <div class="veh">
+              <span class="veh-id">Volkswagen Gol <span class="veh-plate">RTY-8H30</span></span>
+              <span class="veh-age">12 dias em atraso</span>
+              <span class="veh-date">previsto 21/08/2026</span>
+              <span class="planned" onClick="{{go.verLembretes}}" aria-label="Ver e editar os lembretes deste retorno">1 lembrete · próximo 05/09</span>
+              <span class="veh-spacer"></span>
+              <span class="action" onClick="{{go.lembrete}}">Criar lembrete</span>
+              <span class="arch" onClick="{{go.arquivarVeiculo}}" aria-label="Arquivar este retorno"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span>
+            </div>
+            </div>
+            <div class="entry">
+              <div class="entry-head">
+                <span>Carlos Mendes</span>
+                <span style="display:flex; align-items:center; gap:var(--sp-2);"><a class="action" href="#">Abrir conversa</a><span class="arch" onClick="{{go.arquivarCliente}}" aria-label="Arquivar os retornos deste cliente. Arquiva só os retornos abertos agora. Um serviço novo em qualquer carro deste cliente abre um retorno novo, que aparece aqui normalmente."><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></span>
+              </div>
+              <span class="t-caption" style="color:var(--tertiary); display:block; margin:-2px 0 var(--sp-1) 0;">Arquiva só os retornos abertos agora. Um serviço novo em qualquer carro deste cliente abre um retorno novo, que aparece aqui normalmente.</span>
+            <div class="veh">
+              <span class="veh-id">Toyota Corolla <span class="veh-plate">ABC-1D23</span></span>
+              <span class="veh-age">48 dias em atraso</span>
+              <span class="veh-date">previsto 16/07/2026</span>
+              <span class="planned" onClick="{{go.verLembretes}}" aria-label="Ver e editar os lembretes deste retorno">2 lembretes · próximo 04/09</span>
+              <span class="veh-spacer"></span>
+              <span class="action" onClick="{{go.lembrete}}">Criar lembrete</span>
+              <span class="arch" onClick="{{go.arquivarVeiculo}}" aria-label="Arquivar este retorno"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span>
+            </div>
+            </div>
+            <sc-if value="{{arq.overdueReturns}}" hint-placeholder-val="{{true}}">
+              <div class="recover">
+                <span class="recover-count">3 arquivados</span>
+                <span class="t-caption" style="color:var(--tertiary);">1 veículo e um cliente inteiro</span>
+                <span class="recover-act" onClick="{{go.verArquivados}}">Ver os arquivados</span>
+              </div>
+            </sc-if>
+            </sc-if>
+            <sc-if value="{{view.archived}}" hint-placeholder-val="{{false}}">
+              <div class="batch">
+                <span><strong>Beatriz Nunes</strong> — 2 retornos arquivados juntos em 02/09/2026 por Ana Paula</span>
+                <span class="batch-act" onClick="{{go.desarquivar}}">Desarquivar os 2</span>
+              </div>
+              <div class="sup-row">
+                <div class="sup-main">
+                  <span class="sup-name">Paulo Lima · Fiat Argo LMN-7C45</span>
+                  <span class="t-caption">arquivado em 01/09/2026 por Ana Paula · 1 lembrete segue programado para 20/09/2026</span>
+                </div>
+                <span class="recover-act" onClick="{{go.desarquivar}}">Desarquivar</span>
+              </div>
+              <div class="sup-row">
+                <div class="sup-main">
+                  <span class="sup-name">Tiago Ferraz · Honda Fit KLM-3R77</span>
+                  <span class="t-caption">arquivado em 12/07/2026 · 1 lembrete saiu em 20/08/2026, já arquivado</span>
+                </div>
+                <span class="recover-act" onClick="{{go.desarquivar}}">Desarquivar</span>
+              </div>
+              <div class="recover">
+                <span class="recover-count">Mostrando os arquivados</span>
+                <span class="t-caption" style="color:var(--tertiary);">Arquivar tira o retorno desta fila e nada mais: os lembretes seguem o próprio calendário e continuam saindo, como o do Tiago, que saiu já arquivado. Para parar um lembrete, cancele-o na própria mensagem — arquivar não é isso.</span>
+                <span class="recover-act" onClick="{{go.verFila}}">Voltar para a fila</span>
+              </div>
+            </sc-if>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{show.upcomingReturns}}" hint-placeholder-val="{{true}}">
+        <div class="band" id="upcomingReturns">
+          <div class="band-head">
+            <h2 class="t-section">Retorno se aproximando</h2>
+            <span class="count-note">3 veículos · mais iminente primeiro</span>
+          </div>
+          <div class="card">
+            <sc-if value="{{screen.empty}}" hint-placeholder-val="{{false}}">
+              <div class="empty muted">Nenhum retorno se aproximando.</div>
+            </sc-if>
+            <sc-if value="{{screen.error}}" hint-placeholder-val="{{false}}">
+              <div class="section-fail">Não foi possível carregar esta seção.</div>
+            </sc-if>
+            <sc-if value="{{screen.hasData}}" hint-placeholder-val="{{true}}">
+            <div class="pair-row">
+              <span class="pair-who">
+                <span class="pair-name">Paulo Lima</span>
+                <span class="pair-veh">Fiat Argo · LMN-7C45</span>
+              </span>
+              <span class="veh-age-soon">vence em 3 dias</span>
+              <span class="veh-date">previsto 05/09/2026</span>
+              <span class="veh-spacer"></span>
+              <span class="action" onClick="{{go.lembrete}}">Criar lembrete</span>
+              <span class="arch" onClick="{{go.arquivarDireto}}" aria-label="Arquivar este retorno"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span>
+            </div>
+            <div class="pair-row">
+              <span class="pair-who">
+                <span class="pair-name">Carlos Mendes</span>
+                <span class="pair-veh">Honda Civic · XYZ-9Z88</span>
+              </span>
+              <span class="veh-age-soon">vence em 8 dias</span>
+              <span class="veh-date">previsto 10/09/2026</span>
+              <span class="planned" onClick="{{go.verLembretes}}" aria-label="Ver e editar os lembretes deste retorno">1 lembrete · próximo 03/09</span>
+              <span class="veh-spacer"></span>
+              <span class="action" onClick="{{go.lembrete}}">Criar lembrete</span>
+              <span class="arch" onClick="{{go.arquivarDireto}}" aria-label="Arquivar este retorno"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span>
+            </div>
+            <div class="pair-row">
+              <span class="pair-who">
+                <span class="pair-name">Marina Costa</span>
+                <span class="pair-veh">Jeep Renegade · PQR-2F09</span>
+              </span>
+              <span class="veh-age-soon">vence em 12 dias</span>
+              <span class="veh-date">previsto 14/09/2026</span>
+              <span class="veh-spacer"></span>
+              <span class="action" onClick="{{go.lembrete}}">Criar lembrete</span>
+              <span class="arch" onClick="{{go.arquivarDireto}}" aria-label="Arquivar este retorno"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span>
+            </div>
+            <sc-if value="{{arq.upcomingReturns}}" hint-placeholder-val="{{true}}">
+              <div class="recover">
+                <span class="recover-count">1 arquivado</span>
+                <span class="t-caption" style="color:var(--tertiary);">Paulo Lima · Fiat Argo</span>
+                <span class="recover-act" onClick="{{go.verArquivados}}">Ver o arquivado</span>
+              </div>
+            </sc-if>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{show.waitingReply}}" hint-placeholder-val="{{true}}">
+        <div class="band" id="waitingReply">
+          <div class="band-head">
+            <h2 class="t-section">Mensagens aguardando resposta</h2>
+            <span class="count-note">mais antigo primeiro</span>
+          </div>
+          <div class="card">
+            <sc-if value="{{screen.empty}}" hint-placeholder-val="{{false}}">
+              <div class="empty muted">Nenhuma mensagem aguardando resposta.</div>
+            </sc-if>
+            <sc-if value="{{screen.error}}" hint-placeholder-val="{{false}}">
+              <div class="section-fail">Não foi possível carregar esta seção.</div>
+            </sc-if>
+            <sc-if value="{{screen.hasData}}" hint-placeholder-val="{{true}}">
+            <div class="row">
+              <div class="row-main">
+                <span>Juliana Alves</span>
+                <span class="row-age">6 dias aguardando</span>
+                <span class="row-date">pendente desde 27/08/2026</span>
+              </div>
+              <div class="row-actions"><a class="action" href="#">Abrir conversa</a><span class="arch" onClick="{{go.arquivarDireto}}" aria-label="Arquivar esta pendência"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></div>
+            </div>
+            <div class="row">
+              <div class="row-main">
+                <span>Fernando Dias</span>
+                <span class="row-age">3 dias aguardando</span>
+                <span class="row-date">pendente desde 30/08/2026</span>
+              </div>
+              <div class="row-actions"><a class="action" href="#">Abrir conversa</a><span class="arch" onClick="{{go.arquivarDireto}}" aria-label="Arquivar esta pendência"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></span></div>
+            </div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+    <div class="t-caption" style="color:var(--tertiary);">Tudo junto: o filtro de seção de A rodando sobre as entradas de C, as legendas de tempo de B em linhas que carregam as ações de D e o arquivar de R1. Clique no selo "2 lembretes · próximo 04/09" no Corolla para abrir e editar as mensagens daquele retorno — o mesmo selo existe agora nas duas seções de retorno. O X do Onix arquiva num clique; o do Gol confirma, porque tem lembrete a pausar. "Mensagens aguardando resposta" é só contador: clique no card para abrir a lista, clique de novo para fechar.</div>
+
+  </div>
+
+  <sc-if value="{{lembretes.open}}" hint-placeholder-val="{{false}}">
+    <div class="scrim">
+      <div class="panel panel-wide">
+        <div class="panel-head">
+          <span class="t-section">Lembretes deste retorno</span>
+          <span class="panel-close" onClick="{{go.fechar}}">✕</span>
+        </div>
+        <span class="panel-sub">Toyota Corolla · ABC-1D23 — Carlos Mendes · retorno previsto 16/07/2026</span>
+
+        <div class="msg">
+          <div class="msg-body">Oi, Carlos! Já faz <strong>{tempo}</strong> desde a troca de óleo do seu Toyota Corolla. O tempo recomendado entre cada troca é de 6 meses — quer agendar a próxima?</div>
+          <div class="msg-trigger">
+            <span class="msg-when">30 dias antes</span>
+            <span class="msg-date">16/06/2026, 09:00</span>
+            <span class="msg-state">enviado · o texto disse "5 meses"</span>
+          </div>
+          <div class="msg-trigger">
+            <span class="msg-when">no dia</span>
+            <span class="msg-date">16/07/2026, 14:30</span>
+            <span class="msg-state">programado · dirá "6 meses"</span>
+          </div>
+          <div class="msg-foot">
+            <span class="action" onClick="{{go.editarMsg}}">Editar</span>
+            <span class="action" onClick="{{go.fechar}}">Cancelar esta mensagem</span>
+          </div>
+        </div>
+
+        <div class="msg">
+          <div class="msg-body">Carlos, seguimos com horário livre esta semana para a revisão do Corolla. Quer que eu reserve?</div>
+          <div class="msg-trigger">
+            <span class="msg-when">7 dias depois</span>
+            <span class="msg-date">23/07/2026, 09:00</span>
+            <span class="msg-state">programado</span>
+          </div>
+          <div class="msg-foot">
+            <span class="action" onClick="{{go.editarMsg}}">Editar</span>
+            <span class="action" onClick="{{go.fechar}}">Cancelar esta mensagem</span>
+          </div>
+        </div>
+
+        <span class="add-msg" onClick="{{go.lembrete}}">+ Nova mensagem</span>
+        <span class="panel-sub">Uma mensagem pode ter vários avisos; cada aviso vira uma mensagem programada própria, com o texto já resolvido para o momento dela. Cada aviso tem a sua própria hora — um novo começa em 09:00 e a pessoa pode mudar antes de confirmar, para que nada saia em hora que ninguém viu.</span>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script data-dc-script data-props='{"screenState":{"editor":"enum","default":"Com dados","options":["Com dados","Carregando","Vazio","Erro"],"section":"Estado"}}'>
+class Component extends DCLogic {
+  state = { section: "all", confirm: "", arquivados: false };
+
+  pick(key) {
+    return () => this.setState({ section: this.state.section === key ? "all" : key });
+  }
+
+  renderVals() {
+    const st = this.props.screenState ?? "Com dados";
+    const hasData = st === "Com dados";
+    const empty = st === "Vazio";
+    const error = st === "Erro";
+    const loading = st === "Carregando";
+
+    const KEYS = ["waitingReply", "unansweredQuotes", "overdueReturns", "upcomingReturns"];
+    const LABELS = {
+      unansweredQuotes: "Orçamentos sem resposta",
+      overdueReturns: "Retorno vencido",
+      upcomingReturns: "Retorno se aproximando",
+      waitingReply: "Mensagens aguardando resposta"
+    };
+    // Each count counts its own section's entries: vencido counts customers
+    // (2, over three overdue vehicles), aproximando counts customer-vehicle rows.
+    const live = { unansweredQuotes: "2", overdueReturns: "2", upcomingReturns: "3", waitingReply: "2" };
+    const zero = { unansweredQuotes: "0", overdueReturns: "0", upcomingReturns: "0", waitingReply: "0" };
+
+    const sel = this.state.section;
+    const cards = {};
+    const show = {};
+    for (const k of KEYS) {
+      cards[k] = { cls: sel === k ? "stat-on" : "" };
+      // Mensagens aguardando resposta has no section in the default view — only
+      // its counter. Picking its card opens the list; picking it again closes it.
+      show[k] = k === "waitingReply" ? sel === k : (sel === "all" || sel === k);
+    }
+
+    const c = this.state.confirm;
+    const arquivados = this.state.arquivados === true;
+    return {
+      screen: {
+        hasData, empty, error, loading,
+        showStats: !loading,
+        showSections: hasData || empty || error
+      },
+      // Vazio is a real zero; Erro is not — the counts read did not fail.
+      counts: empty ? zero : live,
+      cards,
+      show,
+      filter: { on: sel !== "all", label: LABELS[sel] ?? "", isWaiting: sel === "waitingReply" },
+      // A section holding nothing archived draws no strip: recovery is a
+      // response to something having been archived, not permanent chrome.
+      arq: { overdueReturns: true, upcomingReturns: true, unansweredQuotes: true, waitingReply: false },
+      view: { list: !arquivados, archived: arquivados },
+      confirm: { veiculo: c === "veiculo", cliente: c === "cliente" },
+      lembretes: { open: c === "lembretes" },
+      go: {
+        // A card is a toggle: picking the one already picked clears the filter.
+        filterUnansweredQuotes: this.pick("unansweredQuotes"),
+        filterOverdueReturns: this.pick("overdueReturns"),
+        filterUpcomingReturns: this.pick("upcomingReturns"),
+        filterWaitingReply: this.pick("waitingReply"),
+        filterAll: () => this.setState({ section: "all" }),
+        arquivarDireto: () => this.setState({ confirm: "" }),
+        arquivarVeiculo: () => this.setState({ confirm: "" }),
+        arquivarCliente: () => this.setState({ confirm: "" }),
+        verLembretes: () => this.setState({ confirm: "lembretes" }),
+        editarMsg: () => this.setState({ confirm: "" }),
+        lembrete: () => this.setState({ confirm: "" }),
+        fechar: () => this.setState({ confirm: "" }),
+        desarquivar: () => this.setState({ arquivados: false }),
+        verFila: () => this.setState({ arquivados: false }),
+        verArquivados: () => this.setState({ arquivados: true }),
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# Artboards carry a shared foundation block that check-artboards.mjs compares
+# byte for byte, and the builders assert LF on their source. With core.autocrlf
+# on Windows a fresh clone would hand out CRLF copies and fail both for a reason
+# nothing on screen would show.
+*.dc.html text eol=lf
+
+# PDFs are binary: the manual-ingestion test fixtures (and any PDF) carry byte offsets in
+# their xref tables, and an end-of-line conversion on checkout would corrupt them. A PDF
+# with no NUL byte otherwise looks like text to git.
+*.pdf binary

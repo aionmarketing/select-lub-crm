@@ -1,0 +1,1049 @@
+// Select Lub CRM — recorte MVP do esquema canônico (DBML)
+//
+// Fonte: docs/schema.dbml. Só tabelas IMPL (Prisma) e SPEC (MVP ainda sem
+// migração). Fora deste arquivo: business_event e capi_outbox (POST / CAPI).
+// Campos POST em tabelas do MVP (ex.: message.reply_to_external_id) ficam.
+//
+// Fontes (2026-08-30):
+//   IMPL  = packages/core/prisma/schema/ (verificado no repositório)
+//   SPEC  = Notion "Modelagem de Dados — CRM Select Lub" + specs técnicas
+//           e changes OpenSpec ainda sem migração
+//   POST  = Notion "Possibilidades Futuras" / spec CAPI (fora do MVP)
+//
+// Colunas físicas hoje são varchar, não enums do PostgreSQL (GitHub #44).
+// Os Enums abaixo documentam o vocabulário fechado que o código já usa.
+//
+// conversation.customer_id é string solta no Prisma (sem FK): a conversa
+// pode existir antes do Cliente. vehicle.customer_id é o titular até o #29.
+// Credenciais de login ficam no Supabase Auth; user.id é esse UUID.
+//
+// Identidade da conversa (IMPL 2026-08-30): unique (whatsapp_connection_id,
+// chat_key), onde chat_key = dígitos do telefone no 1:1; o JID completo @g.us
+// fica reservado como chat_key de grupo (feature futura — issue de grupos).
+// CHECK: chat_key ~ '^[0-9]+$' OR chat_key LIKE '%@g.us'.
+// Mensagem: unique IMPL (conversation_id, external_message_id).
+
+Project select_lub_crm {
+  database_type: 'PostgreSQL'
+  Note: '''
+    Recorte MVP do banco canônico do CRM da Select Lub. Sem as tabelas POST
+    (business_event, capi_outbox). Colunas POST em tabelas IMPL/SPEC permanecem.
+  '''
+}
+
+// ---------------------------------------------------------------------------
+// Vocabulários (documentados; gravados como varchar até o #44)
+// ---------------------------------------------------------------------------
+
+Enum connection_state {
+  CONNECTING [note: 'Instância em pareamento ou reconexão; envios ficam aguardando.']
+  CONNECTED [note: 'Sessão aberta e apta a enviar e receber; a outbox pode ser despachada.']
+  DEGRADED [note: 'Falha parcial, atraso de eventos ou erro recuperável; novos envios exigem confirmação ou ficam bloqueados.']
+  DISCONNECTED [note: 'Sessão fechada, removida ou precisa de novo pareamento; nenhum envio automático.']
+}
+
+Enum conversation_source_type {
+  AD [note: 'Conversa originada de anúncio (Click to WhatsApp / contexto de ads).']
+  ORGANIC [note: 'Conversa marcada explicitamente como orgânica, sem identificadores de anúncio.']
+  UNKNOWN [note: 'Origem desconhecida; ausência de metadados NÃO vira ORGANIC sozinha.']
+}
+
+Enum message_direction {
+  inbound [note: 'Mensagem recebida do cliente (fromMe = false).']
+  outbound [note: 'Mensagem enviada pela sessão vinculada (fromMe = true), pelo CRM ou pelo aparelho.']
+}
+
+Enum message_type {
+  text [note: 'Mensagem de texto.']
+  image [note: 'Imagem.']
+  audio [note: 'Áudio.']
+  document [note: 'Documento (PDF etc.).']
+  video [note: 'Vídeo.']
+  unknown [note: 'Tipo não reconhecido pelo parser.']
+}
+
+Enum message_route {
+  EVOLUTION_BAILEYS [note: 'O CRM enviou pela Evolution/Baileys (MVP).']
+  WHATSAPP_WEB_MANUAL [note: 'Digitada no aparelho; só entra se a Evolution entregar o evento. Não é despacho do CRM.']
+  WHATSAPP_CLOUD_API [note: 'POST GitHub #49 — fallback em Coexistência no erro 463 com sessão ainda CONNECTED. Nome documental; identificador gravado ainda não fechado na spec.']
+}
+
+Enum outbox_status {
+  queued [note: 'Pronta para o worker reivindicar e enviar.']
+  claimed [note: 'Um worker já tomou o item e está tentando o envio.']
+  sent [note: 'Comando de envio aceito pela Evolution; ainda sem confirmação canônica completa.']
+  confirmed [note: 'Há external_message_id associado; o envio foi reconciliado.']
+  blocked [note: 'Não envia enquanto a conexão estiver indisponível (ex.: DISCONNECTED).']
+  failed [note: 'Falha transitória; volta para queued com backoff.']
+  cancelled [note: 'SPEC — o atendente cancelou o agendamento; estado terminal, o drain não reivindica.']
+}
+
+Enum provider_status {
+  sent [note: 'O provedor acusou envio ao servidor (ack sent / SERVER_ACK).']
+  delivered [note: 'O destinatário recebeu (ack delivered).']
+  read [note: 'O destinatário leu ou reproduziu (ack read / played).']
+  failed [note: 'O provedor acusou falha; só aplica se o estado atual for ausente ou sent (não retrocede delivered/read).']
+}
+
+Enum webhook_event_status {
+  received [note: 'Payload autenticado gravado; ainda não canonicado.']
+  processed [note: 'Evento processado com sucesso (insert, status-update ou skip intencional já tratado).']
+  skipped [note: 'Evento autenticado que o MVP não expande (grupo, MESSAGES_SET, instância desconhecida etc.).']
+  failed [note: 'Falha no processamento; o heartbeat retenta até 5 vezes.']
+  failed_permanent [note: 'Esgotadas as 5 tentativas; sai da fila.']
+}
+
+Enum cadastro_prefill_job_status {
+  queued [note: 'Extração assistiva enfileirada, ainda não iniciada.']
+  running [note: 'Chamada ao modelo em andamento.']
+  succeeded [note: 'Sugestão gravada; o atendente ainda precisa aceitar campo a campo.']
+  skipped [note: 'Não rodou (ex.: cadastro v1 já completo no gatilho atual).']
+  failed [note: 'O modelo falhou; o cadastro permanece inalterado.']
+}
+
+Enum scheduled_message_status {
+  SCHEDULED [note: 'Confirmada pelo atendente, aguardando a data/hora.']
+  PROCESSING [note: 'O worker está criando/obtendo o item de outbox.']
+  SENT [note: 'A outbox correspondente chegou a confirmed.']
+  CANCELLED [note: 'Cancelada pelo atendente antes do envio.']
+  FAILED [note: 'A outbox esgotou falhas; não será reenviada automaticamente.']
+}
+
+Enum template_status {
+  active [note: 'Disponível para inserir no compositor e para agendar.']
+  inactive [note: 'Fora de uso; não aparece no seletor.']
+}
+
+// ===========================================================================
+// IMPL — tabelas no Prisma hoje
+// ===========================================================================
+
+Table unit {
+  id         varchar     [pk, default: `cuid()`, note: 'Identificador interno imutável da loja/filial.']
+  name       varchar     [not null, note: 'Nome de exibição da unidade (ex.: Select Lub Centro).']
+  omie_id    varchar     [note: 'SPEC — identificador da empresa ou unidade no Omie.']
+  situation  varchar     [note: 'SPEC — situação cadastral da unidade (ativa etc.).']
+  created_at timestamptz [not null, default: `now()`, note: 'Quando a linha foi criada no CRM.']
+  updated_at timestamptz [not null, note: 'Quando a linha foi alterada pela última vez.']
+
+  Note: '''
+    Unidade = uma loja/filial da Select Lub. Usuários e dados de atendimento são
+    segmentados por unidade. IMPL: só id, nome e timestamps. Número de WhatsApp
+    e instância Evolution ficam em whatsapp_connection, não aqui.
+  '''
+}
+
+Table user {
+  id         uuid        [pk, note: 'UUID da pessoa no Supabase Auth; não é gerado pelo CRM.']
+  email      varchar     [not null, note: 'E-mail de login.']
+  name       varchar     [not null, note: 'Nome de exibição da pessoa usuária (atendente, admin).']
+  situation  varchar     [note: 'SPEC — situação da conta (ativa etc.).']
+  created_at timestamptz [not null, default: `now()`, note: 'Quando o perfil foi criado no CRM.']
+  updated_at timestamptz [not null, note: 'Quando o perfil foi alterado pela última vez.']
+
+  Note: '''
+    Pessoa que acessa o CRM. Senha e sessão ficam no Supabase Auth, não neste banco.
+    Não há responsável visível por conversa no MVP; o id pode ser gravado só para auditoria
+    (tags, agendamentos). Unidades permitidas estão em user_unit.
+  '''
+}
+
+Table user_unit {
+  user_id uuid    [not null, note: 'Pessoa usuária (Supabase Auth).']
+  unit_id varchar [not null, note: 'Unidade à qual essa pessoa tem acesso.']
+
+  indexes {
+    (user_id, unit_id) [pk, note: 'Uma pessoa entra no máximo uma vez em cada unidade.']
+  }
+
+  Note: '''
+    Matriz de acesso: quais unidades cada pessoa pode usar. Apagar o usuário
+    remove as linhas (cascade); apagar a unidade é bloqueado se ainda houver membros (restrict).
+  '''
+}
+
+Table whatsapp_connection {
+  id                     varchar     [pk, default: `cuid()`, note: 'Identificador interno da conexão.']
+  unit_id                varchar     [not null, note: 'Unidade dona deste número/instância.']
+  instance_name          varchar     [unique, not null, note: 'Nome da instância na Evolution (ex.: select-lub-poc). Único no CRM.']
+  provider               varchar     [not null, default: 'EVOLUTION_BAILEYS', note: 'Provedor de transporte. No MVP é sempre EVOLUTION_BAILEYS.']
+  connection_state       varchar     [not null, default: 'DISCONNECTED', note: 'Estado canônico visível no CRM: CONNECTING, CONNECTED, DEGRADED ou DISCONNECTED.']
+  last_connected_at      timestamptz [note: 'Última vez em que a sessão passou a CONNECTED.']
+  last_disconnected_at   timestamptz [note: 'Última vez em que a sessão caiu.']
+  last_disconnect_reason varchar     [note: 'Motivo conhecido da última queda, quando o provedor informar.']
+  created_at             timestamptz [not null, default: `now()`, note: 'Quando a conexão foi cadastrada.']
+  updated_at             timestamptz [not null, note: 'Quando o estado ou metadados foram alterados.']
+  external_instance_id   varchar     [note: 'SPEC — id externo da instância na Evolution, se diferente do nome.']
+  business_phone         varchar     [note: 'SPEC — número empresarial pareado (exibição).']
+  business_jid           varchar     [note: 'SPEC — JID do número empresarial no WhatsApp, quando disponível.']
+  pairing_required_at    timestamptz [note: 'SPEC — desde quando um novo pareamento (QR) é necessário.']
+  evolution_api_version  varchar     [note: 'SPEC — versão da Evolution API, para diagnóstico.']
+  evolution_provider_version varchar [note: 'SPEC — versão do provider Baileys, para diagnóstico.']
+
+  Note: '''
+    Uma instância Evolution/Baileys vinculada a uma unidade. Fonte da verdade do estado
+    da sessão no CRM (webhooks CONNECTION_UPDATE e reconciliação REST). QR e código de
+    pareamento NÃO entram nesta linha nem em logs. Credenciais da sessão ficam no banco da Evolution.
+  '''
+}
+
+Table webhook_event {
+  id                     varchar     [pk, default: `cuid()`, note: 'Identificador interno do evento bruto.']
+  payload                jsonb       [not null, note: 'Corpo autenticado do webhook, como chegou da Evolution.']
+  status                 varchar     [not null, note: 'received, processed, skipped, failed ou failed_permanent.']
+  attempt_count          int         [not null, default: 0, note: 'Quantas vezes o worker já tentou canonicar este evento (máx. 5).']
+  whatsapp_connection_id varchar     [note: 'Conexão resolvida pelo nome da instância, se conhecida; nulo se a instância não existir no CRM.']
+  external_message_id    varchar     [note: 'data.key.id do WhatsApp, quando o evento for de mensagem.']
+  created_at             timestamptz [not null, default: `now()`, note: 'Quando o webhook foi persistido.']
+  updated_at             timestamptz [not null, note: 'Quando o status ou tentativas mudaram.']
+
+  Note: '''
+    Cópia bruta de cada webhook autenticado. O CRM responde 200 rápido e processa depois.
+    Eventos failed/received parados além de 60 s são retentados no heartbeat, no máximo 5 vezes;
+    depois viram failed_permanent. MESSAGES_SET fica só aqui e não vira conversa/mensagem.
+  '''
+}
+
+Table conversation {
+  id                         varchar     [pk, default: `cuid()`, note: 'Identificador interno da conversa (thread 1:1).']
+  whatsapp_connection_id     varchar     [not null, note: 'Instância Evolution que atende este fio.']
+  remote_jid                 varchar     [not null, note: 'Endereço de envio no WhatsApp, não a chave 1:1. Nova conversa grava {dígitos}@s.whatsapp.net; ingest atualiza para o JID do evento mais recente.']
+  customer_id                varchar     [note: 'Cliente associado, se já houver. String solta — sem FK no Prisma, para a conversa existir antes do cadastro.']
+  chat_key                   varchar     [not null, note: 'IMPL — chave da conversa (com a conexão). No 1:1: dígitos da parte local do JID antes de : ou @ (casa com Cliente e com Nova conversa). JID completo @g.us reservado para grupo futuro; CHECK aceita só dígitos ou %@g.us.']
+  source_type                varchar     [not null, default: 'UNKNOWN', note: 'Origem: AD, ORGANIC ou UNKNOWN. AD só com evidência de anúncio; ORGANIC quando o cliente iniciou a conversa sem evidência de anúncio (BR-01 emendada em 2026-08-29) ou com marcador explícito; iniciada pela loja fica UNKNOWN. UNKNOWN/ORGANIC sobem para AD com evidência posterior; AD nunca desce. Relatórios filtram por este campo.']
+  started_at                 timestamptz [not null, note: 'Início da conversa no WhatsApp (primeiro evento conhecido).']
+  first_inbound_at           timestamptz [note: 'Timestamp da primeira mensagem DO CLIENTE. Relatórios de conversas novas usam este campo, não a data de ingestão.']
+  first_outbound_at          timestamptz [note: 'Timestamp da primeira mensagem de saída. Tempo de primeira resposta = este menos first_inbound_at.']
+  last_inbound_at            timestamptz [note: 'Timestamp da última mensagem recebida do cliente.']
+  last_outbound_at           timestamptz [note: 'Timestamp da última mensagem enviada pela operação.']
+  last_message_at            timestamptz [not null, note: 'Timestamp da mensagem mais recente (entrada ou saída); ordena a inbox.']
+  last_prefill_window_closed_at timestamptz [note: 'IMPL should-reply-window — watermark da última janela de extração fechada.']
+  prefill_extract_enabled    boolean      [not null, default: false, note: 'IMPL — interruptor por conversa para extração assistiva e shouldReply. Default off.']
+  created_at                 timestamptz [not null, default: `now()`, note: 'Quando a linha foi criada no CRM (pode ser bem depois do started_at, no backfill).']
+  updated_at                 timestamptz [not null, note: 'Quando indicadores ou vínculo de cliente mudaram.']
+  unit_id                     varchar     [note: 'SPEC — unidade da conversa. Hoje deriva de whatsapp_connection.unit_id.']
+  source_evidence_type        varchar     [note: 'SPEC GitHub #32 — tipo da evidência (ctwa, ads_context, customer_initiated, none).']
+  source_evidence_reference   varchar     [note: 'SPEC GitHub #32 — referência protegida da evidência (ctwa_clid ou source id).']
+  source_evidence_at          timestamptz [note: 'SPEC GitHub #32 — timestamp do WhatsApp (providerTimestamp) da mensagem que trouxe a evidência; não é a hora de ingestão.']
+  ctwa_clid                   varchar     [note: 'SPEC GitHub #32 — Click-to-WhatsApp click id da Meta. Fica na conversa, não no Cliente.']
+  campaign_id                 varchar     [note: 'SPEC GitHub #32 — campanha de anúncio, quando o payload trouxer. Único nível exposto em relatório/UI.']
+  ad_set_id                   varchar     [note: 'SPEC GitHub #32 — conjunto de anúncios. Gravado quando o payload trouxer; não exposto em relatório/UI (análise só por campanha, decisão 2026-08-29).']
+  ad_id                       varchar     [note: 'SPEC GitHub #32 — anúncio individual. Gravado, não exposto (mesma decisão do ad_set_id).']
+  classification_rule_version varchar     [note: 'SPEC GitHub #32 — versão da regra que classificou a origem (ex.: ctwa-v1). Gravada em toda linha classificada, inclusive ORGANIC/UNKNOWN — NULL significa nunca classificada.']
+
+  indexes {
+    (whatsapp_connection_id, chat_key) [unique, note: 'IMPL — uma conversa por chave de chat em cada instância (telefone no 1:1).']
+    (chat_key) [note: 'SPEC Modelagem §14 — busca por telefone.']
+    (source_type, started_at) [note: 'SPEC Modelagem §14 — relatórios por origem e início.']
+    (last_message_at) [note: 'SPEC Modelagem §14 — ordenação da inbox.']
+  }
+
+  Note: '''
+    Thread de mensagens com um contato em um canal WhatsApp. Identidade = chat_key
+    nesta conexão, não a string do JID: no 1:1 o chat_key é o telefone normalizado
+    (@s.whatsapp.net e @c.us do mesmo número são a mesma conversa); o JID @g.us
+    completo é o formato reservado de chat_key de grupo (feature futura). Relatórios usam timestamps do WhatsApp
+    (first_inbound_at / provider_timestamp), não a hora em que o CRM ingeriu.
+    Importar histórico de 2024 em 2026 não conta a conversa como nova em 2026.
+    Sem response_mode: disponibilidade de envio pelo CRM é whatsapp_connection.connection_state
+    (vale para todas as conversas da instância); origem de cada saída fica em message.route.
+    JID @lid sem telefone na parte local é pendência — não usar os dígitos do LID como chave.
+  '''
+}
+
+Table message {
+  id                     varchar     [pk, default: `cuid()`, note: 'Identificador interno da mensagem canônica.']
+  conversation_id        varchar     [not null, note: 'Conversa à qual esta mensagem pertence. Faz parte da chave de idempotência SPEC.']
+  whatsapp_connection_id varchar     [note: 'SPEC — cópia da conexão para um unique antigo; derivada de conversation. Removida do Prisma; unique da mensagem é (conversation_id, external_message_id).']
+  external_message_id    varchar     [not null, note: 'data.key.id do WhatsApp. Deduplicação SPEC: (conversation_id, este id).']
+  direction              varchar     [not null, note: 'inbound (cliente) ou outbound (operação).']
+  message_type           varchar     [not null, note: 'text, image, audio, document, video ou unknown.']
+  text_body              varchar     [note: 'Texto ou legenda. Nulo em mídia sem caption. Não se apaga quando o conteúdo fica indisponível.']
+  media_mime_type        varchar     [note: 'MIME da mídia, quando houver (ex.: image/jpeg). Bytes não ficam nesta tabela.']
+  media_file_name        varchar     [note: 'Nome do arquivo informado pelo provedor, quando houver.']
+  provider_timestamp     timestamptz [not null, note: 'Hora da mensagem no WhatsApp (messageTimestamp). Relatórios e indicadores usam este valor, não now().']
+  created_at             timestamptz [not null, default: `now()`, note: 'Hora em que o CRM gravou a linha (ingestão).']
+  updated_at             timestamptz [not null, note: 'Quando status ou flags desta mensagem mudaram.']
+  remote_jid             varchar     [note: 'SPEC — JID protegido na própria mensagem, para rastreio; a conversa já tem o mesmo dado.']
+  ingested_at            timestamptz [note: 'SPEC — hora da ingestão; hoje coincide com created_at.']
+  sent_by_user_id        uuid        [note: 'SPEC — quem disparou pelo CRM, para auditoria. Sem responsável visível na tela.']
+  reply_to_external_id   varchar     [note: 'POST GitHub #52 — citação WhatsApp (responder a uma bolha). external_message_id da mensagem citada, no envio e no ingest (contextInfo.stanzaId). Fora do MVP.']
+  route                  varchar     [note: 'SPEC — como esta saída entrou no WhatsApp: EVOLUTION_BAILEYS (CRM via Evolution), WHATSAPP_WEB_MANUAL (aparelho; só se a Evolution entregar o evento) ou WHATSAPP_CLOUD_API (POST GitHub #49, fallback 463 com sessão CONNECTED). Nulo em inbound. Substitui source_mode.']
+  client_msg_id          varchar     [note: 'SPEC Canal — chave gerada pelo CRM antes do envio, para idempotência local.']
+  provider_status        varchar     [note: 'SPEC GitHub #35 — sent, delivered, read ou failed. Escada monotônica: um estado atrasado não retrocede.']
+  sent_at                timestamptz [note: 'SPEC GitHub #35 — quando o provedor acusou envio.']
+  delivered_at           timestamptz [note: 'SPEC GitHub #35 — quando o destinatário recebeu.']
+  read_at                timestamptz [note: 'SPEC GitHub #35 — quando o destinatário leu.']
+  failed_at              timestamptz [note: 'SPEC GitHub #35 — quando o provedor acusou falha.']
+  content_unavailable    boolean     [default: false, note: 'SPEC GitHub #35 — o conteúdo foi apagado no WhatsApp; o corpo fica para auditoria e a UI esconde.']
+  should_reply           boolean     [note: 'IMPL GitHub #50 / should-reply-window — nulo = sem rótulo; nulo não conta como sem resposta.']
+
+  indexes {
+    (conversation_id, external_message_id) [unique, note: 'IMPL — o mesmo id do WhatsApp na conversa nunca vira duas linhas.']
+  }
+
+  Note: '''
+    Mensagem canônica do CRM. Bytes de mídia não ficam aqui: a SPA busca sob demanda na Evolution
+    pelo id da mensagem. Histórico pré-CRM entra pela REST (findMessages), com a mesma chave única
+    do ingest ao vivo. Timestamps de mensagem não podem ser descartados depois do cálculo de relatórios.
+    Com conversa única por chat_key+conexão, (conversation_id, external_message_id) impede o mesmo
+    key.id duplicado quando o JID chega em dois formatos.
+  '''
+}
+
+Table outbox_message {
+  id                  varchar     [pk, default: `cuid()`, note: 'Identificador interno do item da fila de saída.']
+  conversation_id     varchar     [not null, note: 'Conversa de destino.']
+  message_type        varchar     [not null, default: 'text', note: 'text, image, audio, document ou video.']
+  text_body           varchar     [note: 'Texto a enviar, ou legenda da mídia.']
+  media_bytes         bytea       [note: 'Arquivo binário quando o envio é mídia. Recusado acima de 16 MiB antes do insert.']
+  media_mime_type     varchar     [note: 'MIME do arquivo na outbox.']
+  media_file_name     varchar     [note: 'Nome do arquivo enviado.']
+  status              varchar     [not null, note: 'queued → claimed → sent → confirmed; blocked; failed→queued; cancelled (SPEC).']
+  attempt_count       int         [not null, default: 0, note: 'Quantas vezes o worker já tentou despachar.']
+  external_message_id varchar     [note: 'Id do WhatsApp devolvido no send; confirmed exige este campo.']
+  claimed_at          timestamptz [note: 'Quando o worker reivindicou o item. Usado para recuperar claimed preso após queda.']
+  last_error          varchar     [note: 'Último erro sanitizado (ex.: connection_disconnected, unsupported_content).']
+  created_at          timestamptz [not null, default: `now()`, note: 'Quando o atendente (ou o due do agendamento) enfileirou.']
+  updated_at          timestamptz [not null, note: 'Quando o status mudou.']
+  idempotency_key     varchar     [note: 'SPEC — chave de não duplicar envio. Nulo no envio imediato; no agendamento copia scheduled_message.idempotency_key. Única quando não nula.']
+  reply_to_external_id varchar    [note: 'POST GitHub #52 — mesmo id WhatsApp passado em quoted.key no send; o drain precisa dele depois de um restart. Fora do MVP.']
+
+  indexes {
+    (status, created_at) [note: 'Drain do worker: próximos queued por ordem de criação.']
+    (idempotency_key) [unique, note: 'SPEC — índice parcial WHERE idempotency_key IS NOT NULL.']
+  }
+
+  Note: '''
+    Fila de mensagens de saída do CRM: garante que nada se perde nem é enviado duas vezes.
+    O worker só reivindica se a conexão estiver CONNECTED. Desconectado → blocked, sem rota
+    alternativa silenciosa. confirmed exige external_message_id. provider_timestamp da mensagem
+    canônica no despacho vem do messageTimestamp raiz do HTTP, nunca de now().
+  '''
+}
+
+Table customer {
+  id             varchar     [pk, default: `cuid()`, note: 'Identificador interno do cliente. Também é o external_id futuro da Meta (não é coluna extra).']
+  name           varchar     [not null, note: 'Nome de exibição / razão social Omie. Obrigatório; placeholder pode ser o telefone normalizado.']
+  omie_id        varchar     [unique, note: 'Código do cliente no Omie, quando já vinculado. Nulo = ainda só no CRM.']
+  tax_id         varchar     [note: 'CPF ou CNPJ. Identidade Omie; NÃO é enviado à Meta.']
+  unit_id        varchar     [note: 'Unidade de referência opcional.']
+  given_name     varchar     [note: 'Primeiro nome (Meta fn). Só no CRM: o Omie não parte o nome.']
+  family_name    varchar     [note: 'Sobrenome (Meta ln). Só no CRM.']
+  merged_into_id varchar     [note: 'Se este registro foi absorvido numa fusão, aponta para o Cliente que permanece. A operação de fusão é o GitHub #5.']
+  street         varchar     [note: 'Rua (Omie endereco). Endereço de oficina; não é chave de matching da Meta.']
+  street_number  varchar     [note: 'Número (Omie endereco_numero).']
+  neighborhood   varchar     [note: 'Bairro (Omie bairro).']
+  complement     varchar     [note: 'Complemento (Omie complemento).']
+  city           varchar     [note: 'Cidade (Omie cidade; Meta ct).']
+  state          varchar     [note: 'UF (Omie estado, ex.: SP; Meta st).']
+  postal_code    varchar     [note: 'CEP (Omie cep; Meta zp).']
+  country        varchar     [note: 'País ISO 3166-1 alpha-2 minúsculo (ex.: br). Ausente é tratado como br só no mapeador CAPI, não gravado automaticamente.']
+  origin         varchar     [not null, note: 'Quem criou ou última origem da escrita: crm, whatsapp, OMIE_SYNC etc.']
+  status         varchar     [not null, note: 'Situação cadastral (active). Após fusão, o absorvido fica marcado como mesclado, nunca apagado.']
+  created_at     timestamptz [not null, default: `now()`, note: 'Quando o cliente entrou no CRM.']
+  updated_at     timestamptz [not null, note: 'Última alteração cadastral.']
+
+  indexes {
+    (omie_id) [unique, note: 'Um omie_id não pode apontar para dois clientes.']
+    (postal_code) [note: 'SPEC Modelagem §14 — busca por CEP.']
+  }
+
+  Note: '''
+    Pessoa atendida. Campos compartilhados com o Omie sincronizam por campo (customer_field_sync).
+    givenName, familyName e mergedInto são só CRM. Gênero e data de nascimento ficam de fora até
+    haver fonte confiável no Omie. Envio à Conversions API é POST; as chaves de matching já estão aqui.
+  '''
+}
+
+Table customer_phone {
+  id          varchar     [pk, default: `cuid()`, note: 'Identificador interno deste telefone.']
+  customer_id varchar     [not null, note: 'Cliente dono do número.']
+  raw         varchar     [not null, note: 'Valor como a pessoa digitou ou como veio do Omie.']
+  normalized  varchar     [not null, note: 'Dígitos normalizados (E.164 sem +). Matching e futuro ph da Meta (depois hash SHA-256).']
+  is_primary  boolean     [not null, note: 'Telefone principal: campo compartilhado com o Omie (primaryPhone).']
+  origin      varchar     [note: 'SPEC — origem deste contato (crm, whatsapp, OMIE_SYNC).']
+  created_at  timestamptz [not null, default: `now()`, note: 'Quando o número foi gravado.']
+  updated_at  timestamptz [not null, note: 'Quando raw/normalized/principal mudaram.']
+
+  indexes {
+    (normalized) [note: 'SPEC Modelagem §14 — casar conversa e cliente pelo telefone.']
+  }
+
+  Note: 'Telefones do cliente. O principal é compartilhado com o Omie e, no envio futuro à Meta, vira ph.'
+}
+
+Table customer_email {
+  id          varchar     [pk, default: `cuid()`, note: 'Identificador interno deste e-mail.']
+  customer_id varchar     [not null, note: 'Cliente dono do e-mail.']
+  raw         varchar     [not null, note: 'Valor como digitado ou como veio do Omie.']
+  normalized  varchar     [not null, note: 'Minúsculas, sem espaços. Matching e futuro em da Meta (depois hash SHA-256).']
+  is_primary  boolean     [not null, note: 'E-mail principal: campo compartilhado com o Omie (primaryEmail).']
+  origin      varchar     [note: 'SPEC — origem deste contato.']
+  created_at  timestamptz [not null, default: `now()`, note: 'Quando o e-mail foi gravado.']
+  updated_at  timestamptz [not null, note: 'Quando raw/normalized/principal mudaram.']
+
+  indexes {
+    (normalized) [note: 'SPEC Modelagem §14 — busca por e-mail.']
+  }
+
+  Note: 'E-mails do cliente. O principal é compartilhado com o Omie e, no envio futuro à Meta, vira em.'
+}
+
+Table vehicle {
+  id          varchar     [pk, default: `cuid()`, note: 'Identificador interno do veículo.']
+  customer_id varchar     [not null, note: 'IMPL = titular (dono principal). O domínio é N donos com um titular; a tabela N:N é GitHub #29.']
+  omie_id     varchar     [note: 'Id externo no Omie, se existir. Palpite: o Omie não tem entidade veículo — o #29 corrige o mapeamento no tenant real.']
+  plate       varchar     [note: 'Placa. Campo compartilhado com o Omie no veículo titular.']
+  make        varchar     [note: 'Marca. Compartilhada com o Omie no titular.']
+  model       varchar     [note: 'Modelo. Compartilhado com o Omie no titular.']
+  version     varchar     [note: 'Versão/trim. Só CRM; não vai para o Omie.']
+  year        int         [note: 'Ano. Só CRM; não vai para o Omie.']
+  odometer_km int         [note: 'Quilometragem atual em km. Compartilhada com o Omie no titular.']
+  origin      varchar     [not null, note: 'Quem criou a linha: crm, whatsapp, OMIE_SYNC etc.']
+  created_at  timestamptz [not null, default: `now()`, note: 'Usado para decidir o titular: o created_at mais antigo (id menor empata).']
+  updated_at  timestamptz [not null, note: 'Última alteração dos dados do carro.']
+
+  indexes {
+    (customer_id) [note: 'Listar os carros de um cliente.']
+  }
+
+  Note: '''
+    Carro da oficina. Um cliente tem N veículos. Titular = created_at mais antigo, depois id menor.
+    Só o titular sincroniza placa/marca/modelo/km com o Omie. Veículos extras gravam só no CRM.
+  '''
+}
+
+Table customer_field_sync {
+  id                      varchar     [pk, default: `cuid()`, note: 'Identificador interno do estado de sync deste campo.']
+  customer_id             varchar     [not null, note: 'Cliente cujo campo está sendo sincronizado.']
+  field_key               varchar     [not null, note: 'Chave compartilhada: name, taxId, primaryPhone, primaryEmail, street, streetNumber, neighborhood, complement, city, state, postalCode, country.']
+  origin                  varchar     [not null, note: 'Última origem da escrita neste campo (CRM ou OMIE_SYNC).']
+  local_version           int         [not null, default: 0, note: 'Versão no CRM. Sobe quando o atendente altera.']
+  external_version        int         [not null, default: 0, note: 'Versão vista no Omie.']
+  synced_local_version    int         [not null, default: 0, note: 'Última local_version que já foi enviada ao Omie com sucesso.']
+  synced_external_version int         [not null, default: 0, note: 'Última external_version que já foi aplicada no CRM.']
+  last_omie_wire          varchar     [note: 'Último valor cru recebido/enviado no fio do Omie, para detectar mudança.']
+  created_at              timestamptz [not null, default: `now()`, note: 'Quando este campo passou a ser rastreado.']
+  updated_at              timestamptz [not null, note: 'Quando as versões mudaram.']
+
+  indexes {
+    (customer_id, field_key) [unique, note: 'Um estado de sync por campo de pessoa/endereço.']
+  }
+
+  Note: '''
+    Versão por campo compartilhado de pessoa/endereço. CRM à frente (local > synced_local) envia ao Omie;
+    Omie à frente aplica no CRM com origem OMIE_SYNC e não ecoa; os dois à frente abrem pendência, sem
+    último-a-gravar silencioso.
+  '''
+}
+
+Table vehicle_field_sync {
+  id                      varchar     [pk, default: `cuid()`, note: 'Identificador interno do estado de sync deste campo do veículo.']
+  vehicle_id              varchar     [not null, note: 'Veículo cujo campo está sendo sincronizado (só o titular vai ao Omie).']
+  field_key               varchar     [not null, note: 'Chave compartilhada: plate, make, model, odometerKm.']
+  origin                  varchar     [not null, note: 'Última origem da escrita neste campo: CRM, OMIE_SYNC, ou PLACA quando o valor veio de uma consulta de placa confirmada.']
+  local_version           int         [not null, default: 0, note: 'Versão no CRM.']
+  external_version        int         [not null, default: 0, note: 'Versão vista no Omie.']
+  synced_local_version    int         [not null, default: 0, note: 'Última versão local já enviada ao Omie.']
+  synced_external_version int         [not null, default: 0, note: 'Última versão Omie já aplicada no CRM.']
+  last_omie_wire          varchar     [note: 'Último valor cru no fio do Omie.']
+  created_at              timestamptz [not null, default: `now()`, note: 'Quando este campo passou a ser rastreado.']
+  updated_at              timestamptz [not null, note: 'Quando as versões mudaram.']
+
+  indexes {
+    (vehicle_id, field_key) [unique, note: 'Um estado de sync por campo de veículo.']
+  }
+
+  Note: 'Mesma política de conflito do cadastro de pessoa, para placa/marca/modelo/km do veículo titular.'
+}
+
+Table customer_reconciliation_pending {
+  id               varchar     [pk, default: `cuid()`, note: 'Identificador interno da pendência.']
+  customer_id      varchar     [not null, note: 'Cliente em conflito.']
+  field_key        varchar     [not null, note: 'Campo compartilhado em que CRM e Omie mudaram os dois desde a última sync.']
+  crm_value        varchar     [not null, note: 'Valor atual no CRM (não sobrescrito).']
+  omie_value       varchar     [not null, note: 'Valor atual no Omie (não aplicado).']
+  local_version    int         [not null, note: 'local_version no momento do conflito.']
+  external_version int         [not null, note: 'external_version no momento do conflito.']
+  status           varchar     [not null, note: 'open enquanto o atendente não escolher um lado.']
+  created_at       timestamptz [not null, default: `now()`, note: 'Quando o conflito foi detectado.']
+  updated_at       timestamptz [not null, note: 'Quando status ou valores da pendência mudaram.']
+  reason           varchar     [note: 'SPEC — motivo textual da pendência.']
+  resolved_by_user_id uuid     [note: 'SPEC — quem resolveu o conflito.']
+
+  indexes {
+    (customer_id, field_key) [unique, note: 'No máximo uma pendência aberta por campo de pessoa.']
+  }
+
+  Note: '''
+    Conflito simultâneo genuíno de um campo de pessoa/endereço. Enquanto estiver open, o sistema
+    não envia esse campo ao Omie nem aplica valor novo do Omie no CRM. Edição do atendente ainda
+    persiste e sobe a versão local.
+  '''
+}
+
+Table vehicle_reconciliation_pending {
+  id               varchar     [pk, default: `cuid()`, note: 'Identificador interno da pendência do veículo.']
+  vehicle_id       varchar     [not null, note: 'Veículo (titular) em conflito.']
+  field_key        varchar     [not null, note: 'plate, make, model ou odometerKm.']
+  crm_value        varchar     [not null, note: 'Valor atual no CRM.']
+  omie_value       varchar     [not null, note: 'Valor atual no Omie.']
+  local_version    int         [not null, note: 'Versão CRM no momento do conflito.']
+  external_version int         [not null, note: 'Versão Omie no momento do conflito.']
+  status           varchar     [not null, note: 'open até o atendente resolver.']
+  created_at       timestamptz [not null, default: `now()`, note: 'Quando o conflito foi detectado.']
+  updated_at       timestamptz [not null, note: 'Quando a pendência mudou.']
+
+  indexes {
+    (vehicle_id, field_key) [unique, note: 'No máximo uma pendência aberta por campo de veículo.']
+  }
+
+  Note: 'Igual à pendência de cliente, para os quatro campos compartilhados do veículo titular.'
+}
+
+Table service {
+  id           varchar     [pk, default: `cuid()`, note: 'Identificador interno do serviço (OS).']
+  customer_id  varchar     [not null, note: 'Cliente dono desta OS.']
+  vehicle_id   varchar     [note: 'Carro atendido, se conhecido. Nulo se a OS não estiver ligada a um veículo.']
+  unit_id      varchar     [not null, note: 'Unidade (loja) onde o serviço foi ou será feito.']
+  omie_id      varchar     [unique, note: 'Identificador da OS no Omie, quando importada.']
+  performed_at timestamptz [note: 'Data de execução. Base do atalho "programar mensagem" (+6 meses se não houver regra).']
+  description  varchar     [note: 'Descrição livre da OS.']
+  kind         varchar     [note: 'Tipo (ex.: troca de óleo), quando identificável.']
+  status       varchar     [note: 'Situação da OS (aberta, concluída, faturada, cancelada), quando o Omie informar.']
+  amount       decimal(10,2) [note: 'Valor total opcional.']
+  odometer_km  float       [note: 'Quilometragem no momento do serviço, se constar na OS.']
+  origin       varchar     [not null, note: 'crm (lançado no CRM) ou origem Omie.']
+  created_at   timestamptz [not null, default: `now()`, note: 'Quando a OS entrou no CRM.']
+  updated_at   timestamptz [not null, note: 'Última alteração.']
+
+  indexes {
+    (customer_id) [note: 'Listar OS do cliente no trilho de Conversas.']
+    (customer_id, performed_at) [note: 'SPEC Modelagem §14.']
+    (unit_id, performed_at) [note: 'SPEC Modelagem §14.']
+  }
+
+  Note: '''
+    Serviço / ordem de serviço. AC-CONV-04 pede veículos e serviços no trilho de Conversas.
+    Atalho de agendamento (GitHub #37) usa performed_at. Versões por atributo compartilhado
+    com o Omie ainda não existem — ver service_field_sync (SPEC).
+  '''
+}
+
+Table service_item {
+  id            varchar     [pk, default: `cuid()`, note: 'Identificador interno da linha da OS.']
+  service_id    varchar     [not null, note: 'OS à qual esta linha pertence.']
+  description   varchar     [not null, note: 'Descrição do item (produto ou serviço).']
+  kind          varchar     [note: 'Tipo da linha, quando identificável.']
+  quantity      float       [note: 'Quantidade.']
+  unit_amount   decimal(10,2) [note: 'Preço unitário.']
+  line_amount   decimal(10,2) [note: 'Total da linha.']
+  oil_viscosity varchar     [note: 'Viscosidade do óleo, quando a linha for lubrificante.']
+  oil_brand     varchar     [note: 'Marca do óleo, quando identificável.']
+  created_at    timestamptz [not null, default: `now()`, note: 'Quando a linha foi gravada.']
+  updated_at    timestamptz [not null, note: 'Quando a linha mudou.']
+  omie_product_id varchar   [note: 'SPEC — código do produto no Omie, se houver.']
+
+  indexes {
+    (service_id) [note: 'Itens de uma OS.']
+  }
+
+  Note: 'Linha de uma OS: produto, quantidade, valores e dados de óleo quando existirem.'
+}
+
+Table cadastro_prefill_job {
+  id              varchar     [pk, default: `cuid()`, note: 'Identificador interno do job de extração.']
+  conversation_id varchar     [not null, note: 'Conversa cujo histórico será lido pelo modelo.']
+  status          varchar     [not null, note: 'queued, running, succeeded, skipped ou failed.']
+  dirty           boolean     [not null, default: false, note: 'Chegou inbound de texto enquanto o job estava in-flight; coalescer em vez de abrir segundo LLM.']
+  last_error      varchar     [note: 'Erro sanitizado se status = failed.']
+  created_at      timestamptz [not null, default: `now()`, note: 'Quando o job foi enfileirado.']
+  updated_at      timestamptz [not null, note: 'Quando status/dirty mudaram.']
+
+  indexes {
+    (conversation_id, status) [note: 'Achar o job in-flight da conversa. SPEC pede índice único parcial queued|running.']
+  }
+
+  Note: '''
+    Job da IA assistiva: extrai candidatos de Cliente/Veículo do histórico. Nunca grava cadastro
+    sozinha. Disparo atual: inbound de texto ao vivo com algum campo v1 vazio. Histórico REST e
+    drain da outbox não enfileiram. GitHub #50 (POST) mudaria o gatilho para janela de 60 s.
+  '''
+}
+
+Table cadastro_prefill_suggestion {
+  id              varchar     [pk, default: `cuid()`, note: 'Identificador interno da sugestão.']
+  conversation_id varchar     [unique, not null, note: 'No máximo uma sugestão pendente por conversa.']
+  fields          jsonb       [not null, note: 'Só chaves v1 presentes (omitida ≠ string vazia): name, taxId, plate, make, model, version, year, odometerKm.']
+  extracted_at    timestamptz [not null, note: 'Quando o modelo devolveu esta sugestão.']
+  job_id          varchar     [not null, note: 'Job que produziu este JSON.']
+  created_at      timestamptz [not null, default: `now()`, note: 'Quando a sugestão foi persistida.']
+  updated_at      timestamptz [not null, note: 'Quando os campos sugeridos foram substituídos por um job mais novo.']
+
+  Note: '''
+    Sugestão revisável no trilho de Conversas. Aceite do atendente é o único write em Cliente/Veículo.
+    Primeiro aceite pode criar cliente origin=whatsapp e veículo titular vazio e ligar conversation.customer_id.
+  '''
+}
+
+Table tag {
+  id         varchar     [pk, default: `cuid()`, note: 'Identificador interno da tag.']
+  unit_id    varchar     [not null, note: 'Unidade dona deste catálogo de tags.']
+  name       varchar     [not null, note: 'Nome interno; iguais aos nomes que a operação já usa no WhatsApp.']
+  color      varchar     [note: 'Cor de UI: primary, secondary, error, warning, info, ou nulo.']
+  sort_order int         [not null, default: 0, note: 'Ordem de exibição no seletor.']
+  active     boolean     [not null, default: true, note: 'false = fora do seletor; o histórico nas conversas permanece.']
+  created_at timestamptz [not null, default: `now()`, note: 'Quando a tag foi criada.']
+  updated_at timestamptz [not null, note: 'Quando nome, cor, ordem ou ativa mudaram.']
+
+  indexes {
+    (unit_id) [note: 'Catálogo por unidade.']
+  }
+
+  Note: 'Tag interna do CRM, não etiqueta nativa do WhatsApp. O chip da inbox usa só id, name e color.'
+}
+
+Table template {
+  id                varchar     [pk, default: `cuid()`, note: 'Identificador interno do modelo de texto.']
+  unit_id           varchar     [not null, note: 'Unidade dona deste template.']
+  name              varchar     [not null, note: 'Nome no seletor (ex.: Pós-serviço 6 meses).']
+  text              varchar     [not null, note: 'Corpo com placeholders {{nome_cliente}} e {{placa}}.']
+  allowed_variables jsonb       [not null, note: 'Conjunto fechado: nome_cliente e/ou placa. Não é template oficial da Meta.']
+  status            varchar     [not null, default: 'active', note: 'active ou inactive.']
+  created_at        timestamptz [not null, default: `now()`, note: 'Quando o template foi criado.']
+  updated_at        timestamptz [not null, note: 'Quando o texto ou status mudaram. Edição NÃO reescreve scheduled_message já confirmada.']
+
+  indexes {
+    (unit_id) [note: 'Catálogo por unidade.']
+  }
+
+  Note: 'Resposta pronta interna. Inserir no compositor para o atendente revisar. Distinto de HSM/Cloud API.'
+}
+
+Table conversation_tag {
+  id                  varchar     [pk, default: `cuid()`, note: 'Identificador interno desta aplicação de tag.']
+  conversation_id     varchar     [not null, note: 'Conversa marcada.']
+  tag_id              varchar     [not null, note: 'Tag aplicada.']
+  assigned_at         timestamptz [not null, default: `now()`, note: 'Quando a tag foi colocada.']
+  removed_at          timestamptz [note: 'Quando foi retirada (histórico). Nulo = ainda ativa na conversa.']
+  assigned_by_user_id uuid        [note: 'Quem aplicou, para auditoria.']
+  created_at          timestamptz [not null, default: `now()`, note: 'Quando a linha foi criada.']
+  updated_at          timestamptz [not null, note: 'Quando removed_at mudou.']
+  removed_by_user_id  uuid        [note: 'SPEC — quem retirou a tag.']
+
+  indexes {
+    (conversation_id) [note: 'Tags (atuais e históricas) de uma conversa.']
+    (tag_id) [note: 'Conversas que já usaram esta tag.']
+  }
+
+  Note: 'Histórico de tag na conversa. A UI do MVP mostra só as ativas (removed_at nulo); o histórico serve a relatórios futuros.'
+}
+
+// ===========================================================================
+// SPEC — Modelagem / OpenSpec do MVP, ainda sem tabela no Prisma
+// ===========================================================================
+
+Table vehicle_owner {
+  id          varchar     [pk, note: 'Identificador interno do vínculo dono–veículo.']
+  vehicle_id  varchar     [not null, note: 'Veículo.']
+  customer_id varchar     [not null, note: 'Cliente que é dono (titular ou não).']
+  is_titular  boolean     [not null, note: 'Exatamente um true por veículo.']
+  created_at  timestamptz [not null, default: `now()`, note: 'Quando o vínculo foi criado.']
+
+  indexes {
+    (vehicle_id, customer_id) [unique, note: 'Um cliente não se vincula duas vezes ao mesmo carro.']
+  }
+
+  Note: '''
+    SPEC GitHub #29. Domínio: um veículo tem N donos e exatamente um titular.
+    Substitui o significado atual de vehicle.customer_id. O mapeamento real no Omie também é o #29.
+  '''
+}
+
+Table customer_merge {
+  id                   varchar     [pk, note: 'Identificador interno da operação de fusão.']
+  base_customer_id     varchar     [not null, note: 'Cliente que permanece (base_contact_id).']
+  mergee_customer_id   varchar     [not null, note: 'Cliente absorvido. Fica com status mesclado e merged_into_id; nunca é apagado.']
+  match_criterion      varchar     [not null, note: 'Critério usado (telefone, CPF/CNPJ, nome+veículo…). O critério automático de sugestão ainda é pendência.']
+  executed_by_user_id  uuid        [note: 'Quem executou a fusão.']
+  executed_at          timestamptz [not null, note: 'Quando a transação rodou.']
+
+  Note: '''
+    SPEC GitHub #5 / Modelagem §4. Identidade duplicada (número novo, cadastro Omie antes da
+    conciliação etc.), distinta do conflito de campo. Numa transação: conversas, mensagens,
+    veículos e serviços do absorvido passam ao base; atributos só do absorvido são copiados
+    se o base não os tiver. Permite desfazer porque o absorvido não é excluído.
+  '''
+}
+
+Table motul_compatibility {
+  id             varchar     [pk, note: 'Identificador interno do cache Motul.']
+  make           varchar     [not null, note: 'Marca na consulta (identidade do modelo, não de um carro cadastrado).']
+  year           int         [not null, note: 'Ano na consulta. Parte da identidade do modelo.']
+  model          varchar     [not null, note: 'Modelo na consulta. Parte da identidade, não um vehicle.id.']
+  version        varchar     [not null, note: 'Versão/submodelo na consulta. Parte da identidade.']
+  viscosity      varchar     [not null, note: 'Viscosidade exigida (ex.: 5W-30). Sem marca nem preço.']
+  classification varchar     [not null, note: 'Classificação (API/ACEA etc.) devolvida pela Motul.']
+  consulted_at   timestamptz [not null, note: 'Quando esta consulta foi feita.']
+  raw_payload    jsonb       [note: 'Payload bruto da API Motul, para auditoria.']
+  created_at     timestamptz [not null, default: `now()`, note: 'Quando a linha de cache foi gravada.']
+
+  Note: '''
+    IMPL. Cache da consulta Motul Oil Advisor pela identidade make/year/model/version,
+    compartilhada entre clientes — não é FK de um carro cadastrado.
+    Decidido em 29/08/2026 e emendado em 30/08/2026: "Montar orçamento" sem linha
+    correspondente à identidade consulta a Motul; com linha, pergunta se reaproveita
+    a mais recente (incluindo lookup de outro cliente) ou busca de novo (grava nova
+    linha ao suceder; fallback à linha anterior se falhar). Sem unicidade na identidade.
+  '''
+}
+
+Table catalog_item {
+  id             varchar     [pk, note: 'Identificador interno do item de catálogo.']
+  brand          varchar     [not null, note: 'Marca que a Select Lub vende.']
+  description    varchar     [not null, note: 'Descrição/nome do produto.']
+  price          decimal     [not null, note: 'Preço vigente, mantido à mão até existir estoque Omie.']
+  stock          decimal     [not null, note: 'Estoque atual (>= 0); 0 até um import preencher.']
+  active         boolean     [not null, note: 'false = não oferece mais; orçamentos antigos conservam o snapshot.']
+  created_at     timestamptz [not null, note: 'Quando o item entrou no catálogo.']
+  updated_at     timestamptz [not null, note: 'Quando preço ou situação mudaram.']
+
+  Note: 'IMPL GitHub #15. Produto genérico do catálogo (seed mockado no MVP; import Omie pós-MVP). Óleo é o que tem linha em catalog_lubricant.'
+}
+
+Table catalog_lubricant {
+  catalog_item_id varchar [pk, note: 'Item de catálogo que é lubrificante (FK única — no máximo uma linha por item).']
+  viscosity       varchar [not null, note: 'Viscosidade compatível com a spec Motul.']
+  classification  varchar [not null, note: 'Classificação compatível; vazia = casa só por viscosidade.']
+
+  Note: 'IMPL GitHub #15. Detalhe de lubrificante de um item de catálogo. A existência desta linha é o que torna o item um óleo — não há coluna kind.'
+}
+
+Table oil_quote {
+  id                      varchar     [pk, note: 'Identificador interno do orçamento.']
+  customer_id             varchar     [not null, note: 'Cliente para quem a proposta foi montada.']
+  vehicle_id              varchar     [not null, note: 'Carro cotado.']
+  conversation_id         varchar     [note: 'Conversa em que a proposta foi gerada, se houver.']
+  generated_message_text  varchar     [not null, note: 'Texto final da mensagem de proposta, como oferecido.']
+  created_by_user_id      uuid        [not null, note: 'Atendente que montou o orçamento.']
+  created_at              timestamptz [not null, note: 'Quando a proposta foi gravada.']
+  updated_at              timestamptz [not null, note: 'Quando a linha foi alterada (o texto oferecido não recalcula preço).']
+
+  Note: '''
+    IMPL GitHub #15. Orçamento de troca de óleo persistido. Preços e marcas das linhas são
+    congelados na hora da cotação: mudar o catálogo depois não reescreve o que foi oferecido.
+    Catálogo no MVP é seed mockado (sem pull Omie).
+  '''
+}
+
+Table oil_quote_line {
+  id              varchar  [pk, note: 'Identificador interno da linha congelada.']
+  oil_quote_id    varchar  [not null, note: 'Orçamento dono desta linha.']
+  catalog_item_id varchar  [not null, note: 'Item de catálogo de origem (pode ter ficado inactive).']
+  brand           varchar  [not null, note: 'Marca copiada na hora da cotação.']
+  description     varchar  [not null, note: 'Descrição copiada na hora da cotação.']
+  price           decimal  [not null, note: 'Preço copiado na hora da cotação.']
+
+  Note: 'IMPL. Snapshot da linha de catálogo. Permanece mesmo se o item for desativado ou o preço mudar.'
+}
+
+Table plate_lookup {
+  id           varchar     [pk, default: `cuid()`, note: 'Identificador interno do cache desta placa.']
+  plate        varchar     [not null, unique, note: 'Placa normalizada (ABC1234 ou ABC1D23). Uma linha por placa.']
+  outcome      varchar     [not null, note: 'resolved quando houve campos; miss quando todos os provedores responderam sem campo útil. Falha não grava linha.']
+  provider     varchar     [not null, note: 'Provedor que respondeu (agregados-propria, api-placas) ou o composto.']
+  fields       jsonb       [note: 'Campos mapeados (make/model/version/year e opcionalmente displacementCc/fuel). Nulo num miss.']
+  raw_payload  jsonb       [note: 'Envelope cru com documento_faturado/tipo_faturado/uf_faturado removidos, para remapear sem reconsultar.']
+  looked_up_at timestamptz [not null, note: 'Quando esta resolução ou miss foi gravada.']
+  created_at   timestamptz [not null, default: `now()`, note: 'Quando a linha foi criada.']
+  updated_at   timestamptz [not null, note: 'Quando um retry substituiu o miss.']
+
+  Note: '''
+    IMPL add-plate-lookup. Cache permanente por placa normalizada. Resultado mock nunca entra aqui.
+  '''
+}
+
+Table plate_lookup_call {
+  id         varchar     [pk, default: `cuid()`, note: 'Identificador interno do lançamento de gasto.']
+  plate      varchar     [not null, note: 'Placa normalizada desta consulta tarifada.']
+  provider   varchar     [not null, note: 'Provedor debitado neste hop.']
+  outcome    varchar     [not null, note: 'found ou not_found deste hop. Recusa sem tarifa não grava linha.']
+  unit_id    varchar     [note: 'Unidade do atendente, só para atribuição de gasto; a placa não pertence à loja.']
+  billed_at  timestamptz [not null, note: 'Quando o crédito foi consumido.']
+  created_at timestamptz [not null, default: `now()`, note: 'Quando o lançamento foi gravado.']
+
+  indexes {
+    plate [note: 'Listar hops de uma placa.']
+  }
+
+  Note: 'IMPL add-plate-lookup. Livro-razão separado do cache.'
+}
+
+Table interval_rule {
+  id              varchar     [pk, note: 'Identificador interno da regra.']
+  version         int         [not null, note: 'Versão desta regra (o agendamento guarda qual versão sugeriu a data).']
+  criterion       varchar     [not null, note: 'Critério: service, product ou oil.']
+  criterion_id    varchar     [note: 'Id do serviço/produto/óleo ao qual a regra se aplica; nulo = genérica.']
+  interval_amount int         [not null, note: 'Quantidade do intervalo (ex.: 6).']
+  interval_unit   varchar     [not null, note: 'days ou months.']
+  priority        int         [not null, note: 'A de maior prioridade ganha quando várias batem.']
+  valid_from      timestamptz [note: 'Início da vigência, se houver.']
+  valid_to        timestamptz [note: 'Fim da vigência, se houver.']
+  active          boolean     [not null, note: 'Só regras ativas entram na sugestão.']
+  created_at      timestamptz [not null, note: 'Quando a regra foi cadastrada.']
+  updated_at      timestamptz [not null, note: 'Quando intervalo ou vigência mudaram.']
+
+  Note: '''
+    SPEC GitHub #37 / Modelagem §10. Só sugere data; não cria agendamento sozinha.
+    Zero linhas é válido: o padrão é +6 meses no calendário América/São_Paulo a partir de
+    service.performed_at. O atendente pode editar a data antes de confirmar.
+  '''
+}
+
+Table scheduled_message {
+  id                    varchar     [pk, note: 'Identificador interno do agendamento.']
+  customer_id           varchar     [note: 'Cliente destinatário, quando já houver cadastro.']
+  conversation_id       varchar     [note: 'Conversa pela qual o texto sairá.']
+  service_id            varchar     [note: 'OS que originou o atalho "programar", se houver.']
+  template_id           varchar     [note: 'Template usado para montar o texto; o corpo gravado é o frozen_text, não o template vivo.']
+  frozen_text           varchar     [not null, note: 'Texto final aprovado pelo atendente. Editar o template depois não muda isto.']
+  suggested_at          timestamptz [note: 'Data que a regra ou o padrão de 6 meses sugeriu, antes da edição humana.']
+  suggestion_source     varchar     [note: 'interval_rule ou six_month_default.']
+  interval_rule_id      varchar     [note: 'SPEC — regra usada na sugestão.']
+  interval_rule_version int         [note: 'SPEC — versão da regra na hora da sugestão.']
+  scheduled_at          timestamptz [not null, note: 'Data/hora em que o worker deve despachar.']
+  time_zone             varchar     [not null, default: 'America/Sao_Paulo', note: 'Fuso da data programada.']
+  status                varchar     [not null, note: 'SCHEDULED, PROCESSING, SENT, CANCELLED ou FAILED.']
+  idempotency_key       varchar     [unique, not null, note: 'Mesma chave em todas as tentativas e na outbox; dois ticks não geram dois envios.']
+  last_error            varchar     [note: 'Motivo visível se blocked/FAILED (ex.: conexão caída na hora).']
+  created_by_user_id    uuid        [not null, note: 'Quem confirmou o agendamento.']
+  created_at            timestamptz [not null, note: 'Quando foi confirmado.']
+  sent_at               timestamptz [note: 'Quando a outbox correspondente ficou confirmed.']
+  cancelled_at          timestamptz [note: 'Quando o atendente cancelou.']
+
+  indexes {
+    (status, scheduled_at) [note: 'SPEC — due loop: SCHEDULED com scheduled_at <= now.']
+  }
+
+  Note: '''
+    SPEC GitHub #37. Programação manual (não é motor de gatilhos). No vencimento o worker
+    faz upsert de um outbox_message com a mesma idempotency_key. Sem conexão CONNECTED o
+    item de outbox vai a blocked e este registro NÃO vira SENT. Confirmar/editar/cancelar
+    também exige canal CONNECTED (409 se não estiver).
+  '''
+}
+
+Table service_field_sync {
+  id                      varchar     [pk, note: 'Identificador interno do estado de sync do campo da OS.']
+  service_id              varchar     [not null, note: 'OS cujo atributo compartilhado está sendo rastreado.']
+  field_key               varchar     [not null, note: 'Atributo compartilhado com o Omie (ainda sem lista fechada no contrato TypeScript).']
+  origin                  varchar     [not null, note: 'Última origem da escrita.']
+  local_version           int         [not null, default: 0, note: 'Versão no CRM.']
+  external_version        int         [not null, default: 0, note: 'Versão no Omie.']
+  synced_local_version    int         [not null, default: 0, note: 'Última versão local já enviada.']
+  synced_external_version int         [not null, default: 0, note: 'Última versão Omie já aplicada.']
+  created_at              timestamptz [not null, default: `now()`, note: 'Quando o campo passou a ser rastreado.']
+  updated_at              timestamptz [not null, note: 'Quando as versões mudaram.']
+
+  indexes {
+    (service_id, field_key) [unique, note: 'Um estado por atributo da OS.']
+  }
+
+  Note: 'SPEC Modelagem §5. Mesma ideia de customer_field_sync, para Serviço. Ainda não existe no Prisma.'
+}
+
+Table sync_run {
+  id          varchar     [pk, note: 'Identificador interno desta execução.']
+  source      varchar     [not null, note: 'Sistema de origem (OMIE, EVOLUTION etc.).']
+  entity      varchar     [not null, note: 'Tipo de entidade sincronizada (cliente, OS, histórico etc.).']
+  window_from timestamptz [note: 'Início da janela desta corrida.']
+  window_to   timestamptz [note: 'Fim da janela.']
+  cursor      varchar     [note: 'Cursor de paginação para retomar.']
+  status      varchar     [not null, note: 'Situação da corrida (em andamento, concluída, falha).']
+  totals      jsonb       [note: 'Contagens (lidos, gravados, erros).']
+  created_at  timestamptz [not null, note: 'Quando a corrida começou.']
+  updated_at  timestamptz [not null, note: 'Último progresso.']
+
+  indexes {
+    (status) [note: 'SPEC Modelagem §14 — próxima tentativa de integração.']
+  }
+
+  Note: 'SPEC Modelagem §12 "Execução de sincronização". Conceitual: a spec não fechou o nome físico da tabela.'
+}
+
+Table integration_error {
+  id              varchar     [pk, note: 'Identificador interno do erro.']
+  integration     varchar     [not null, note: 'Integração (Omie, Evolution, Motul…).']
+  operation       varchar     [not null, note: 'Operação que falhou (create cliente, send, findMessages…).']
+  correlation_id  varchar     [note: 'Correlação com o job, webhook ou corrida.']
+  code            varchar     [note: 'Código estável do erro.']
+  message         varchar     [note: 'Mensagem sanitizada, sem dado pessoal completo.']
+  retryable       boolean     [not null, note: 'Se pode retentar.']
+  attempt_count   int         [not null, default: 0, note: 'Tentativas já feitas.']
+  resolved_at     timestamptz [note: 'Quando alguém ou um reprocessamento marcou como resolvido.']
+  created_at      timestamptz [not null, note: 'Quando o erro foi registrado.']
+  updated_at      timestamptz [not null, note: 'Quando tentativas ou resolução mudaram.']
+
+  Note: 'SPEC Modelagem §12 "Erro de integração". Conceitual, para diagnóstico e retentativa.'
+}
+
+// ---------------------------------------------------------------------------
+// Relacionamentos
+// ---------------------------------------------------------------------------
+
+Ref: user_unit.user_id > user.id [delete: cascade]
+Ref: user_unit.unit_id > unit.id [delete: restrict]
+
+Ref: whatsapp_connection.unit_id > unit.id
+
+Ref: webhook_event.whatsapp_connection_id > whatsapp_connection.id
+
+Ref: conversation.whatsapp_connection_id > whatsapp_connection.id
+// conversation.customer_id NÃO é FK no Prisma
+
+Ref: message.conversation_id > conversation.id
+Ref: message.whatsapp_connection_id > whatsapp_connection.id
+Ref: message.sent_by_user_id > user.id
+
+Ref: outbox_message.conversation_id > conversation.id
+
+Ref: customer.unit_id > unit.id [delete: set null]
+Ref: customer.merged_into_id > customer.id [delete: set null]
+
+Ref: customer_phone.customer_id > customer.id [delete: cascade]
+Ref: customer_email.customer_id > customer.id [delete: cascade]
+
+Ref: vehicle.customer_id > customer.id [delete: restrict]
+
+Ref: customer_field_sync.customer_id > customer.id [delete: cascade]
+Ref: vehicle_field_sync.vehicle_id > vehicle.id [delete: cascade]
+Ref: customer_reconciliation_pending.customer_id > customer.id [delete: cascade]
+Ref: vehicle_reconciliation_pending.vehicle_id > vehicle.id [delete: cascade]
+
+Ref: service.customer_id > customer.id [delete: restrict]
+Ref: service.vehicle_id > vehicle.id [delete: set null]
+Ref: service.unit_id > unit.id [delete: restrict]
+Ref: service_item.service_id > service.id [delete: cascade]
+Ref: service_field_sync.service_id > service.id
+
+Ref: cadastro_prefill_job.conversation_id > conversation.id [delete: cascade]
+Ref: cadastro_prefill_suggestion.conversation_id > conversation.id [delete: cascade]
+Ref: cadastro_prefill_suggestion.job_id > cadastro_prefill_job.id [delete: restrict]
+
+Ref: tag.unit_id > unit.id [delete: restrict]
+Ref: template.unit_id > unit.id [delete: restrict]
+Ref: conversation_tag.conversation_id > conversation.id [delete: cascade]
+Ref: conversation_tag.tag_id > tag.id [delete: restrict]
+Ref: conversation_tag.assigned_by_user_id > user.id
+Ref: conversation_tag.removed_by_user_id > user.id
+
+Ref: vehicle_owner.vehicle_id > vehicle.id
+Ref: vehicle_owner.customer_id > customer.id
+
+Ref: customer_merge.base_customer_id > customer.id
+Ref: customer_merge.mergee_customer_id > customer.id
+Ref: customer_merge.executed_by_user_id > user.id
+
+Ref: oil_quote.customer_id > customer.id
+Ref: oil_quote.vehicle_id > vehicle.id
+Ref: oil_quote.conversation_id > conversation.id
+Ref: oil_quote.created_by_user_id > user.id
+Ref: oil_quote_line.oil_quote_id > oil_quote.id
+Ref: oil_quote_line.catalog_item_id > catalog_item.id
+Ref: catalog_lubricant.catalog_item_id - catalog_item.id
+
+Table attribution_rule {
+  id          varchar     [pk, note: 'IMPL — regra global de atribuição.']
+  version     int         [not null, unique, note: 'Versão crescente. A maior é a vigente.']
+  window_days int         [not null, note: 'Janela em dias corridos (30 na versão 1).']
+  created_at  timestamptz [not null, default: `now()`]
+  updated_at  timestamptz [not null]
+
+  Note: 'IMPL GitHub #61. A migration insere a versão 1 com 30 dias.'
+}
+
+Table service_scheduled_attribution {
+  id                   varchar [pk]
+  service_id           varchar [not null]
+  scheduled_message_id varchar [not null]
+  rule_version         int     [not null]
+  created_at           timestamptz [not null, default: `now()`]
+
+  indexes {
+    (service_id, scheduled_message_id) [unique]
+  }
+
+  Note: 'IMPL REP-11. Associação temporal, não causalidade.'
+}
+
+Table service_conversation_attribution {
+  id              varchar [pk]
+  service_id      varchar [not null]
+  conversation_id varchar [not null]
+  rule_version    int     [not null]
+  created_at      timestamptz [not null, default: `now()`]
+
+  indexes {
+    (service_id, conversation_id) [unique]
+  }
+
+  Note: 'IMPL REP-12. Associação temporal, não causalidade.'
+}
+
+Ref: scheduled_message.customer_id > customer.id
+Ref: scheduled_message.conversation_id > conversation.id
+Ref: scheduled_message.service_id > service.id
+Ref: scheduled_message.template_id > template.id
+Ref: scheduled_message.interval_rule_id > interval_rule.id
+Ref: scheduled_message.created_by_user_id > user.id
+Ref: service_scheduled_attribution.service_id > service.id
+Ref: service_scheduled_attribution.scheduled_message_id > scheduled_message.id
+Ref: service_conversation_attribution.service_id > service.id
+Ref: service_conversation_attribution.conversation_id > conversation.id
+
+TableGroup implemented {
+  unit
+  user
+  user_unit
+  whatsapp_connection
+  webhook_event
+  conversation
+  message
+  outbox_message
+  customer
+  customer_phone
+  customer_email
+  vehicle
+  customer_field_sync
+  vehicle_field_sync
+  customer_reconciliation_pending
+  vehicle_reconciliation_pending
+  service
+  service_item
+  cadastro_prefill_job
+  cadastro_prefill_suggestion
+  tag
+  template
+  conversation_tag
+  motul_compatibility
+  catalog_item
+  catalog_lubricant
+  plate_lookup
+  plate_lookup_call
+  oil_quote
+  oil_quote_line
+  attribution_rule
+  service_scheduled_attribution
+  service_conversation_attribution
+}
+
+TableGroup specified_mvp_not_migrated {
+  vehicle_owner
+  customer_merge
+  interval_rule
+  scheduled_message
+  service_field_sync
+  sync_run
+  integration_error
+}

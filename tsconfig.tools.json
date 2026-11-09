@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
+    // fly-deploy.mjs is plain JS on purpose (it must run with no build step, on
+    // an operator machine, before anything is compiled). allowJs lets the test
+    // import it; checkJs stays off so the script is not type-checked as TS.
+    "allowJs": true,
+    "checkJs": false
+  },
+  "include": ["*.test.ts", "fly-deploy.mjs"]
+}

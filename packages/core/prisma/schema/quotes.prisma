@@ -1,0 +1,466 @@
+// Tables owned by the `quotes` module. Ownership is declared in ownership.json;
+// this file and that entry are kept in agreement by schema-ownership.test.ts.
+// Only `module_quotes` may write them.
+
+/// Cached *verified* oil spec for a make/year/model/version identity: every SAE grade the cited source listed, the service-fill liters the quote multiplies the catalog unit price by, and the provenance of that source. Insert-only history. A Motul Oil Advisor payload is one such source, not a product to sell. Every column this cache gained for liters and provenance is nullable so pre-grounding rows stay readable: those keep only `viscosity`, which the API reads as a one-entry grade list with unknown liters.
+/// A document the oil-spec retrieval found and deliberately did not read: a PDF the
+/// content-type gate refused, or a document linked from an accepted page. Insert-only —
+/// finding the same URL again adds a row, so what was visible when stays legible.
+model OilSourceCandidate {
+  id             String   @id @default(cuid())
+  make           String
+  year           Int
+  model          String
+  version        String
+  url            String
+  /// Domain the document is served from, as shown to a reader.
+  publisher      String
+  /// The searching model's document class for this document, or the class of the page it came from.
+  classification String
+  /// Tier 1-5 derived from `classification` by the fixed map; never supplied by a model.
+  tier           Int
+  /// The accepted page this document was linked from. Null when the search itself returned it —
+  /// which is also what says whether the classification was earned or inherited.
+  discoveredVia  String?  @map("discovered_via")
+  /// The human-readable label the linking page gave this document, when it gave one.
+  label          String?
+  /// Why this document was kept when the page offered more than the cap.
+  selectionReason String? @map("selection_reason")
+  foundAt        DateTime @map("found_at") @db.Timestamptz(3)
+  createdAt      DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+
+  @@index([year, make, model, version])
+  @@map("oil_source_candidate")
+}
+
+/// Ingestion of one manual, keyed by its URL (ingest-harvested-manuals D3). One manual can be a
+/// candidate for several identities, and oil_source_candidate is insert-only with a row per
+/// find, so the work state lives here, once per document URL: every candidate row for the
+/// URL shares it. A definite refusal (a 4xx other than 408/429, robots, not a PDF, over a
+/// limit, no text layer) is terminal; a transient one stays pending and is retried.
+model OilManualIngestion {
+  url           String    @id
+  /// pending, ingesting, parsing, ingested, refused or failed. The claim counts the attempt and
+  /// `parsing` is committed before the parse, so a parse that kills the worker still counts.
+  state         String    @default("pending")
+  /// Why it was refused, or what the last transient failure was.
+  reason        String?
+  /// True when the refusal is definite and must not be retried.
+  definite      Boolean   @default(false)
+  attempts      Int       @default(0)
+  nextAttemptAt DateTime? @map("next_attempt_at") @db.Timestamptz(3)
+  createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+
+  documents OilManualDocument[]
+  readings  OilManualReading[]
+
+  @@map("oil_manual_ingestion")
+}
+
+/// One download of a manual: the checksum of the bytes read and what they held. Insert-only;
+/// a re-ingest whose checksum changed adds a row and the old one stays as history. The binary
+/// is not stored (owner, Q2): the URL plus the checksum prove which bytes were read.
+model OilManualDocument {
+  id        String   @id @default(cuid())
+  url       String
+  /// SHA-256 of the bytes read, hex.
+  sha256    String
+  bytes     Int
+  pages     Int
+  /// The revision the document states about itself, when it states one.
+  revision  String?
+  fetchedAt DateTime @map("fetched_at") @db.Timestamptz(3)
+  fetchMs   Int      @map("fetch_ms")
+  parseMs   Int      @map("parse_ms")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+
+  ingestion OilManualIngestion @relation(fields: [url], references: [url])
+  pageTexts OilManualPage[]
+  readings  OilManualReading[]
+
+  @@index([url, fetchedAt])
+  @@map("oil_manual_document")
+}
+
+/// The extracted text of one page of a stored manual, with its page number. Text only.
+model OilManualPage {
+  documentId String @map("document_id")
+  pageNumber Int    @map("page_number")
+  text       String
+
+  document OilManualDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@id([documentId, pageNumber])
+  @@map("oil_manual_page")
+}
+
+/// One identity's reading of a manual (D7). The spec to extract depends on the engine, and one
+/// manual can list several, so a reading is per (URL, identity): the pages are downloaded once,
+/// and each identity that queued the URL gets its own reading. Created pending when the
+/// identity queues the URL; the job fills in the document it read and the outcome.
+model OilManualReading {
+  id         String    @id @default(cuid())
+  url        String
+  make       String
+  year       Int
+  model      String
+  version    String
+  /// pending, reading (claimed; read_at stamps the claim), verified, stated_nothing or failed.
+  /// stated_nothing is not read again; failed is retried every 6 h until it has had three attempts.
+  status     String    @default("pending")
+  /// Attempts so far, each counted when claimed; after three a reading is a definite `failed`.
+  attempts   Int       @default(0)
+  documentId String?   @map("document_id")
+  /// The extracted spec (grades, liters, capacity type) when verified.
+  spec       Json?
+  /// The page or pages the passage was read from, as cited ("p. 142").
+  citedPage  String?   @map("cited_page")
+  /// The passage read, kept so the reading stays auditable.
+  excerpt    String?
+  /// The model that read it, for audit.
+  readBy     String?   @map("read_by")
+  readAt     DateTime? @map("read_at") @db.Timestamptz(3)
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+
+  ingestion OilManualIngestion @relation(fields: [url], references: [url])
+  document  OilManualDocument? @relation(fields: [documentId], references: [id])
+
+  @@unique([url, make, year, model, version])
+  @@map("oil_manual_reading")
+}
+
+/// Background research of one vehicle identity (background-oil-research D6–D12), shared by every
+/// vehicle and unit carrying it. Written only through the research store: one enqueue statement
+/// for every caller, then leased claims and compare-and-set writes by the runner.
+model OilResearch {
+  id                   String    @id
+  /// `year|make|model|version` under the caches' normalization (D6); one row per identity.
+  identityKey          String    @unique @map("identity_key")
+  /// The raw spelling of the first enqueue; the runner writes candidates, readings and cache rows with it.
+  make                 String
+  year                 Int
+  model                String
+  version              String
+  /// queued, running, waiting_manual, verified, no_spec, needs_clarification, conflicting_sources, failed or abandoned.
+  state                String    @default("queued")
+  /// full, refetch, manual_resolve or engine_pick (D7, D24). A retry keeps it.
+  kind                 String    @default("full")
+  /// 0 someone is waiting, 1 a registration or a manual upgrade, 2 the backfill (D8). On a verified row it orders only its Tecfil claim.
+  priority             Int       @default(2)
+  /// quote_open, refetch, registration, backfill, manual_upgrade, wait_ended, adopted or engine_pick.
+  trigger              String
+  /// Attempts in the current cycle, each counted at claim; reset to 0 by every new cycle (D10).
+  attempts             Int       @default(0)
+  leaseUntil           DateTime? @map("lease_until") @db.Timestamptz(3)
+  /// When the row was last queued; the claim's third ordering key.
+  queuedAt             DateTime  @map("queued_at") @db.Timestamptz(3)
+  /// When the current cycle started (D10).
+  cycleQueuedAt        DateTime  @map("cycle_queued_at") @db.Timestamptz(3)
+  /// When someone started waiting on the current cycle (D7): the anchor of the elapsed time and the estimate.
+  requestedAt          DateTime? @map("requested_at") @db.Timestamptz(3)
+  /// A retry's backoff: not claimed before it. Null is due now.
+  dueAt                DateTime? @map("due_at") @db.Timestamptz(3)
+  startedAt            DateTime? @map("started_at") @db.Timestamptz(3)
+  finishedAt           DateTime? @map("finished_at") @db.Timestamptz(3)
+  /// The stored estimate (D14), seconds from `requested_at`; computed at three moments only, never on a read.
+  expectedMinS         Int?      @map("expected_min_s")
+  expectedMaxS         Int?      @map("expected_max_s")
+  /// A refetch or manual upgrade that arrived while the row was running (D7); the recorder starts it.
+  pendingKind          String?   @map("pending_kind")
+  pendingPriority      Int?      @map("pending_priority")
+  pendingRequestedAt   DateTime? @map("pending_requested_at") @db.Timestamptz(3)
+  /// The manual wait (D11).
+  waitStartedAt        DateTime? @map("wait_started_at") @db.Timestamptz(3)
+  manualWaitUntil      DateTime? @map("manual_wait_until") @db.Timestamptz(3)
+  /// When the run behind the current outcome loaded the stored readings, or an adopted row's `consulted_at` (D11).
+  sourcesReadAt        DateTime? @map("sources_read_at") @db.Timestamptz(3)
+  /// False for a no_spec recorded while the web search could not run (D10).
+  searched             Boolean   @default(true)
+  /// The last recorded outcome, and its payload (engines named, conflicts).
+  outcome              String?
+  outcomePayload       Json?     @map("outcome_payload")
+  /// The claim in force, research or Tecfil; every write after a claim compares it.
+  currentRunId         String?   @map("current_run_id")
+  /// Tecfil's own claim (D12): pending, running, ok, unmatched or unavailable; null before the spec is verified.
+  tecfilState          String?   @map("tecfil_state")
+  tecfilLeaseUntil     DateTime? @map("tecfil_lease_until") @db.Timestamptz(3)
+  tecfilAttempts       Int       @default(0) @map("tecfil_attempts")
+  tecfilDueAt          DateTime? @map("tecfil_due_at") @db.Timestamptz(3)
+  /// The field that did not match, for an `unmatched` Tecfil state.
+  tecfilUnmatchedField String?   @map("tecfil_unmatched_field")
+  /// An engine_pick cycle (D24): the engine picked, verbatim, and the identity key the clarification rested on.
+  enginePickEngine     String?   @map("engine_pick_engine")
+  enginePickFrom       String?   @map("engine_pick_from")
+  /// A copy of the passages the clarification read, each with publisher, document, page, URL, tier, class and excerpt, so the re-read and a verified row's citation never depend on the earlier identity's row.
+  enginePickPassages   Json?     @map("engine_pick_passages")
+  /// The pick reopened a resting outcome (G2): a re-read that does not verify keeps it, dated by the run.
+  enginePickReopened   Boolean   @default(false) @map("engine_pick_reopened")
+  createdAt            DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt            DateTime  @default(now()) @map("updated_at") @db.Timestamptz(3)
+
+  runs OilResearchRun[]
+
+  @@index([state, priority, requestedAt, queuedAt, id], map: "oil_research_claim_idx")
+  @@map("oil_research")
+}
+
+/// One research run, Tecfil consultation or manual reading, with its timings and its cost (D14).
+/// The budget sums `cost_usd` by `started_at`; the estimate reads the finished runs per path.
+model OilResearchRun {
+  id            String    @id
+  /// Null for a manual reading.
+  researchId    String?   @map("research_id")
+  identityKey   String    @map("identity_key")
+  /// full, refetch, manual_resolve, engine_pick, tecfil_only or manual_reading.
+  kind          String
+  trigger       String
+  /// search, manual, tecfil, reading or engine_pick (kept out of the search and manual samples, D14).
+  path          String
+  queuedAt      DateTime? @map("queued_at") @db.Timestamptz(3)
+  cycleQueuedAt DateTime? @map("cycle_queued_at") @db.Timestamptz(3)
+  requestedAt   DateTime? @map("requested_at") @db.Timestamptz(3)
+  /// A re-resolve's wait start, for the manual path's duration.
+  waitStartedAt DateTime? @map("wait_started_at") @db.Timestamptz(3)
+  startedAt     DateTime  @map("started_at") @db.Timestamptz(3)
+  finishedAt    DateTime? @map("finished_at") @db.Timestamptz(3)
+  /// verified, no_spec, needs_clarification, conflicting_sources, waiting_manual, unavailable, failed, released, lost, a Tecfil state or a reading's own outcome.
+  outcome       String?
+  incomplete    Boolean   @default(false)
+  /// Milliseconds per stage: motul, webSearch, passage, extraction, escalation, tecfil.
+  stageMs       Json?     @map("stage_ms")
+  /// The research model the run was configured with, `provider:model:effort`, written at claim
+  /// (switch-oil-research-to-openai D7). Null on rows written before it: read as
+  /// glm:glm-5.3-flash:high. The duration estimate samples only the model in force.
+  researchModel String?   @map("research_model")
+  /// Model calls the run made, the picker's excluded. Named for GLM, which made every call when the
+  /// column was added; it counts the research model's calls whatever the provider (D7: not renamed,
+  /// so a worker still running between the migration and the deploy keeps writing).
+  glmCalls      Int       @default(0) @map("glm_calls")
+  searchCalls   Int       @default(0) @map("search_calls")
+  timedOutCalls Int       @default(0) @map("timed_out_calls")
+  /// Per `provider:model`: input, cached-input, reasoning and output tokens, calls, cost.
+  tokens        Json?
+  usageKnown    Boolean   @default(true) @map("usage_known")
+  /// The capped spend, USD: model calls and answered tool calls, the picker excluded.
+  costUsd       Decimal   @default(0) @map("cost_usd") @db.Decimal(12, 6)
+  /// The (model, effort sent) pairs.
+  efforts       Json?
+  pickerCalls   Int       @default(0) @map("picker_calls")
+  pickerTokens  Json?     @map("picker_tokens")
+  /// The Tecfil picker's spend, outside the cap.
+  pickerCostUsd Decimal   @default(0) @map("picker_cost_usd") @db.Decimal(12, 6)
+  createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+
+  research OilResearch? @relation(fields: [researchId], references: [id], onDelete: SetNull)
+
+  @@index([startedAt])
+  @@index([path, finishedAt])
+  @@map("oil_research_run")
+}
+
+/// The research runner's one row (D9, D13): its heartbeat, the key flag, the day's spend against
+/// the budget, any pause with its end, and the sweep's watermark. The claim locks it FOR UPDATE, so
+/// research runs one at a time across every worker process sharing the database.
+model OilResearchRunner {
+  id             String    @id @default("runner")
+  lastSeenAt     DateTime? @map("last_seen_at") @db.Timestamptz(3)
+  keySet         Boolean   @default(false) @map("key_set")
+  /// Whether the runner can web-search right now: WEB_SEARCH_ENABLED and a search key (PR 4, review
+  /// of #188). A quote-open re-opens a no_spec recorded `searched: false` only while this is true.
+  searchAvailable Boolean  @default(false) @map("search_available")
+  /// The America/Sao_Paulo calendar day the spend below is for, `YYYY-MM-DD`.
+  day            String?
+  daySpendUsd    Decimal   @default(0) @map("day_spend_usd") @db.Decimal(12, 6)
+  budgetUsd      Decimal?  @map("budget_usd") @db.Decimal(12, 6)
+  /// no_key, provider or budget; null when not paused. `budget` holds only the backfill.
+  pausedReason   String?   @map("paused_reason")
+  pausedUntil    DateTime? @map("paused_until") @db.Timestamptz(3)
+  /// The sweep read vehicles updated up to here.
+  sweepWatermark DateTime? @map("sweep_watermark") @db.Timestamptz(3)
+  /// Since when the Motul Oil Advisor has been failing without an answer; null while it answers.
+  /// Stamped by a run's first `unavailable`, cleared by any other answer. After
+  /// MOTUL_DEGRADED_AFTER_MS of it Motul is degraded and no longer makes a run incomplete
+  /// (oil-research-web-retrieval D6).
+  motulFailingSince DateTime? @map("motul_failing_since") @db.Timestamptz(3)
+  updatedAt      DateTime  @default(now()) @map("updated_at") @db.Timestamptz(3)
+
+  @@map("oil_research_runner")
+}
+
+/// A search for one vehicle identity that found nothing usable. Read to avoid paying for the
+/// same empty search twice; MUST NOT be offered to the attendant as a previous result, which
+/// is why it is not a column on MotulCompatibility.
+model OilSpecSearchMiss {
+  id         String   @id @default(cuid())
+  make       String
+  year       Int
+  model      String
+  version    String
+  /// Why nothing was usable, for tuning the blocklist and the window.
+  reason     String
+  searchedAt DateTime @map("searched_at") @db.Timestamptz(3)
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+
+  @@index([year, make, model, version])
+  @@map("oil_spec_search_miss")
+}
+
+/// A fill volume an attendant typed for a vehicle identity whose cited sources gave no usable
+/// service-fill liters, kept with "Guardar para este modelo" (`quotes/oil-attendant-fill`, D24).
+/// Insert-only: the latest row per identity is the one read, so every value typed stays auditable.
+/// A human input, never a cited source: no publisher, document, page, URL or excerpt, and research
+/// never reads it. A quote reads it only while the latest cache row has no usable liters.
+model OilAttendantFill {
+  id               String   @id
+  /// `year|make|model|version` under the caches' normalization (D6), as `oil_research` keys it.
+  identityKey      String   @map("identity_key")
+  /// The spelling of the vehicle it was typed from.
+  make             String
+  year             Int
+  model            String
+  version          String
+  /// The in-service (with filter) volume the field asked for: > 0, at most two decimals.
+  liters           Decimal  @db.Decimal(6, 2)
+  recordedByUserId String   @map("recorded_by_user_id") @db.Uuid
+  recordedBy       User     @relation(fields: [recordedByUserId], references: [id], onDelete: Restrict)
+  recordedAt       DateTime @default(now()) @map("recorded_at") @db.Timestamptz(3)
+
+  @@index([identityKey, recordedAt])
+  @@map("oil_attendant_fill")
+}
+
+model MotulCompatibility {
+  id              String   @id @default(cuid())
+  make            String
+  year            Int
+  model           String
+  version         String
+  /// Every SAE grade the source listed, in source order. Null on pre-grounding rows.
+  viscosities     Json?
+  /// The first listed grade, kept so reuse headlines and older readers still have one value.
+  viscosity       String
+  classification  String
+  /// Service-fill liters. Null when a grade was verified and capacity was not.
+  fillLiters      Decimal? @map("fill_liters") @db.Decimal(6, 3)
+  /// Legend that produced `fillLiters`: `em_servico` or `unlabeled`. Dry fill is never stored here.
+  fillKind        String?  @map("fill_kind")
+  /// What the volume is (D5): with_filter or unlabeled for fillLiters, or without_filter or dry for
+  /// unusableFillLiters. Null on rows written before it: read from fillKind.
+  fillCondition   String?  @map("fill_condition")
+  /// A volume a change does not use (without filter, or dry): recorded, never priced.
+  unusableFillLiters Decimal? @map("unusable_fill_liters") @db.Decimal(6, 3)
+  sourcePublisher String?  @map("source_publisher")
+  sourceDocument  String?  @map("source_document")
+  sourcePage      String?  @map("source_page")
+  /// prompt.md source tier, 1 (manufacturer manual) to 5 (aftermarket catalog). Null on rows written before the column existed.
+  sourceAuthority Int?     @map("source_authority")
+  sourceUrl       String?  @map("source_url")
+  /// The searching model's document class for a web-found source; the tier above was derived from it. Null for fixture and Motul sources.
+  sourceClassification String? @map("source_classification")
+  /// The passage the extractor read, kept for web-found sources so the quote stays auditable after the page changes.
+  sourceExcerpt   String?  @map("source_excerpt")
+  /// Each grade's source, and the liters' source (D11, owner 2026-09-25): grade entries grouped by source, `liters` a sibling key. Null on rows written before it; those read as one provenance, the source_* columns above.
+  gradeSources    Json?    @map("grade_sources")
+  consultedAt     DateTime @map("consulted_at")
+  rawPayload      Json?    @map("raw_payload")
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  @@index([year, make, model, version])
+  @@map("motul_compatibility")
+}
+
+/// Cached Tecfil filter fitment for a make/year/model/version identity, shared across customers. Insert-only history: reuse reads the matching row with the latest `consultedAt`. Carries no price, catalog item id, or vehicle id.
+model TecfilCompatibility {
+  id                String   @id @default(cuid())
+  make              String
+  year              Int
+  model             String
+  version           String
+  manufacturerLabel String   @map("manufacturer_label")
+  vehicleLabel      String   @map("vehicle_label")
+  engineLabel       String?  @map("engine_label")
+  matchedBy         Json     @map("matched_by")
+  oilFilters        Json     @map("oil_filters")
+  fuelFilters       Json     @map("fuel_filters")
+  consultedAt       DateTime @map("consulted_at")
+  rawPayload        Json?    @map("raw_payload")
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  @@index([year, make, model, version])
+  @@map("tecfil_compatibility")
+}
+
+/// Generic catalog product. Oil spec lives on `CatalogLubricant` and filter fitment on `CatalogFilter`; an item carries at most one of the two.
+model CatalogItem {
+  id          String             @id @default(cuid())
+  brand       String
+  description String
+  price       Decimal            @db.Decimal(10, 2)
+  stock       Decimal            @db.Decimal(12, 3)
+  active      Boolean
+  createdAt   DateTime           @default(now()) @map("created_at")
+  updatedAt   DateTime           @updatedAt @map("updated_at")
+  quoteLines  OilQuoteLine[]
+  lubricant   CatalogLubricant?
+  filter      CatalogFilter?
+
+  @@map("catalog_item")
+}
+
+/// Oil viscosity, Motul classification and oil type for one catalog item. Presence of this row means the item is a lubricant.
+/// `oilType` is SINTETICO | SEMISSINTETICO | MINERAL or null (no recorded type), enforced by a CHECK in the migration and by the zod contract;
+/// it is informative only and never filters an offer (add-lubricant-oil-type).
+model CatalogLubricant {
+  catalogItemId  String      @id @map("catalog_item_id")
+  catalogItem    CatalogItem @relation(fields: [catalogItemId], references: [id], onDelete: Cascade)
+  viscosity      String
+  classification String      @default("")
+  oilType        String?     @map("oil_type")
+
+  @@map("catalog_lubricant")
+}
+
+/// Filter type and part number for one catalog item. Presence of this row means the item is a filter; `filterType` is validated as OLEO | COMBUSTIVEL by the zod contract at the boundary, not by a database enum.
+model CatalogFilter {
+  catalogItemId String      @id @map("catalog_item_id")
+  catalogItem   CatalogItem @relation(fields: [catalogItemId], references: [id], onDelete: Cascade)
+  filterType    String      @map("filter_type")
+  partNumber    String      @map("part_number")
+
+  @@map("catalog_filter")
+}
+
+model OilQuote {
+  id                    String         @id @default(cuid())
+  customerId            String         @map("customer_id")
+  customer              Customer       @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  vehicleId             String         @map("vehicle_id")
+  vehicle               Vehicle        @relation(fields: [vehicleId], references: [id], onDelete: Restrict)
+  conversationId        String?        @map("conversation_id")
+  conversation          Conversation?  @relation(fields: [conversationId], references: [id], onDelete: SetNull)
+  generatedMessageText  String         @map("generated_message_text")
+  createdByUserId       String         @map("created_by_user_id") @db.Uuid
+  createdByUser         User           @relation(fields: [createdByUserId], references: [id], onDelete: Restrict)
+  createdAt             DateTime       @default(now()) @map("created_at")
+  updatedAt             DateTime       @updatedAt @map("updated_at")
+  lines                 OilQuoteLine[]
+  quoteAttributions     ServiceQuoteAttribution[]
+
+  @@index([customerId])
+  @@index([vehicleId])
+  @@map("oil_quote")
+}
+
+model OilQuoteLine {
+  id            String      @id @default(cuid())
+  oilQuoteId    String      @map("oil_quote_id")
+  oilQuote      OilQuote    @relation(fields: [oilQuoteId], references: [id], onDelete: Cascade)
+  catalogItemId String      @map("catalog_item_id")
+  catalogItem   CatalogItem @relation(fields: [catalogItemId], references: [id], onDelete: Restrict)
+  brand         String
+  description   String
+  price         Decimal     @db.Decimal(10, 2)
+
+  @@index([oilQuoteId])
+  @@map("oil_quote_line")
+}

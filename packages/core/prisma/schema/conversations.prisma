@@ -1,0 +1,149 @@
+// Tables owned by the `conversations` module. Ownership is declared in ownership.json;
+// this file and that entry are kept in agreement by schema-ownership.test.ts.
+// Only `module_conversations` may write them.
+
+model Conversation {
+  id                   String                     @id @default(cuid())
+  whatsappConnectionId String                     @map("whatsapp_connection_id")
+  whatsappConnection   WhatsAppConnection         @relation(fields: [whatsappConnectionId], references: [id])
+  remoteJid            String                     @map("remote_jid")
+  customerId           String?                    @map("customer_id")
+  chatKey              String                     @map("chat_key")
+  sourceType                String                     @default("UNKNOWN") @map("source_type")
+  sourceEvidenceType        String?                    @map("source_evidence_type")
+  sourceEvidenceReference   String?                    @map("source_evidence_reference")
+  sourceEvidenceAt          DateTime?                  @map("source_evidence_at")
+  ctwaClid                  String?                    @map("ctwa_clid")
+  campaignId                String?                    @map("campaign_id")
+  adSetId                   String?                    @map("ad_set_id")
+  adId                      String?                    @map("ad_id")
+  classificationRuleVersion String?                    @map("classification_rule_version")
+  startedAt                 DateTime                   @map("started_at")
+  firstInboundAt       DateTime?                  @map("first_inbound_at")
+  firstOutboundAt      DateTime?                  @map("first_outbound_at")
+  lastInboundAt        DateTime?                  @map("last_inbound_at")
+  lastOutboundAt       DateTime?                  @map("last_outbound_at")
+  lastMessageAt        DateTime                   @map("last_message_at")
+  lastPrefillWindowClosedAt DateTime?             @map("last_prefill_window_closed_at")
+  /// When false, the worker does not open a silence window or call the language model.
+  prefillExtractEnabled     Boolean               @default(false) @map("prefill_extract_enabled")
+  createdAt            DateTime                   @default(now()) @map("created_at")
+  updatedAt            DateTime                   @updatedAt @map("updated_at")
+  messages             Message[]
+  outboxMessages       OutboxMessage[]
+  prefillJobs          CadastroPrefillJob[]
+  prefillSuggestion    CadastroPrefillSuggestion?
+  conversationTags      ConversationTag[]
+  scheduledMessages     ScheduledMessage[]
+  oilQuotes             OilQuote[]
+  conversationAttributions ServiceConversationAttribution[]
+  followUpClosedEntries    FollowUpClosedEntry[]
+
+  @@unique([whatsappConnectionId, chatKey])
+  @@map("conversation")
+}
+
+model Message {
+  id                String       @id @default(cuid())
+  conversationId    String       @map("conversation_id")
+  conversation      Conversation @relation(fields: [conversationId], references: [id])
+  externalMessageId String       @map("external_message_id")
+  direction         String
+  messageType       String       @map("message_type")
+  textBody          String?      @map("text_body")
+  mediaMimeType     String?      @map("media_mime_type")
+  mediaFileName      String?   @map("media_file_name")
+  providerTimestamp  DateTime  @map("provider_timestamp")
+  providerStatus     String?   @map("provider_status")
+  sentAt             DateTime? @map("sent_at")
+  deliveredAt        DateTime? @map("delivered_at")
+  readAt             DateTime? @map("read_at")
+  failedAt           DateTime? @map("failed_at")
+  contentUnavailable Boolean   @default(false) @map("content_unavailable")
+  shouldReply        Boolean?  @map("should_reply")
+  /// `LIVE` from ingest/history; `SEED` from the demo seed. Existing rows default LIVE so they are scrub-able.
+  origin             String    @default("LIVE")
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+
+  @@unique([conversationId, externalMessageId])
+  @@index([conversationId, providerTimestamp])
+  @@map("message")
+}
+
+model Tag {
+  id        String            @id @default(cuid())
+  unitId    String            @map("unit_id")
+  unit      Unit              @relation(fields: [unitId], references: [id], onDelete: Restrict)
+  name      String
+  color     String?
+  sortOrder Int               @default(0) @map("sort_order")
+  active    Boolean           @default(true)
+  createdAt DateTime          @default(now()) @map("created_at")
+  updatedAt DateTime          @updatedAt @map("updated_at")
+  applies   ConversationTag[]
+
+  @@index([unitId])
+  @@map("tag")
+}
+
+model Template {
+  id               String   @id @default(cuid())
+  unitId           String   @map("unit_id")
+  unit             Unit     @relation(fields: [unitId], references: [id], onDelete: Restrict)
+  name             String
+  text             String
+  allowedVariables Json     @map("allowed_variables")
+  status           String   @default("active")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  scheduledMessages ScheduledMessage[]
+  returnReminderMessages ReturnReminderMessage[]
+
+  @@index([unitId])
+  @@map("template")
+}
+
+model ConversationTag {
+  id               String       @id @default(cuid())
+  conversationId   String       @map("conversation_id")
+  conversation     Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  tagId            String       @map("tag_id")
+  tag              Tag          @relation(fields: [tagId], references: [id], onDelete: Restrict)
+  assignedAt       DateTime     @default(now()) @map("assigned_at")
+  removedAt        DateTime?    @map("removed_at")
+  assignedByUserId String?      @map("assigned_by_user_id")
+  createdAt        DateTime     @default(now()) @map("created_at")
+  updatedAt        DateTime     @updatedAt @map("updated_at")
+
+  @@index([conversationId])
+  @@index([tagId])
+  @@map("conversation_tag")
+}
+
+/// A Follow-up entry the attendant closed. Only the two message-pendency
+/// sections use this: a return is a row with a lifecycle, so closing one is a
+/// status on `VehicleReturn`, not an entry here.
+///
+/// `anchor` is what made the entry qualify — the quote message id, or the
+/// pending inbound id. A newer anchor is a different entry, so it reappears
+/// without anything expiring on a timer. There is deliberately no expiry
+/// instant: closing is not a snooze.
+model FollowUpClosedEntry {
+  id              String   @id @default(cuid())
+  /// unansweredQuotes | waitingReply.
+  section         String
+  unitId          String   @map("unit_id")
+  unit            Unit     @relation(fields: [unitId], references: [id], onDelete: Cascade)
+  conversationId  String   @map("conversation_id")
+  conversation    Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  anchor          String
+  closedByUserId  String   @map("closed_by_user_id") @db.Uuid
+  closedByUser    User     @relation(fields: [closedByUserId], references: [id], onDelete: Restrict)
+  closedAt        DateTime @default(now()) @map("closed_at")
+
+  @@unique([section, conversationId, anchor])
+  @@index([unitId, section])
+  @@map("follow_up_closed_entry")
+}

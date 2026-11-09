@@ -1,0 +1,62 @@
+# Local Supabase for the exploratory tours — AUTH ONLY.
+#
+# `pnpm tours:supabase:start` runs `supabase start` with this directory as the
+# workdir. The tour stack points VITE_SUPABASE_URL, SUPABASE_URL and the anon key
+# at http://127.0.0.1:54321 and signs in as the seeded test user, so no tour run
+# ever reaches the production Supabase project. See `local-supabase.mjs` and the
+# OpenSpec change `tours-local-supabase`.
+#
+# Everything but Auth (GoTrue), its Postgres and the API gateway on 54321 is
+# switched off: the CRM's own tables live in the Compose Postgres on 5433, never
+# here, and Data API / Storage / Realtime are not used by the CRM at all.
+#
+# Keys not set here take the CLI's defaults.
+
+project_id = "select-lub-crm-tours"
+
+[api]
+# PostgREST off. The gateway on 54321 still serves /auth/v1.
+enabled = false
+port = 54321
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 17
+
+[db.seed]
+# The test user is created through the Auth admin API by local-supabase.mjs,
+# not by SQL, so GoTrue writes its own rows (identities included).
+enabled = false
+
+[realtime]
+enabled = false
+
+[studio]
+enabled = false
+
+[local_smtp]
+enabled = false
+
+[storage]
+enabled = false
+
+[edge_runtime]
+enabled = false
+
+[analytics]
+enabled = false
+
+[auth]
+enabled = true
+site_url = "http://127.0.0.1:5174"
+# Public sign-up off: the only account is the one the seed step creates through
+# the admin API. Password sign-in for an existing user still works.
+enable_signup = false
+jwt_expiry = 3600
+minimum_password_length = 6
+
+[auth.email]
+# Must stay on: it is what enables the email + password grant itself.
+enable_signup = true
+enable_confirmations = false

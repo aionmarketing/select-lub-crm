@@ -1,0 +1,21 @@
+{
+  "_note": "Observed live on 2026-09-05 before the APIBrasil account was registered as a CNPJ. Reproduced here by hand because the account is now PJ and the gateway no longer returns this envelope. Message text is verbatim, including the missing accents the gateway sends.",
+  "http": 403,
+  "json": {
+    "user": {
+      "first_name": "REDACTED",
+      "email": "REDACTED",
+      "cellphone": "REDACTED",
+      "notification": "yes"
+    },
+    "balance": "0,000",
+    "balance_before": "0,000",
+    "tax": "0,000",
+    "status_code": 403,
+    "error": true,
+    "message": "Acesso negado. Esta API e exclusiva para usuarios PJ (Pessoa Juridica). Voce nao foi tarifado.",
+    "pj_required": true,
+    "service": "agregados-propria",
+    "hint": "Para utilizar este servico cadastre uma conta PJ ou contate o suporte para regularizar seu cadastro."
+  }
+}

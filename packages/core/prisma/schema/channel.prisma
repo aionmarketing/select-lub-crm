@@ -1,0 +1,61 @@
+// Tables owned by the `channel` module. Ownership is declared in ownership.json;
+// this file and that entry are kept in agreement by schema-ownership.test.ts.
+// Only `module_channel` may write them.
+
+model WhatsAppConnection {
+  id                   String         @id @default(cuid())
+  unitId               String         @map("unit_id")
+  unit                 Unit           @relation(fields: [unitId], references: [id])
+  instanceName         String         @unique @map("instance_name")
+  provider             String         @default("EVOLUTION_BAILEYS")
+  connectionState      String         @default("DISCONNECTED") @map("connection_state")
+  lastConnectedAt      DateTime?      @map("last_connected_at")
+  lastDisconnectedAt   DateTime?      @map("last_disconnected_at")
+  lastDisconnectReason String?        @map("last_disconnect_reason")
+  /// When the stored `connection_state` was observed: a webhook's receipt time, or
+  /// the instant before the reconcile's probe. A write observed earlier is ignored.
+  stateObservedAt      DateTime?      @map("state_observed_at")
+  createdAt            DateTime       @default(now()) @map("created_at")
+  updatedAt            DateTime       @updatedAt @map("updated_at")
+  conversations        Conversation[]
+  webhookEvents        WebhookEvent[]
+
+  @@map("whatsapp_connection")
+}
+
+model WebhookEvent {
+  id                   String              @id @default(cuid())
+  payload              Json
+  status               String
+  attemptCount         Int                 @default(0) @map("attempt_count")
+  whatsappConnectionId String?             @map("whatsapp_connection_id")
+  whatsappConnection   WhatsAppConnection? @relation(fields: [whatsappConnectionId], references: [id])
+  externalMessageId    String?             @map("external_message_id")
+  createdAt            DateTime            @default(now()) @map("created_at")
+  updatedAt            DateTime            @updatedAt @map("updated_at")
+
+  @@index([status, updatedAt])
+  @@map("webhook_event")
+}
+
+model OutboxMessage {
+  id                String       @id @default(cuid())
+  conversationId    String       @map("conversation_id")
+  conversation      Conversation @relation(fields: [conversationId], references: [id])
+  messageType       String       @default("text") @map("message_type")
+  textBody          String?      @map("text_body")
+  mediaBytes        Bytes?       @map("media_bytes")
+  mediaMimeType     String?      @map("media_mime_type")
+  mediaFileName     String?      @map("media_file_name")
+  status            String
+  attemptCount      Int          @default(0) @map("attempt_count")
+  externalMessageId String?      @map("external_message_id")
+  claimedAt         DateTime?    @map("claimed_at")
+  lastError         String?      @map("last_error")
+  idempotencyKey    String?      @unique @map("idempotency_key")
+  createdAt         DateTime     @default(now()) @map("created_at")
+  updatedAt         DateTime     @updatedAt @map("updated_at")
+
+  @@index([status, createdAt])
+  @@map("outbox_message")
+}

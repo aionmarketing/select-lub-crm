@@ -1,0 +1,22 @@
+{
+  "http": 404,
+  "json": {
+    "user": {
+      "first_name": "REDACTED",
+      "email": "REDACTED",
+      "cellphone": "REDACTED",
+      "notification": "yes"
+    },
+    "balance": "44,510",
+    "balance_before": "44,510",
+    "tax": "0,080",
+    "status_code": 404,
+    "error": true,
+    "message": "Nao foi encontrada no banco e nem no fornecedor.",
+    "data": {
+      "error": true,
+      "message": "Nao foi encontrada no banco e nem no fornecedor."
+    }
+  },
+  "_note": "Live capture 2026-09-06, well-formed unregistered plate AAA0000. HTTP 404, error true, not billed (balance_before == balance). Replaces the homolog empty-data envelope from task 1.3. Account identity scrubbed."
+}

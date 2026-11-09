@@ -1,0 +1,64 @@
+{
+  "vehicle": "CHEVROLET (GM) Captiva 2.4L SIDI ECOTEC 2012",
+  "parts": {
+    "motor": {
+      "capacities": [
+        {
+          "volume": "4,70"
+        }
+      ],
+      "products": [
+        {
+          "name": "MOTUL 8100 ECO-LITE 5W-30",
+          "code": "17201",
+          "recOrder": 4,
+          "spec": "API SERVICE SQ-RC, ILSAC GF-7A",
+          "packs": [
+            "1L",
+            "208L"
+          ],
+          "tier": "SPECIALIST"
+        },
+        {
+          "name": "MOTUL X-TECH LITE SAE 5W-30",
+          "code": "17210",
+          "recOrder": 5,
+          "spec": "API PERFORMANCE SP-RC, ILSAC GF-6A",
+          "packs": [
+            "1L",
+            "208L"
+          ],
+          "tier": "AUTHENTIC"
+        },
+        {
+          "name": "MOTUL 6100 SAVE-LITE 5W-30",
+          "code": "15913",
+          "recOrder": 6,
+          "packs": [
+            "208L"
+          ],
+          "tier": "PREMIUM"
+        }
+      ]
+    },
+    "transmissão, automática - 6 marchas": {
+      "capacities": [
+        {
+          "volume": "8,50"
+        }
+      ],
+      "products": [
+        {
+          "name": "MOTUL TRANS ATF VI",
+          "code": "73851",
+          "recOrder": 1
+        },
+        {
+          "name": "MOTUL ATF VI",
+          "code": "19280",
+          "recOrder": 5
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,298 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <style>
+/* ===== BEGIN SHARED FOUNDATION — byte-identical across all five artboards. Do not edit one copy alone. ===== */
+    :root {
+      /* yellow-cta palette (apps/web/src/theme.ts ROLE_TABLES["yellow-cta"]) */
+      --primary:#EAB63D; --on-primary:#111111;
+      --primary-container:#FFF3C4; --on-primary-container:#111111;
+      --secondary:#303030; --on-secondary:#FFFFFF;
+      --secondary-container:#E4E2E1; --on-secondary-container:#303030;
+      /* shared roles (identical on both palettes) */
+      --tertiary:#5f5e5e; --on-tertiary:#FFFFFF;
+      --tertiary-container:#e4e2e1; --on-tertiary-container:#474747;
+      --surface:#FFFFFF; --surface-variant:#EDEDED; --on-surface:#111111;
+      --outline:#D9D9D9;
+      --error:#B3261E; --on-error:#FFFFFF;
+      --error-container:#ffe0e0; --on-error-container:#8a1c1c;
+      --success-container:#e6f4ea; --on-success-container:#1e4620;
+      --whatsapp:#25D366; --on-whatsapp:#111111;
+      --read-tick:#1565C0;
+      /* Gold fails AA as text on white (~1.9:1), so text and icons that would
+         read as "primary" use charcoal — theme.ts does the same for yellow-cta
+         via MuiButton text/outlined and MuiLink overrides. Gold stays a FILL. */
+      --on-surface-accent:#303030;
+      /* spacing scale 4/8/12/16/24/32/48/64 */
+      --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-6:24px; --sp-8:32px; --sp-12:48px; --sp-16:64px;
+      /* radii — inputs/chips, cards (theme.shape.borderRadius), pill CTAs (spacing(2)) */
+      --radius-sm:4px; --radius-md:8px; --radius-lg:16px;
+      /* type scale */
+      --t-page:26px; --t-section:18px; --t-subsection:15px; --t-body:13px; --t-caption:11px; --t-metric:30px;
+    }
+    body { margin:0; font-family:'Inter', system-ui, sans-serif; color:var(--on-surface); background:var(--surface-variant); }
+    a { color:var(--on-surface-accent); }
+    a:hover { color:var(--on-surface); }
+    .t-page { font-size:var(--t-page); font-weight:800; letter-spacing:-0.02em; margin:0; }
+    .t-section { font-size:var(--t-section); font-weight:700; letter-spacing:-0.01em; margin:0; }
+    .t-subsection { font-size:var(--t-subsection); font-weight:600; margin:0; }
+    .t-body { font-size:var(--t-body); font-weight:400; }
+    .t-caption { font-size:var(--t-caption); font-weight:400; color:var(--tertiary); }
+    .t-metric { font-size:var(--t-metric); font-weight:800; letter-spacing:-0.02em; }
+    /* shell */
+    .shell { display:flex; align-items:center; gap:var(--sp-4); padding:0 var(--sp-6); height:52px;
+      background:var(--secondary); color:var(--on-secondary); flex-shrink:0; }
+    .shell-title { font-size:var(--t-subsection); font-weight:800; letter-spacing:-0.01em; flex:1; }
+    .palette-group { display:flex; background:var(--surface); border-radius:var(--radius-sm); padding:2px; gap:2px; }
+    .palette-opt { padding:4px 12px; border-radius:2px; font-size:var(--t-caption); font-weight:600; color:var(--tertiary); }
+    .palette-opt-on { background:var(--primary); color:var(--on-primary); }
+    /* page nav */
+    .nav { display:flex; align-items:stretch; gap:var(--sp-6); padding:0 var(--sp-6);
+      background:var(--surface); border-bottom:1px solid var(--outline); flex-shrink:0; }
+    .nav-item { display:flex; align-items:center; padding:var(--sp-3) 0; font-size:var(--t-body); font-weight:500;
+      color:var(--tertiary); border-bottom:2px solid transparent; }
+    .nav-item-on { color:var(--on-surface); font-weight:700; border-bottom-color:var(--primary); }
+    /* Follow-up pendency badge: the total of the four section counts, from the
+       same contract the Follow-up screen and the Relatórios alert read, so the
+       three cannot disagree. Zero — and counts unavailable — draw no badge at
+       all; a permanent "0" teaches the eye to ignore the one place the number
+       matters. Gold is a fill, never text, so the pill is gold with charcoal
+       digits rather than gold numerals. */
+    .nav-badge { display:inline-flex; align-items:center; justify-content:center;
+      min-width:18px; height:18px; padding:0 5px; margin-left:6px; border-radius:9px;
+      background:var(--primary); color:var(--on-primary); font-size:var(--t-caption);
+      font-weight:700; line-height:1; font-variant-numeric:tabular-nums; }
+    /* ===== END SHARED FOUNDATION ===== */
+
+    .page { flex:1; overflow:auto; padding:var(--sp-6); display:flex; flex-direction:column; gap:var(--sp-8); }
+    .band { display:flex; flex-direction:column; gap:var(--sp-3); }
+    .card { background:var(--surface); border-radius:var(--radius-md); padding:var(--sp-4);
+      display:flex; flex-direction:column; gap:var(--sp-3); }
+    .input { padding:10px 12px; border-radius:var(--radius-sm); border:1px solid var(--outline);
+      background:var(--surface); font-size:var(--t-body); }
+    .input-label { font-size:var(--t-caption); font-weight:600; color:var(--tertiary); margin-bottom:var(--sp-1); }
+    .btn-primary { padding:var(--sp-2) var(--sp-4); border-radius:var(--radius-lg); background:var(--primary);
+      color:var(--on-primary); font-weight:600; font-size:var(--t-body); width:fit-content; }
+    .btn-outline { padding:6px 12px; border-radius:var(--radius-lg); border:1px solid var(--outline);
+      color:var(--on-surface-accent); font-weight:600; font-size:var(--t-caption); width:fit-content; }
+    .chip { padding:var(--sp-1) 10px; border-radius:var(--radius-lg); font-size:var(--t-caption);
+      font-weight:600; width:fit-content; }
+    .row { display:flex; align-items:center; gap:var(--sp-3); padding:var(--sp-2) 0;
+      border-bottom:1px solid var(--outline); }
+    .row:last-child { border-bottom:none; }
+    .muted { color:var(--tertiary); font-size:var(--t-body); }
+    .notice { padding:var(--sp-2) var(--sp-3); border-radius:var(--radius-sm); font-size:var(--t-body);
+      background:var(--error-container); color:var(--on-error-container); }
+    /* generic shimmer, exempt from the token rule (not a brand or semantic color) */
+    .skel { height:14px; background:linear-gradient(90deg,#eee,#f5f5f5,#eee); border-radius:var(--radius-sm); }
+    .empty { display:flex; flex-direction:column; align-items:center; gap:var(--sp-2); padding:var(--sp-8) var(--sp-4); }
+  </style>
+</helmet>
+
+<div style="width:1120px; height:1180px; display:flex; flex-direction:column; background:var(--surface-variant);">
+
+  <!-- ===== BEGIN SHARED FOUNDATION MARKUP ===== -->
+  <div class="shell">
+    <span class="shell-title">Select Lub CRM</span>
+    <div class="palette-group">
+      <span class="palette-opt palette-opt-on">Amarelo</span>
+      <span class="palette-opt">Preto</span>
+    </div>
+  </div>
+  <div class="nav">
+    <span class="nav-item">Conversas</span>
+    <span class="nav-item">Serviços</span>
+    <span class="nav-item">Follow-up<span class="nav-badge">13</span></span>
+    <span class="nav-item">Relatórios</span>
+    <span class="nav-item nav-item-on">Configurações</span>
+    <span class="nav-item">Usuários</span>
+  </div>
+  <!-- ===== END SHARED FOUNDATION MARKUP ===== -->
+
+  <div class="page">
+    <h1 class="t-page">Configurações</h1>
+
+    <!-- ============ TAGS — its own loading / empty / error / optimistic ============ -->
+    <div class="band">
+      <h2 class="t-section">Tags</h2>
+
+      <sc-if value="{{tags.loading}}" hint-placeholder-val="{{false}}">
+        <div class="card">
+          <div style="display:flex; gap:var(--sp-3); align-items:flex-end;">
+            <div><div class="skel" style="width:60px; height:11px; margin-bottom:var(--sp-1);"></div><div class="skel" style="width:180px; height:38px;"></div></div>
+            <div><div class="skel" style="width:40px; height:11px; margin-bottom:var(--sp-1);"></div><div class="skel" style="width:140px; height:38px;"></div></div>
+            <div class="skel" style="width:104px; height:34px; border-radius:var(--radius-lg);"></div>
+          </div>
+          <div><div class="skel" style="width:100%; margin-bottom:var(--sp-3);"></div><div class="skel" style="width:100%; margin-bottom:var(--sp-3);"></div><div class="skel" style="width:100%;"></div></div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{tags.error}}" hint-placeholder-val="{{false}}">
+        <div class="card" style="align-items:flex-start;">
+          <div class="notice">Não foi possível carregar as tags.</div>
+          <div class="btn-primary">Tentar de novo</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{tags.form}}" hint-placeholder-val="{{true}}">
+        <div class="card">
+          <div style="display:flex; gap:var(--sp-3); align-items:flex-end;">
+            <div><div class="input-label">Nome da tag</div><div class="input" style="width:180px;">Novo lead</div></div>
+            <div>
+              <div class="input-label">Cor</div>
+              <div class="input" style="width:140px; display:flex; align-items:center; gap:var(--sp-2);">
+                <span style="width:14px; height:14px; border-radius:var(--radius-sm); background:var(--primary-container); border:1px solid var(--outline);"></span>
+                Primária
+              </div>
+            </div>
+            <div class="btn-primary">Criar tag</div>
+          </div>
+
+          <sc-if value="{{tags.empty}}" hint-placeholder-val="{{false}}">
+            <div class="empty">
+              <div class="t-subsection">Nenhuma tag cadastrada</div>
+              <div class="muted">Crie a primeira tag no formulário acima para começar a organizar as conversas.</div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{tags.list}}" hint-placeholder-val="{{true}}">
+            <div>
+              <sc-if value="{{tags.optimistic}}" hint-placeholder-val="{{false}}">
+                <div class="row" style="opacity:0.6;">
+                  <div class="chip" style="background:var(--primary-container); color:var(--on-primary-container);">Novo lead</div>
+                  <span class="t-caption" style="flex:1;">Salvando…</span>
+                </div>
+              </sc-if>
+              <div class="row">
+                <div class="chip" style="background:var(--primary-container); color:var(--on-primary-container);">Em atendimento</div>
+                <span style="flex:1;"></span>
+                <div class="btn-outline">Editar</div>
+                <div class="btn-outline">Desativar</div>
+              </div>
+              <div class="row">
+                <div class="chip" style="background:var(--secondary-container); color:var(--on-secondary-container);">Concluído</div>
+                <span style="flex:1;"></span>
+                <div class="btn-outline">Editar</div>
+                <div class="btn-outline">Desativar</div>
+              </div>
+              <div class="row">
+                <div class="chip" style="background:var(--surface-variant); color:var(--tertiary); border:1px solid var(--outline);">Promoção 2025</div>
+                <span class="t-caption" style="flex:1;">Inativa</span>
+                <div class="btn-outline">Editar</div>
+                <div class="btn-outline">Reativar</div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+    </div>
+
+    <!-- ============ TEMPLATES — its own loading / empty / error / optimistic ============ -->
+    <div class="band">
+      <h2 class="t-section">Templates</h2>
+
+      <sc-if value="{{tpl.loading}}" hint-placeholder-val="{{false}}">
+        <div class="card">
+          <div><div class="skel" style="width:120px; height:11px; margin-bottom:var(--sp-1);"></div><div class="skel" style="width:440px; height:38px;"></div></div>
+          <div><div class="skel" style="width:60px; height:11px; margin-bottom:var(--sp-1);"></div><div class="skel" style="width:440px; height:64px;"></div></div>
+          <div class="skel" style="width:130px; height:34px; border-radius:var(--radius-lg);"></div>
+          <div><div class="skel" style="width:100%; height:52px; margin-bottom:var(--sp-3);"></div><div class="skel" style="width:100%; height:52px;"></div></div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{tpl.error}}" hint-placeholder-val="{{false}}">
+        <div class="card" style="align-items:flex-start;">
+          <div class="notice">Não foi possível carregar os templates.</div>
+          <div class="btn-primary">Tentar de novo</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{tpl.form}}" hint-placeholder-val="{{true}}">
+        <div class="card">
+          <div style="display:flex; flex-direction:column; gap:var(--sp-2); max-width:520px;">
+            <div><div class="input-label">Nome do template</div><div class="input">Lembrete de retorno</div></div>
+            <div><div class="input-label">Texto</div><div class="input" style="min-height:56px; line-height:1.5;">Olá &#123;<span>&#123;</span>nome_cliente&#125;&#125;, já faz um tempo desde sua última troca de óleo na placa &#123;<span>&#123;</span>placa&#125;&#125;. Quer agendar uma visita?</div></div>
+            <div class="btn-primary">Criar template</div>
+          </div>
+
+          <sc-if value="{{tpl.empty}}" hint-placeholder-val="{{false}}">
+            <div class="empty">
+              <div class="t-subsection">Nenhum template cadastrado</div>
+              <div class="muted">Crie o primeiro template acima para reaproveitar respostas nas conversas.</div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{tpl.list}}" hint-placeholder-val="{{true}}">
+            <div style="display:flex; flex-direction:column; gap:var(--sp-3); max-width:520px;">
+              <sc-if value="{{tpl.optimistic}}" hint-placeholder-val="{{false}}">
+                <div style="border:1px solid var(--outline); border-radius:var(--radius-md); padding:var(--sp-3); display:flex; flex-direction:column; gap:var(--sp-1); opacity:0.6;">
+                  <div class="t-subsection">Lembrete de retorno</div>
+                  <div class="t-caption">Salvando…</div>
+                </div>
+              </sc-if>
+              <div style="border:1px solid var(--outline); border-radius:var(--radius-md); padding:var(--sp-3); display:flex; flex-direction:column; gap:var(--sp-2);">
+                <div class="t-subsection">Orçamento de óleo</div>
+                <div class="muted">Segue o orçamento de troca de óleo para o veículo &#123;<span>&#123;</span>placa&#125;&#125;…</div>
+                <div style="display:flex; gap:var(--sp-2);">
+                  <div class="btn-outline">Editar</div>
+                  <div class="btn-outline">Desativar</div>
+                </div>
+              </div>
+              <div style="border:1px solid var(--outline); border-radius:var(--radius-md); padding:var(--sp-3); display:flex; flex-direction:column; gap:var(--sp-2);">
+                <div style="display:flex; align-items:center; gap:var(--sp-2);">
+                  <span class="t-subsection" style="color:var(--tertiary);">Boas-vindas (antigo)</span>
+                  <span class="chip" style="background:var(--surface-variant); color:var(--tertiary); border:1px solid var(--outline);">Inativo</span>
+                </div>
+                <div class="muted">Olá! Bem-vindo à Select Lub…</div>
+                <div style="display:flex; gap:var(--sp-2);">
+                  <div class="btn-outline">Editar</div>
+                  <div class="btn-outline">Reativar</div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script data-dc-script data-props='{
+  "tagsState": {"editor":"enum","default":"Com dados","options":["Com dados","Carregando","Vazio","Erro","Salvando (otimista)"],"section":"Estado — Tags"},
+  "templatesState": {"editor":"enum","default":"Com dados","options":["Com dados","Carregando","Vazio","Erro","Salvando (otimista)"],"section":"Estado — Templates"}
+}'>
+class Component extends DCLogic {
+  renderVals() {
+    const section = (key, fallback) => {
+      const state = this.props[key] ?? fallback;
+      const loading = state === "Carregando";
+      const error = state === "Erro";
+      const empty = state === "Vazio";
+      return {
+        loading,
+        error,
+        empty,
+        optimistic: state === "Salvando (otimista)",
+        // The create form stays visible in the empty state — it is how the
+        // operator leaves that state.
+        form: !loading && !error,
+        list: !loading && !error && !empty
+      };
+    };
+    return {
+      tags: section("tagsState", "Com dados"),
+      tpl: section("templatesState", "Com dados")
+    };
+  }
+}
+</script>
+</body>
+</html>

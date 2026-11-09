@@ -1,0 +1,439 @@
+{
+  "vehicle": {
+    "categoryId": "CAR",
+    "brand": "",
+    "type": "1.0",
+    "model": "Clio",
+    "startYear": "2004",
+    "endYear": "2004",
+    "extraData": {
+      "motulExpertLegends": {
+        "a": "Somente para uso em veículos fora de garantia de fábrica.",
+        "b": "Utilizado no sistema de atuação hidráulica do câmbio.",
+        "c": "Volume seco.",
+        "d": "Volume em serviço.",
+        "e": "Para o compartimento de embreagens.",
+        "f": "Para o compartimento de engrenagens.",
+        "g": "Volume com radiador.",
+        "h": "Seção média.",
+        "i": "Seção externa.",
+        "j": "Número de produção 7 340 241 em diante.",
+        "k": "Até número de produção 7 340 240.",
+        "l": "Número de produção 2834527 em diante.",
+        "m": "Até número de produção 2834526.",
+        "n": "Mecanismo de transferência de torque.",
+        "o": "Para a linha Adventure (FIAT).",
+        "p": "Sem LSD.",
+        "q": "Com LSD."
+      }
+    },
+    "components": [
+      {
+        "capacities": [
+          {
+            "label": "2,80"
+          }
+        ],
+        "category": {
+          "code": "",
+          "name": "transmissão, manual - 5 marchas jh3"
+        },
+        "recommendations": [
+          {
+            "conditions": {
+              "usage": "Normal",
+              "mileage": "-150 000km"
+            },
+            "products": [
+              {
+                "name": "MOTUL MOTYLGEAR 75W-85",
+                "emg": "44901",
+                "apporder": "1",
+                "recommendationCategory": {
+                  "title": "AUTHENTIC",
+                  "description": "Uma escolha autêntica, compatível com as exigências da montadora."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106745_motylgear_75w85_1l_svb38_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL MOTYLGEAR 75W-85"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "44901"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Todas as transmissões mecânicas, caixas de velocidades sincronizadas ou não, caixa/ponte ou caixa de transferência sem deslizamento limitado que operem sob altas cargas de choque, cargas pesadas e regimes de rotação baixos ou cargas moderadas e regimes de rotação elevados. Especialmente desenvolvido para veículos das marcas General Motors, Hyundai, Mitsubishi, Nissan, Toyota, Mercedes Benz, Suzuki, Kia, etc., e qualquer fabricante que recomende um óleo de transmissão SAE 75W-85."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": "API GL-4, API GL-5"
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": ""
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": ""
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/MOTYLGEAR_75W-85_pt_PT_motul_44901_20211109.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Manual"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Motylgear"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "75W-85"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "106745"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650259925"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "Manual"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "Motylgear"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "75W-85"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Transmissão"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "106745"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "3374650259925"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "106745": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106745_motylgear_75w85_1l_svb38_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106745_motylgear_75w85_1l_svb38_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL MOTYLGEAR 75W-85 - SKU 106745"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "conditions": {
+              "usage": "Normal",
+              "mileage": "+150 000km"
+            },
+            "products": [
+              {
+                "name": "MOTUL MOTYLGEAR 75W-85",
+                "emg": "44901",
+                "apporder": "1",
+                "recommendationCategory": {
+                  "title": "AUTHENTIC",
+                  "description": "Uma escolha autêntica, compatível com as exigências da montadora."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106745_motylgear_75w85_1l_svb38_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL MOTYLGEAR 75W-85"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "44901"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Todas as transmissões mecânicas, caixas de velocidades sincronizadas ou não, caixa/ponte ou caixa de transferência sem deslizamento limitado que operem sob altas cargas de choque, cargas pesadas e regimes de rotação baixos ou cargas moderadas e regimes de rotação elevados. Especialmente desenvolvido para veículos das marcas General Motors, Hyundai, Mitsubishi, Nissan, Toyota, Mercedes Benz, Suzuki, Kia, etc., e qualquer fabricante que recomende um óleo de transmissão SAE 75W-85."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": "API GL-4, API GL-5"
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": ""
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": ""
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/MOTYLGEAR_75W-85_pt_PT_motul_44901_20211109.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Manual"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Motylgear"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "75W-85"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "106745"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650259925"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "Manual"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "Motylgear"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "75W-85"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Transmissão"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "106745"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "3374650259925"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "106745": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106745_motylgear_75w85_1l_svb38_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106745_motylgear_75w85_1l_svb38_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL MOTYLGEAR 75W-85 - SKU 106745"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "conditions": {
+          "usage": [
+            {
+              "default": true,
+              "label": "Normal",
+              "comments": []
+            }
+          ]
+        }
+      }
+    ],
+    "conditions": {
+      "mileage": [
+        {
+          "default": true,
+          "label": "-150 000km",
+          "comments": []
+        },
+        {
+          "default": false,
+          "label": "+150 000km",
+          "comments": []
+        }
+      ]
+    }
+  }
+}

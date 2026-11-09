@@ -1,0 +1,38 @@
+// Tables owned by the `prefill` module. Ownership is declared in ownership.json;
+// this file and that entry are kept in agreement by schema-ownership.test.ts.
+// Only `module_prefill` may write them.
+
+model CadastroPrefillJob {
+  id             String                      @id @default(cuid())
+  conversationId String                      @map("conversation_id")
+  conversation   Conversation                @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  status         String
+  dirty          Boolean                     @default(false)
+  lastError      String?                     @map("last_error")
+  /// The `latestInboundAt` of a silence-closed window (owner rulings,
+  /// 2026-09-25). On a finished job (`succeeded` / `failed`), the window it ran
+  /// on. On a queued RETRY job, the failed window it retries: the drain extracts
+  /// now on the current messages, without deriving a window, and closes with
+  /// this time through the forward-only watermark. Null on an ordinary queued job.
+  windowLatestInboundAt DateTime?            @map("window_latest_inbound_at")
+  createdAt      DateTime                    @default(now()) @map("created_at")
+  updatedAt      DateTime                    @updatedAt @map("updated_at")
+  suggestions    CadastroPrefillSuggestion[]
+
+  @@index([conversationId, status])
+  @@map("cadastro_prefill_job")
+}
+
+model CadastroPrefillSuggestion {
+  id             String             @id @default(cuid())
+  conversationId String             @unique @map("conversation_id")
+  conversation   Conversation       @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  fields         Json
+  extractedAt    DateTime           @map("extracted_at")
+  jobId          String             @map("job_id")
+  job            CadastroPrefillJob @relation(fields: [jobId], references: [id], onDelete: Restrict)
+  createdAt      DateTime           @default(now()) @map("created_at")
+  updatedAt      DateTime           @updatedAt @map("updated_at")
+
+  @@map("cadastro_prefill_suggestion")
+}

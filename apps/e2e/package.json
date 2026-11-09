@@ -1,0 +1,29 @@
+{
+  "name": "@select-lub/e2e",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "tsx provision-e2e-database.ts && playwright test",
+    "test:live": "node run-live.mjs",
+    "test:tours": "node run-tours.mjs",
+    "test:tours:disconnected": "node run-tours-disconnected.mjs",
+    "tours:supabase:start": "tsx local-supabase.ts start",
+    "tours:supabase:stop": "tsx local-supabase.ts stop",
+    "test:remote": "node run-remote.mjs",
+    "test:ui": "playwright test --ui",
+    "test:unit": "vitest run",
+    "capture": "node capture/visual-qa.mjs"
+  },
+  "dependencies": {
+    "@select-lub/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@types/node": "catalog:",
+    "supabase": "2.119.0",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

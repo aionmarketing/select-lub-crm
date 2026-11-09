@@ -1,0 +1,2556 @@
+{
+  "meta": {
+    "key": "91299a5707da5023ad9b7700",
+    "brand": "CHEVROLET (GM)",
+    "year": "2012",
+    "model": "Captiva",
+    "submodel": "2.4L SIDI ECOTEC",
+    "vehicleTypeId": "eyJpZCI6ImV5SnBaQ0k2TVRJeE5qa3NJbU1pT2lJeElpd2liU0k2TnpnMU5Td2llU0k2SWpJd01USWlmUSIsInByb3ZpZGVySWQiOjF9"
+  },
+  "cacheKey": "91299a5707da5023ad9b7700",
+  "vehicle": {
+    "categoryId": "CAR",
+    "brand": "",
+    "type": "2.4L SIDI ECOTEC",
+    "model": "Captiva",
+    "startYear": "2012",
+    "endYear": "2012",
+    "extraData": {
+      "motulExpertLegends": {
+        "a": "Somente para uso em veículos fora de garantia de fábrica.",
+        "b": "Utilizado no sistema de atuação hidráulica do câmbio.",
+        "c": "Volume seco.",
+        "d": "Volume em serviço.",
+        "e": "Para o compartimento de embreagens.",
+        "f": "Para o compartimento de engrenagens.",
+        "g": "Volume com radiador.",
+        "h": "Seção média.",
+        "i": "Seção externa.",
+        "j": "Número de produção 7 340 241 em diante.",
+        "k": "Até número de produção 7 340 240.",
+        "l": "Número de produção 2834527 em diante.",
+        "m": "Até número de produção 2834526.",
+        "n": "Mecanismo de transferência de torque.",
+        "o": "Para a linha Adventure (FIAT).",
+        "p": "Sem LSD.",
+        "q": "Com LSD."
+      }
+    },
+    "components": [
+      {
+        "capacities": [
+          {
+            "label": "4,70"
+          }
+        ],
+        "category": {
+          "code": "",
+          "name": "motor"
+        },
+        "recommendations": [
+          {
+            "conditions": {
+              "usage": "Normal",
+              "mileage": "-150 000km"
+            },
+            "products": [
+              {
+                "name": "MOTUL 8100 ECO-LITE 5W-30",
+                "emg": "17201",
+                "apporder": "4",
+                "recommendationCategory": {
+                  "title": "SPECIALIST",
+                  "description": "A melhor recomendação, de um especialista em lubrificantes, para alto desempenho."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_108212_1L_8100_ECO-LITE_5W30_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL 8100 ECO-LITE 5W-30"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "17201"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Óleo de motor 100% sintético para economia de combustível especialmente formulado para motores a gasolina recentes, naturalmente aspirados ou turboalimentados, com injeção indireta ou direta, projetados para usar óleo de motor com baixo atrito e baixa viscosidade HTHS (High Temperature High Shear) (≥ 2,9 mPa.s). Adequado para motores a gasolina modernos que exigem um lubrificante com grau de viscosidade 30 e economia de combustível (normas API SP-RC, API SP e/ou ILSAC GF-6A). Recomendado para todos os motores a gasolina da GM que exigem a especificação GM-dexos1™GEN3: BUICK, CADILLAC, CHEVROLET, GM, GMC, OPEL e VAUXHALL. Compatível com conversores catalíticos. Esse tipo de óleo pode não ser adequado para uso em alguns motores. Em caso de dúvida, consulte o manual do proprietário."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": "API SERVICE SQ-RC, ILSAC GF-7A"
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": "MS 6395, WSS-M2C929-A, WSS-M2C946-A, GM 6094 M, GM 4718 M, 9.55535-CR1, WSS-M2C946-B1, WSS-M2C961-A1, GM dexos1 GEN3, VWC 530 34"
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": "CHRYSLER, DODGE, FORD, HONDA, MAZDA, MITSUBISHI, NISSAN, SUBARU, TOYOTA, HYUNDAI, KIA, LEXUS, ACURA, INFINITI, GENESIS, FIAT"
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/8100_eco-lite_5w-30_pt_pt_motul_17201_20250902.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L",
+                        "208L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "8100"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "108212"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650277912"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "208L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "8100"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "108230"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650278346"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "4T"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "8100"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "5W-30"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Motor"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "108212"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "3374650277912"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "108212": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_108212_1L_8100_ECO-LITE_5W30_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_108212_1L_8100_ECO-LITE_5W30_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL 8100 ECO-LITE 5W-30 - SKU 108212"
+                      }
+                    ],
+                    "108230": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_barrel_208l_4_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_barrel_208l_4_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL 8100 ECO-LITE 5W-30 - SKU 108230"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "MOTUL X-TECH LITE SAE 5W-30",
+                "emg": "17210",
+                "apporder": "5",
+                "recommendationCategory": {
+                  "title": "AUTHENTIC",
+                  "description": "Uma escolha autêntica, compatível com as exigências da montadora."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/111563_MOTUL_X-TECH%20LITE%205W-30%2012X1L_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL X-TECH LITE SAE 5W-30"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "17210"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "<p>100% Synthetic Fuel Economy engine oil specially formulated for recent gasoline engines, naturally aspirated or turbocharged, indirect or direct injection, designed to use engine oil with low friction and low HTHS (High Temperature High Shear) viscosity (≥ 2.9 mPa.s).<br />Suitable for modern gasoline engines requiring a viscosity grade 30 and fuel economy lubricant (API SP-RC, API SP and/or ILSAC GF-6A standards).<br />Compatible with catalytic converters.<br />This type of oil may be unsuitable for use in some engines. Refer to the owner manual if in doubt.</p>"
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": "API PERFORMANCE SP-RC, ILSAC GF-6A"
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": ""
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": "CHRYSLER, DODGE, FIAT, FORD, GENERAL MOTORS, HYUNDAI, INFINITI, JEEP, KIA, LEXUS, MAZDA, MITSUBISHI, NISSAN, SUBARU, SUZUKI, TOYOTA"
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/X-TECH_LITE_5W30_en_FR_motul_17210_20220428.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L",
+                        "208L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "X-TECH"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "111563"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "7898971528042"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "208L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "X-TECH"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "111549"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "7898971528127"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "4T"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "X-TECH"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "5W-30"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Motor"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "111563"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "7898971528042"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "111549": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_203598_leerfass_208_l_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_203598_leerfass_208_l_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL X-TECH LITE SAE 5W-30 - SKU 111549"
+                      }
+                    ],
+                    "111563": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/111563_MOTUL_X-TECH%20LITE%205W-30%2012X1L_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/111563_MOTUL_X-TECH%20LITE%205W-30%2012X1L_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL X-TECH LITE SAE 5W-30 - SKU 111563"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "MOTUL 6100 SAVE-LITE 5W-30",
+                "emg": "15913",
+                "apporder": "6",
+                "recommendationCategory": {
+                  "title": "PREMIUM",
+                  "description": "O melhor custo-benefício, com um produto premium."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/113006_MOTUL_6100%20SAVE-LITE%205W-30%2012X1L%20BR_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL 6100 SAVE-LITE 5W-30"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "15913"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Óleo de motor Technosynthese® “Fuel Economy”, especialmente projetado para motores modernos movidos a gasolina, etanol ou flex, naturalmente aspirados ou turboalimentados, de injeção indireta ou direta, projetados para uso com óleos de baixo atrito e muito baixa viscosidade HTHS (alta temperatura e alto cisalhamento) (≥ 2,9 mPa.s). Recomendado para motores modernos que utilizam lubrificante com grau de viscosidade 5W-30 e \"Fuel Economy\" com norma API SP e/ou ILSAC GF-6A. Compatível com catalisadores."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": ""
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": ""
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": ""
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "208L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "208L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "6100"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "113006"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "7898971528219"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "208L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "6100"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "112810"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "7898971528196"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "208L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "4T"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "6100"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "5W-30"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Motor"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "113006"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "7898971528219"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "112810": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_203598_leerfass_208_l_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_203598_leerfass_208_l_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL 6100 SAVE-LITE 5W-30 - SKU 112810"
+                      }
+                    ],
+                    "113006": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/113006_MOTUL_6100%20SAVE-LITE%205W-30%2012X1L%20BR_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/113006_MOTUL_6100%20SAVE-LITE%205W-30%2012X1L%20BR_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL 6100 SAVE-LITE 5W-30 - SKU 113006"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "conditions": {
+              "usage": "Normal",
+              "mileage": "+150 000km"
+            },
+            "products": [
+              {
+                "name": "MOTUL 8100 ECO-LITE 5W-30",
+                "emg": "17201",
+                "apporder": "4",
+                "recommendationCategory": {
+                  "title": "SPECIALIST",
+                  "description": "A melhor recomendação, de um especialista em lubrificantes, para alto desempenho."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_108212_1L_8100_ECO-LITE_5W30_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL 8100 ECO-LITE 5W-30"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "17201"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Óleo de motor 100% sintético para economia de combustível especialmente formulado para motores a gasolina recentes, naturalmente aspirados ou turboalimentados, com injeção indireta ou direta, projetados para usar óleo de motor com baixo atrito e baixa viscosidade HTHS (High Temperature High Shear) (≥ 2,9 mPa.s). Adequado para motores a gasolina modernos que exigem um lubrificante com grau de viscosidade 30 e economia de combustível (normas API SP-RC, API SP e/ou ILSAC GF-6A). Recomendado para todos os motores a gasolina da GM que exigem a especificação GM-dexos1™GEN3: BUICK, CADILLAC, CHEVROLET, GM, GMC, OPEL e VAUXHALL. Compatível com conversores catalíticos. Esse tipo de óleo pode não ser adequado para uso em alguns motores. Em caso de dúvida, consulte o manual do proprietário."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": "API SERVICE SQ-RC, ILSAC GF-7A"
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": "MS 6395, WSS-M2C929-A, WSS-M2C946-A, GM 6094 M, GM 4718 M, 9.55535-CR1, WSS-M2C946-B1, WSS-M2C961-A1, GM dexos1 GEN3, VWC 530 34"
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": "CHRYSLER, DODGE, FORD, HONDA, MAZDA, MITSUBISHI, NISSAN, SUBARU, TOYOTA, HYUNDAI, KIA, LEXUS, ACURA, INFINITI, GENESIS, FIAT"
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/8100_eco-lite_5w-30_pt_pt_motul_17201_20250902.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L",
+                        "208L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "8100"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "108212"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650277912"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "208L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "8100"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "108230"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650278346"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "4T"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "8100"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "5W-30"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Motor"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "108212"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "3374650277912"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "108212": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_108212_1L_8100_ECO-LITE_5W30_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_108212_1L_8100_ECO-LITE_5W30_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL 8100 ECO-LITE 5W-30 - SKU 108212"
+                      }
+                    ],
+                    "108230": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_barrel_208l_4_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_barrel_208l_4_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL 8100 ECO-LITE 5W-30 - SKU 108230"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "MOTUL X-TECH LITE SAE 5W-30",
+                "emg": "17210",
+                "apporder": "5",
+                "recommendationCategory": {
+                  "title": "AUTHENTIC",
+                  "description": "Uma escolha autêntica, compatível com as exigências da montadora."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/111563_MOTUL_X-TECH%20LITE%205W-30%2012X1L_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL X-TECH LITE SAE 5W-30"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "17210"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "<p>100% Synthetic Fuel Economy engine oil specially formulated for recent gasoline engines, naturally aspirated or turbocharged, indirect or direct injection, designed to use engine oil with low friction and low HTHS (High Temperature High Shear) viscosity (≥ 2.9 mPa.s).<br />Suitable for modern gasoline engines requiring a viscosity grade 30 and fuel economy lubricant (API SP-RC, API SP and/or ILSAC GF-6A standards).<br />Compatible with catalytic converters.<br />This type of oil may be unsuitable for use in some engines. Refer to the owner manual if in doubt.</p>"
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": "API PERFORMANCE SP-RC, ILSAC GF-6A"
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": ""
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": "CHRYSLER, DODGE, FIAT, FORD, GENERAL MOTORS, HYUNDAI, INFINITI, JEEP, KIA, LEXUS, MAZDA, MITSUBISHI, NISSAN, SUBARU, SUZUKI, TOYOTA"
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/X-TECH_LITE_5W30_en_FR_motul_17210_20220428.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L",
+                        "208L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "X-TECH"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "111563"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "7898971528042"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "208L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "X-TECH"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "111549"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "7898971528127"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "4T"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "X-TECH"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "5W-30"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Motor"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "111563"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "7898971528042"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "111549": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_203598_leerfass_208_l_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_203598_leerfass_208_l_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL X-TECH LITE SAE 5W-30 - SKU 111549"
+                      }
+                    ],
+                    "111563": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/111563_MOTUL_X-TECH%20LITE%205W-30%2012X1L_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/111563_MOTUL_X-TECH%20LITE%205W-30%2012X1L_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL X-TECH LITE SAE 5W-30 - SKU 111563"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "MOTUL 6100 SAVE-LITE 5W-30",
+                "emg": "15913",
+                "apporder": "6",
+                "recommendationCategory": {
+                  "title": "PREMIUM",
+                  "description": "O melhor custo-benefício, com um produto premium."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/113006_MOTUL_6100%20SAVE-LITE%205W-30%2012X1L%20BR_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL 6100 SAVE-LITE 5W-30"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "15913"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Óleo de motor Technosynthese® “Fuel Economy”, especialmente projetado para motores modernos movidos a gasolina, etanol ou flex, naturalmente aspirados ou turboalimentados, de injeção indireta ou direta, projetados para uso com óleos de baixo atrito e muito baixa viscosidade HTHS (alta temperatura e alto cisalhamento) (≥ 2,9 mPa.s). Recomendado para motores modernos que utilizam lubrificante com grau de viscosidade 5W-30 e \"Fuel Economy\" com norma API SP e/ou ILSAC GF-6A. Compatível com catalisadores."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": ""
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": ""
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": ""
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "208L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "208L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "6100"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "113006"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "7898971528219"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "208L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "6100"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "112810"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "7898971528196"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "208L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "4T"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "6100"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "5W-30"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Motor"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "113006"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "7898971528219"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "112810": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_203598_leerfass_208_l_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_203598_leerfass_208_l_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL 6100 SAVE-LITE 5W-30 - SKU 112810"
+                      }
+                    ],
+                    "113006": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/113006_MOTUL_6100%20SAVE-LITE%205W-30%2012X1L%20BR_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/113006_MOTUL_6100%20SAVE-LITE%205W-30%2012X1L%20BR_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL 6100 SAVE-LITE 5W-30 - SKU 113006"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "conditions": {
+          "usage": [
+            {
+              "default": true,
+              "label": "Normal",
+              "comments": []
+            }
+          ]
+        }
+      },
+      {
+        "capacities": [
+          {
+            "label": "8,50"
+          }
+        ],
+        "category": {
+          "code": "",
+          "name": "transmissão, automática - 6 marchas"
+        },
+        "recommendations": [
+          {
+            "conditions": {
+              "usage": "Normal",
+              "mileage": "-150 000km"
+            },
+            "products": [
+              {
+                "name": "MOTUL ATF VI",
+                "emg": "19280",
+                "apporder": "5",
+                "recommendationCategory": {
+                  "title": "SPECIALIST",
+                  "description": "A melhor recomendação, de um especialista em lubrificantes, para alto desempenho."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/Motul_105774_ATF_VI_1l_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL ATF VI"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "19280"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Lubrificante 100% sintético de alto desempenho e baixa viscosidade especialmente projetado para transmissões automáticas modernas (sequenciais, eletronicamente controladas, etc …) com ou sem embreagem de bloqueio do conversor de torque, que precisem de fluidos compatíveis com a norma DEXRON VI. Particularmente recomendado para uso em caixas automáticas, caixas de transferência, sistemas de direção hidráulica e de assistência de direção de montadoras norte-americanas tais como GM, FORD, CHRYSLER,… montadoras asiáticas tais como HONDA, HYUNDAI, KIA, ISUZU, MITSUBISHI, NISSAN, TOYOTA,... ou europeias tais como AUDI, BMW, JAGUAR LAND ROVER, VW … É também adequado para alguns câmbios automáticos mais antigos, câmbios manuais, e sistemas de direção hidráulica onde as normas DEXRON III H ou DEXRON II D sejam requeridas. Antes do uso sempre consulte o manual do fabricante."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": ""
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": "ATF Z1 (except CVTs), ATF Z1 (except CVTs), ATF DW-1 (except CVTs), ATF DW-1 (except CVTs), 08200-9008A, 08200-9009A, 08266-99964, G 055 005, G 055 005, G 055 162, G 055 162, G 060 162, G 060 162, G 055 540, G 055 540, PY112995PA, ATF 3+, L-12108, 83 22 0 142 516, 83 22 2 152 426, 81 22 9 400 275, 81 22 9 407 738, 83 22 0 397 114, 83 22 0 403 248, 83 22 0 403 249, 83 22 0 432 807, 83 22 9 407 858, 83 22 9 407 859, ATF+3, ATF+4, ATF+4, ATF+3, MS 9602, 68157995AA, 68157995AA, 68157995AB, 68157995AB, 68218057CA, 68218057CA, 68218058CA, 68218058CA, 68218054CA, 68218054CA, 68218925AA, 68218925AA, SP IV Automatic Transmission Fluid, SP IV Automatic Transmission Fluid, 68171866AA, 68171866AA, 68171869AA, 68171869AA, 68043742AB, 68043742AB, XT-10-QLVC, GM DEXRON VI, GM DEXRON III H, GM DEXRON II D, 9986153, 9986333, 88861003, 88861004, GM DEXRON HP ATF, GMW16444, GM 1940184, GM 93165414, 082000-9001, 08266-9904, 08200-9005, 08200-9017, ATF-11, B2618-OLE-025, ATF-TYPE 3.1, 08266-99907, SP-IV, SP-IV, SP-IV M, SP-IV M, SP-IV-RR, SP-IV-RR, 040000C90SG, 00232-1904, 04500-00115, MATIC S, MATIC S, MATIC K, MATIC K, MATIC J, MATIC J, MATIC D, MATIC D, Jaguar Fluid 8432, 02JDE 26444, TYK500050, LR023289, LR023288, ATF WS, ATF WS, ATF Type T-IV, ATF Type T-IV, JWS 3324, JWS 3324, NWS 9638, NWS 9638, 00289-ATFWS, 00289-ATFWS, 08886-02303, 08886-02303, 08886-02305, 08886-02305, 08886-80803, 08886-80803, 231603, M-1375.4, ATF FZ, MERCON LV, 0000-77-122E-01, MB 236.14, MB 236.41, A 001 989 45 03, A 001 989 68 03, A 001 989 77 03, A 001 989 78 03, Diamond ATF SP II, SP III, ATF-MA1, ATF SP-IV, ATF SPH-IV, MZ320762, KLE24-00002, 999MP-MTS00P, 000 043 304 00, RP 9734 R7 for EAT6 transmissions, RP 9734 R7 for EAT6 transmissions, RP 9734 R7 for EAT6 transmissions, RP 9734 R7 for EAT6 transmissions, DSIH 5M-66 Material Specification Rev 3, TES-228 (C-4), M-1375.4, M-1375.4, M-1375.5, M-1375.5, M-1375.6, M-1375.6, TE-ML 11, 4G4319A509 / AA / S, ATF 3292, ATF 4400, ATF 6000 SL, L-12108, LifeguardFluid 6 (ZF No. S671 090 255), Lifeguard 6 Plus, LifeguardFluid 8 (ZF No. S671 090 312), Automatic Transmission Fluid (ZF No. S671 090 281), ATF PTF-1, MS 9602, DEXRON VI Automatic Transmission Fluid, DEXRON VI Automatic Transmission Fluid, MS 90030-A5, AW-1, AW-1, AW-1, AW-1, AW-1, 9.55550-AV5 for ZF automatic gearbox with 8 and 9 speed, MERCON LV, Honda Type 3.0, WSI, Besco ATF III, MB 236.12, 1A, 68218925AA, Tutela Transmission AS8, P/N 0029890603, 08200-9016A, G 052 533, ATF6, 83 22 2 355 599, 83 22 2 163 514, 83 22 2 289 720, 83 22 2 305 396 (ATF2), 83 22 2 305 397, 83 22 2 355 601, 8 & 9 Speed ATF, 68818925AA/AB, 68043742AA, 05127382, 8 & 9 Speed ATF, 68818925AA/AB, 68043742AA, 05127382, XT-6-QSP (SP), WSS-M2C922-A1, AW-1, 19256039, Dex HP, GMW16974, WS, 88863400, 88863401, 08200-9008, 08200-9016A, SP4-M1, SPH-IV, WS, NWS-9638, SCS, SP4-M1, SPH-IV, WS, NWS-9638, ATF-J3, MZ320775, Diamond Queen ATF-PA, 4030401, 999MP-MPT10P, MATIC W, 8 & 9 Speed ATF, 68818925AA/AB, 68043742AA, 05127382, 93 165 147, ATF-WS, MATIC S, ATF FZ, 31 256 774, 31 256 775, G 052 533, ATF-0WS (except CVTs), M315, Class 1A-LV, LifeguardFluid 9 (ZF No. AA01.500.001), 883 22 5 A28 F03 (ATF8), LR0022460, AW-1, LV, MB 236.15 (except FE benefits), ATF-PA, AW-1, AW-1, G 053 001, G 053 001, G 060 540, G 060 540, G 060 540, G 060 540, G 053 001, G 053 001, 83 22 2 413 477 (ATF7), AW-2, AW-2, AW-2, AW-2, MERCON ULV, WSS-M2C949-A, GM DEXRON ULV ATF, MB 236.16 (Except FE benefits), MB 236.17 (Except FE benefits), MATIC P, MATIC P, 999MP-MPT10P, 999MP-MTS00P, 1940773, G 065 162, G 065 162, G 065 162, G 065 162"
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": ""
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/ATF_VI_pt_PT_motul_19280_20210726.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L",
+                        "20L",
+                        "60L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Caixa de velocidades automática-Dct-Cvt"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Atf"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "NC"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "105774"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650240657"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "20L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Caixa de velocidades automática-Dct-Cvt"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Atf"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "NC"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "106476"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650258294"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "60L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Caixa de velocidades automática-Dct-Cvt"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Atf"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "NC"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "103218"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650240664"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "Caixa de velocidades automática-Dct-Cvt"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "Atf"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "NC"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Transmissão"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "105774"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "3374650240657"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "103218": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_barrel_60l_4_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_barrel_60l_4_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL ATF VI - SKU 103218"
+                      }
+                    ],
+                    "105774": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/Motul_105774_ATF_VI_1l_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/Motul_105774_ATF_VI_1l_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL ATF VI - SKU 105774"
+                      }
+                    ],
+                    "106476": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/20L%20jerry%20can_front%20facing_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/20L%20jerry%20can_front%20facing_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL ATF VI - SKU 106476"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "MOTUL TRANS ATF VI",
+                "emg": "73851",
+                "apporder": "1",
+                "recommendationCategory": {
+                  "title": "AUTHENTIC",
+                  "description": "Uma escolha autêntica, compatível com as exigências da montadora."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_109771_trans_atf_vi_1l_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL TRANS ATF VI"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "73851"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Lubrificante 100% sintético de alto desempenho e baixa viscosidade especialmente projetado para transmissões automáticas modernas (sequenciais, eletronicamente controladas, etc …) com ou sem embreagem de bloqueio do conversor de torque, que precisem de fluidos compatíveis com diversas normas europeias. Particularmente recomendado para uso em caixas automáticas de montadoras europeias tais como AUDI, BMW, JAGUAR LAND ROVER, VW, etc, assim como também em certos câmbios asiáticos e outros sistemas tais como caixas de transferência e direções hidráulicas. Antes do uso sempre consulte o manual do fabricante."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": ""
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": "G 055 005, PY112995PA, 83 22 0 142 516, MS 9602, ATF+3, ATF+4, ATF+3, ATF+4, GM DEXRON III H, GM DEXRON II D, ATF Z1 (except CVTs), 082000-9001, ATF DW-1 (except CVTs), 040000C90SG, MATIC S, MATIC D, MATIC J, MATIC K, Jaguar Fluid 8432, TYK500050, ATF WS, ATF Type T-IV, JWS 3324, NWS 9638, 231603, SP III, MATIC S, MATIC D, MATIC J, MATIC K, ATF WS, ATF Type T-IV, JWS 3324, 08886-02303, 08886-02303, 08886-02305, 08886-02305, 08886-80803, 08886-80803, G 055 005, 4G4319A509 / AA / S, M-1375.4, M-1375.4, M-1375.4, Automatic Transmission Fluid (ZF No. S671 090 281), LifeguardFluid 8 (ZF No. S671 090 312), Lifeguard 6 Plus, LifeguardFluid 6 (ZF No. S671 090 255), ATF Z1 (except CVTs), MB 236.15 (except FE benefits), MB 236.14, ATF DW-1 (except CVTs), 08200-9008A, 08200-9009A, 08266-99964, G 055 162, G 055 162, G 060 162, G 060 162, G 055 540, G 055 540, ATF 3+, L-12108, 83 22 2 152 426, 81 22 9 400 275, 81 22 9 407 738, 83 22 0 397 114, 83 22 0 403 248, 83 22 0 403 249, 83 22 0 432 807, 83 22 9 407 858, 83 22 9 407 859, ATF PTF-1, MS 9602, 68157995AA, 68157995AA, 68157995AB, 68157995AB, 68218057CA, 68218057CA, 68218058CA, 68218058CA, 68218054CA, 68218054CA, 68218925AA, 68218925AA, SP IV Automatic Transmission Fluid, SP IV Automatic Transmission Fluid, 68171866AA, 68171866AA, 68171869AA, 68171869AA, DEXRON VI Automatic Transmission Fluid, DEXRON VI Automatic Transmission Fluid, GM DEXRON VI, 68043742AB, 68043742AB, MS 90030-A5, RP 9734 R7 for EAT6 transmissions, RP 9734 R7 for EAT6 transmissions, RP 9734 R7 for EAT6 transmissions, RP 9734 R7 for EAT6 transmissions, AW-1, AW-1, AW-1, AW-1, AW-1, 9.55550-AV5 for ZF automatic gearbox with 8 and 9 speed, MERCON LV, MERCON LV, XT-10-QLVC, GM DEXRON HP ATF, 9986153, 88861004, 9986333, GMW16444, GM 1940184, GM 93165414, 08266-9904, 08266-99907, 08200-9005, 08200-9005, ATF-11, B2618-OLE-025, ATF-TYPE 3.1, 08200-9017, Honda Type 3.0, SP-IV, SP-IV, SP-IV-RR, SP-IV M, SP-IV M, 00232-1904, 04500-00115, WSI, Besco ATF III, 02JDE 26444, LR023288, LR023289, NWS 9638, 00289-ATFWS, 00289-ATFWS, M-1375.5, M-1375.5, M-1375.6, M-1375.6, ATF FZ, 0000-77-122E-01, MB 236.12, A 001 989 45 03, A 001 989 68 03, A 001 989 77 03, A 001 989 78 03, MB 236.41, Diamond ATF SP II, ATF-MA1, MZ320762, ATF SP-IV, ATF SPH-IV, KLE24-00002, 999MP-MTS00P, 000 043 304 00, DSIH 5M-66 Material Specification Rev 3, TES-228 (C-4), 1A, TE-ML 11, ATF 3292, ATF 4400, ATF 6000 SL, 68218925AA, Tutela Transmission AS8, L-12108, P/N 0029890603, 08200-9016A, G 052 533, ATF6, 83 22 2 355 599, 83 22 2 163 514, 83 22 2 289 720, 83 22 2 305 396 (ATF2), 83 22 2 305 397, 83 22 2 355 601, 8 & 9 Speed ATF, 68818925AA/AB, 68043742AA, 05127382, 8 & 9 Speed ATF, 68818925AA/AB, 68043742AA, 05127382, XT-6-QSP (SP), WSS-M2C922-A1, AW-1, 19256039, Dex HP, GMW16974, WS, 88863400, 88863401, 08200-9008, 08200-9016A, SP4-M1, SPH-IV, WS, NWS-9638, SCS, SP4-M1, SPH-IV, WS, NWS-9638, ATF-J3, MZ320775, Diamond Queen ATF-PA, 4030401, 999MP-MPT10P, MATIC W, 8 & 9 Speed ATF, 68818925AA/AB, 68043742AA, 05127382, 93 165 147, ATF-WS, MATIC S, ATF FZ, 31 256 774, 31 256 775, G 052 533, ATF-0WS (except CVTs), M315, Class 1A-LV, LifeguardFluid 9 (ZF No. AA01.500.001), 883 22 5 A28 F03 (ATF8), SP-IV-RR, LR0022460, AW-1, LV, ATF-PA, AW-1, AW-1, G 053 001, G 053 001, G 060 540, G 060 540, G 060 540, G 060 540, G 053 001, G 053 001, 83 22 2 413 477 (ATF7), AW-2, AW-2, AW-2, AW-2, MERCON ULV, WSS-M2C949-A, GM DEXRON ULV ATF, MB 236.16 (Except FE benefits), MB 236.17 (Except FE benefits), MATIC P, MATIC P, 999MP-MPT10P, 999MP-MTS00P, 1940773, G 065 162, G 065 162, G 065 162, G 065 162"
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": ""
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/TRANS_ATF_VI_pt_PT_motul_73851_20210726.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L",
+                        "20L",
+                        "208L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Caixa de velocidades automática-Dct-Cvt"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Atf"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "NC"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "109771"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650296579"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "20L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Caixa de velocidades automática-Dct-Cvt"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Atf"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "NC"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "109772"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650296586"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "208L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Caixa de velocidades automática-Dct-Cvt"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Atf"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "NC"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "109773"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650296593"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "Caixa de velocidades automática-Dct-Cvt"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "Atf"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "NC"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Transmissão"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "109771"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "3374650296579"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "109771": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_109771_trans_atf_vi_1l_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_109771_trans_atf_vi_1l_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL TRANS ATF VI - SKU 109771"
+                      }
+                    ],
+                    "109772": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/20L%20jerry%20can_front%20facing_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/20L%20jerry%20can_front%20facing_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL TRANS ATF VI - SKU 109772"
+                      }
+                    ],
+                    "109773": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_barrel_208l_4_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_barrel_208l_4_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL TRANS ATF VI - SKU 109773"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "conditions": {
+              "usage": "Normal",
+              "mileage": "+150 000km"
+            },
+            "products": [
+              {
+                "name": "MOTUL TRANS ATF VI",
+                "emg": "73851",
+                "apporder": "1",
+                "recommendationCategory": {
+                  "title": "AUTHENTIC",
+                  "description": "Uma escolha autêntica, compatível com as exigências da montadora."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_109771_trans_atf_vi_1l_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL TRANS ATF VI"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "73851"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Lubrificante 100% sintético de alto desempenho e baixa viscosidade especialmente projetado para transmissões automáticas modernas (sequenciais, eletronicamente controladas, etc …) com ou sem embreagem de bloqueio do conversor de torque, que precisem de fluidos compatíveis com diversas normas europeias. Particularmente recomendado para uso em caixas automáticas de montadoras europeias tais como AUDI, BMW, JAGUAR LAND ROVER, VW, etc, assim como também em certos câmbios asiáticos e outros sistemas tais como caixas de transferência e direções hidráulicas. Antes do uso sempre consulte o manual do fabricante."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": ""
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": "G 055 005, PY112995PA, 83 22 0 142 516, MS 9602, ATF+3, ATF+4, ATF+3, ATF+4, GM DEXRON III H, GM DEXRON II D, ATF Z1 (except CVTs), 082000-9001, ATF DW-1 (except CVTs), 040000C90SG, MATIC S, MATIC D, MATIC J, MATIC K, Jaguar Fluid 8432, TYK500050, ATF WS, ATF Type T-IV, JWS 3324, NWS 9638, 231603, SP III, MATIC S, MATIC D, MATIC J, MATIC K, ATF WS, ATF Type T-IV, JWS 3324, 08886-02303, 08886-02303, 08886-02305, 08886-02305, 08886-80803, 08886-80803, G 055 005, 4G4319A509 / AA / S, M-1375.4, M-1375.4, M-1375.4, Automatic Transmission Fluid (ZF No. S671 090 281), LifeguardFluid 8 (ZF No. S671 090 312), Lifeguard 6 Plus, LifeguardFluid 6 (ZF No. S671 090 255), ATF Z1 (except CVTs), MB 236.15 (except FE benefits), MB 236.14, ATF DW-1 (except CVTs), 08200-9008A, 08200-9009A, 08266-99964, G 055 162, G 055 162, G 060 162, G 060 162, G 055 540, G 055 540, ATF 3+, L-12108, 83 22 2 152 426, 81 22 9 400 275, 81 22 9 407 738, 83 22 0 397 114, 83 22 0 403 248, 83 22 0 403 249, 83 22 0 432 807, 83 22 9 407 858, 83 22 9 407 859, ATF PTF-1, MS 9602, 68157995AA, 68157995AA, 68157995AB, 68157995AB, 68218057CA, 68218057CA, 68218058CA, 68218058CA, 68218054CA, 68218054CA, 68218925AA, 68218925AA, SP IV Automatic Transmission Fluid, SP IV Automatic Transmission Fluid, 68171866AA, 68171866AA, 68171869AA, 68171869AA, DEXRON VI Automatic Transmission Fluid, DEXRON VI Automatic Transmission Fluid, GM DEXRON VI, 68043742AB, 68043742AB, MS 90030-A5, RP 9734 R7 for EAT6 transmissions, RP 9734 R7 for EAT6 transmissions, RP 9734 R7 for EAT6 transmissions, RP 9734 R7 for EAT6 transmissions, AW-1, AW-1, AW-1, AW-1, AW-1, 9.55550-AV5 for ZF automatic gearbox with 8 and 9 speed, MERCON LV, MERCON LV, XT-10-QLVC, GM DEXRON HP ATF, 9986153, 88861004, 9986333, GMW16444, GM 1940184, GM 93165414, 08266-9904, 08266-99907, 08200-9005, 08200-9005, ATF-11, B2618-OLE-025, ATF-TYPE 3.1, 08200-9017, Honda Type 3.0, SP-IV, SP-IV, SP-IV-RR, SP-IV M, SP-IV M, 00232-1904, 04500-00115, WSI, Besco ATF III, 02JDE 26444, LR023288, LR023289, NWS 9638, 00289-ATFWS, 00289-ATFWS, M-1375.5, M-1375.5, M-1375.6, M-1375.6, ATF FZ, 0000-77-122E-01, MB 236.12, A 001 989 45 03, A 001 989 68 03, A 001 989 77 03, A 001 989 78 03, MB 236.41, Diamond ATF SP II, ATF-MA1, MZ320762, ATF SP-IV, ATF SPH-IV, KLE24-00002, 999MP-MTS00P, 000 043 304 00, DSIH 5M-66 Material Specification Rev 3, TES-228 (C-4), 1A, TE-ML 11, ATF 3292, ATF 4400, ATF 6000 SL, 68218925AA, Tutela Transmission AS8, L-12108, P/N 0029890603, 08200-9016A, G 052 533, ATF6, 83 22 2 355 599, 83 22 2 163 514, 83 22 2 289 720, 83 22 2 305 396 (ATF2), 83 22 2 305 397, 83 22 2 355 601, 8 & 9 Speed ATF, 68818925AA/AB, 68043742AA, 05127382, 8 & 9 Speed ATF, 68818925AA/AB, 68043742AA, 05127382, XT-6-QSP (SP), WSS-M2C922-A1, AW-1, 19256039, Dex HP, GMW16974, WS, 88863400, 88863401, 08200-9008, 08200-9016A, SP4-M1, SPH-IV, WS, NWS-9638, SCS, SP4-M1, SPH-IV, WS, NWS-9638, ATF-J3, MZ320775, Diamond Queen ATF-PA, 4030401, 999MP-MPT10P, MATIC W, 8 & 9 Speed ATF, 68818925AA/AB, 68043742AA, 05127382, 93 165 147, ATF-WS, MATIC S, ATF FZ, 31 256 774, 31 256 775, G 052 533, ATF-0WS (except CVTs), M315, Class 1A-LV, LifeguardFluid 9 (ZF No. AA01.500.001), 883 22 5 A28 F03 (ATF8), SP-IV-RR, LR0022460, AW-1, LV, ATF-PA, AW-1, AW-1, G 053 001, G 053 001, G 060 540, G 060 540, G 060 540, G 060 540, G 053 001, G 053 001, 83 22 2 413 477 (ATF7), AW-2, AW-2, AW-2, AW-2, MERCON ULV, WSS-M2C949-A, GM DEXRON ULV ATF, MB 236.16 (Except FE benefits), MB 236.17 (Except FE benefits), MATIC P, MATIC P, 999MP-MPT10P, 999MP-MTS00P, 1940773, G 065 162, G 065 162, G 065 162, G 065 162"
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": ""
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/TRANS_ATF_VI_pt_PT_motul_73851_20210726.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L",
+                        "20L",
+                        "208L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Caixa de velocidades automática-Dct-Cvt"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Atf"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "NC"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "109771"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650296579"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "20L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Caixa de velocidades automática-Dct-Cvt"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Atf"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "NC"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "109772"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650296586"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "208L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Caixa de velocidades automática-Dct-Cvt"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Atf"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "NC"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "109773"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650296593"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "Caixa de velocidades automática-Dct-Cvt"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "Atf"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "NC"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Transmissão"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "109771"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "3374650296579"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "109771": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_109771_trans_atf_vi_1l_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_109771_trans_atf_vi_1l_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL TRANS ATF VI - SKU 109771"
+                      }
+                    ],
+                    "109772": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/20L%20jerry%20can_front%20facing_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/20L%20jerry%20can_front%20facing_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL TRANS ATF VI - SKU 109772"
+                      }
+                    ],
+                    "109773": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_barrel_208l_4_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_barrel_208l_4_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL TRANS ATF VI - SKU 109773"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "MOTUL ATF VI",
+                "emg": "19280",
+                "apporder": "5",
+                "recommendationCategory": {
+                  "title": "SPECIALIST",
+                  "description": "A melhor recomendação, de um especialista em lubrificantes, para alto desempenho."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/Motul_105774_ATF_VI_1l_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL ATF VI"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "19280"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Lubrificante 100% sintético de alto desempenho e baixa viscosidade especialmente projetado para transmissões automáticas modernas (sequenciais, eletronicamente controladas, etc …) com ou sem embreagem de bloqueio do conversor de torque, que precisem de fluidos compatíveis com a norma DEXRON VI. Particularmente recomendado para uso em caixas automáticas, caixas de transferência, sistemas de direção hidráulica e de assistência de direção de montadoras norte-americanas tais como GM, FORD, CHRYSLER,… montadoras asiáticas tais como HONDA, HYUNDAI, KIA, ISUZU, MITSUBISHI, NISSAN, TOYOTA,... ou europeias tais como AUDI, BMW, JAGUAR LAND ROVER, VW … É também adequado para alguns câmbios automáticos mais antigos, câmbios manuais, e sistemas de direção hidráulica onde as normas DEXRON III H ou DEXRON II D sejam requeridas. Antes do uso sempre consulte o manual do fabricante."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": ""
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": "ATF Z1 (except CVTs), ATF Z1 (except CVTs), ATF DW-1 (except CVTs), ATF DW-1 (except CVTs), 08200-9008A, 08200-9009A, 08266-99964, G 055 005, G 055 005, G 055 162, G 055 162, G 060 162, G 060 162, G 055 540, G 055 540, PY112995PA, ATF 3+, L-12108, 83 22 0 142 516, 83 22 2 152 426, 81 22 9 400 275, 81 22 9 407 738, 83 22 0 397 114, 83 22 0 403 248, 83 22 0 403 249, 83 22 0 432 807, 83 22 9 407 858, 83 22 9 407 859, ATF+3, ATF+4, ATF+4, ATF+3, MS 9602, 68157995AA, 68157995AA, 68157995AB, 68157995AB, 68218057CA, 68218057CA, 68218058CA, 68218058CA, 68218054CA, 68218054CA, 68218925AA, 68218925AA, SP IV Automatic Transmission Fluid, SP IV Automatic Transmission Fluid, 68171866AA, 68171866AA, 68171869AA, 68171869AA, 68043742AB, 68043742AB, XT-10-QLVC, GM DEXRON VI, GM DEXRON III H, GM DEXRON II D, 9986153, 9986333, 88861003, 88861004, GM DEXRON HP ATF, GMW16444, GM 1940184, GM 93165414, 082000-9001, 08266-9904, 08200-9005, 08200-9017, ATF-11, B2618-OLE-025, ATF-TYPE 3.1, 08266-99907, SP-IV, SP-IV, SP-IV M, SP-IV M, SP-IV-RR, SP-IV-RR, 040000C90SG, 00232-1904, 04500-00115, MATIC S, MATIC S, MATIC K, MATIC K, MATIC J, MATIC J, MATIC D, MATIC D, Jaguar Fluid 8432, 02JDE 26444, TYK500050, LR023289, LR023288, ATF WS, ATF WS, ATF Type T-IV, ATF Type T-IV, JWS 3324, JWS 3324, NWS 9638, NWS 9638, 00289-ATFWS, 00289-ATFWS, 08886-02303, 08886-02303, 08886-02305, 08886-02305, 08886-80803, 08886-80803, 231603, M-1375.4, ATF FZ, MERCON LV, 0000-77-122E-01, MB 236.14, MB 236.41, A 001 989 45 03, A 001 989 68 03, A 001 989 77 03, A 001 989 78 03, Diamond ATF SP II, SP III, ATF-MA1, ATF SP-IV, ATF SPH-IV, MZ320762, KLE24-00002, 999MP-MTS00P, 000 043 304 00, RP 9734 R7 for EAT6 transmissions, RP 9734 R7 for EAT6 transmissions, RP 9734 R7 for EAT6 transmissions, RP 9734 R7 for EAT6 transmissions, DSIH 5M-66 Material Specification Rev 3, TES-228 (C-4), M-1375.4, M-1375.4, M-1375.5, M-1375.5, M-1375.6, M-1375.6, TE-ML 11, 4G4319A509 / AA / S, ATF 3292, ATF 4400, ATF 6000 SL, L-12108, LifeguardFluid 6 (ZF No. S671 090 255), Lifeguard 6 Plus, LifeguardFluid 8 (ZF No. S671 090 312), Automatic Transmission Fluid (ZF No. S671 090 281), ATF PTF-1, MS 9602, DEXRON VI Automatic Transmission Fluid, DEXRON VI Automatic Transmission Fluid, MS 90030-A5, AW-1, AW-1, AW-1, AW-1, AW-1, 9.55550-AV5 for ZF automatic gearbox with 8 and 9 speed, MERCON LV, Honda Type 3.0, WSI, Besco ATF III, MB 236.12, 1A, 68218925AA, Tutela Transmission AS8, P/N 0029890603, 08200-9016A, G 052 533, ATF6, 83 22 2 355 599, 83 22 2 163 514, 83 22 2 289 720, 83 22 2 305 396 (ATF2), 83 22 2 305 397, 83 22 2 355 601, 8 & 9 Speed ATF, 68818925AA/AB, 68043742AA, 05127382, 8 & 9 Speed ATF, 68818925AA/AB, 68043742AA, 05127382, XT-6-QSP (SP), WSS-M2C922-A1, AW-1, 19256039, Dex HP, GMW16974, WS, 88863400, 88863401, 08200-9008, 08200-9016A, SP4-M1, SPH-IV, WS, NWS-9638, SCS, SP4-M1, SPH-IV, WS, NWS-9638, ATF-J3, MZ320775, Diamond Queen ATF-PA, 4030401, 999MP-MPT10P, MATIC W, 8 & 9 Speed ATF, 68818925AA/AB, 68043742AA, 05127382, 93 165 147, ATF-WS, MATIC S, ATF FZ, 31 256 774, 31 256 775, G 052 533, ATF-0WS (except CVTs), M315, Class 1A-LV, LifeguardFluid 9 (ZF No. AA01.500.001), 883 22 5 A28 F03 (ATF8), LR0022460, AW-1, LV, MB 236.15 (except FE benefits), ATF-PA, AW-1, AW-1, G 053 001, G 053 001, G 060 540, G 060 540, G 060 540, G 060 540, G 053 001, G 053 001, 83 22 2 413 477 (ATF7), AW-2, AW-2, AW-2, AW-2, MERCON ULV, WSS-M2C949-A, GM DEXRON ULV ATF, MB 236.16 (Except FE benefits), MB 236.17 (Except FE benefits), MATIC P, MATIC P, 999MP-MPT10P, 999MP-MTS00P, 1940773, G 065 162, G 065 162, G 065 162, G 065 162"
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": ""
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/ATF_VI_pt_PT_motul_19280_20210726.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L",
+                        "20L",
+                        "60L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Caixa de velocidades automática-Dct-Cvt"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Atf"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "NC"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "105774"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650240657"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "20L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Caixa de velocidades automática-Dct-Cvt"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Atf"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "NC"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "106476"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650258294"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "60L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Caixa de velocidades automática-Dct-Cvt"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Atf"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "NC"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "103218"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650240664"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "Caixa de velocidades automática-Dct-Cvt"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "Atf"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "NC"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Transmissão"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "105774"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "3374650240657"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "103218": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_barrel_60l_4_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_barrel_60l_4_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL ATF VI - SKU 103218"
+                      }
+                    ],
+                    "105774": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/Motul_105774_ATF_VI_1l_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/Motul_105774_ATF_VI_1l_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL ATF VI - SKU 105774"
+                      }
+                    ],
+                    "106476": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/20L%20jerry%20can_front%20facing_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/20L%20jerry%20can_front%20facing_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL ATF VI - SKU 106476"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "conditions": {
+          "usage": [
+            {
+              "default": true,
+              "label": "Normal",
+              "comments": []
+            }
+          ]
+        }
+      }
+    ],
+    "conditions": {
+      "mileage": [
+        {
+          "default": true,
+          "label": "-150 000km",
+          "comments": []
+        },
+        {
+          "default": false,
+          "label": "+150 000km",
+          "comments": []
+        }
+      ]
+    }
+  }
+}

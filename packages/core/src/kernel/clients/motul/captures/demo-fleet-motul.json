@@ -1,0 +1,25 @@
+{
+  "capturedAt": "2026-09-09T13:34:05.509Z",
+  "identities": [
+    {
+      "plate": "FKW0812",
+      "make": "VOLKSWAGEN",
+      "year": 2014,
+      "model": "Polo",
+      "version": "",
+      "pausedMsBefore": 60000,
+      "capturedAt": "2026-09-09T13:32:50.992Z",
+      "status": "unavailable"
+    },
+    {
+      "plate": "FWR6183",
+      "make": "HONDA",
+      "year": 2021,
+      "model": "HR-V",
+      "version": "",
+      "pausedMsBefore": 60000,
+      "capturedAt": "2026-09-09T13:34:03.364Z",
+      "status": "unavailable"
+    }
+  ]
+}

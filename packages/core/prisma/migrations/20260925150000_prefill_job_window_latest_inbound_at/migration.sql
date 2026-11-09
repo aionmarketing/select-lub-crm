@@ -1,0 +1,19 @@
+-- cadastro_prefill_job.window_latest_inbound_at (owner rulings, 2026-09-25):
+-- the latestInboundAt of the silence-closed window a job ran on, stamped when the
+-- job succeeds or fails; on a queued RETRY job, the failed window it retries.
+--
+-- Why a retry needs it: a failed extraction still closes its window, moving
+-- conversation.last_prefill_window_closed_at to that window's latestInboundAt,
+-- so the next tick does not retry it forever. A plain queued job then finds no
+-- window newer than the watermark and is skipped: the "Tentar de novo" button
+-- used to end in `skipped`, the error vanished, and the LLM was never called
+-- again. The retry job carries the failed window's time. A retry is "extract
+-- now" (review of #168): it bypasses the window derivation (no watermark
+-- gate, no outbound or silence check), extracts on the conversation's current
+-- messages, labels the failed window's inbounds, and closes with that window's
+-- time through the forward-only compare-and-set. Nothing here writes the
+-- watermark back, and a retry never moves it past a window it has not seen.
+--
+-- Nullable, no backfill: a failure from before this column falls back to the
+-- conversation's watermark, which is that failed window's (see retry-prefill).
+ALTER TABLE "cadastro_prefill_job" ADD COLUMN "window_latest_inbound_at" TIMESTAMP(3);

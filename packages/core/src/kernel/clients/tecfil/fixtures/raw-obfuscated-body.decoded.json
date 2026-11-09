@@ -1,0 +1,173 @@
+{
+  "success": true,
+  "data": [
+    {
+      "DescricaoFabricante": "VOLKSWAGEN",
+      "CodigoAplicacao": 198328,
+      "DescricaoAplicacao": "10160",
+      "ComplementoAplicacao3_1": "Euro 5",
+      "ComplementoAplicacao3_2": "Cummins ISF 160",
+      "ComplementoAplicacao3_3": "2012",
+      "ComplementoAplicacao3_4": ">",
+      "ComplementoAplicacao3_5": "Diesel",
+      "ComplementoAplicacao3_9": [
+        {
+          "CodigoProduto": 128,
+          "TituloProduto": "AP7998",
+          "CpoAuxProd53": "Sim"
+        }
+      ],
+      "ComplementoAplicacao3_10": [
+        {
+          "CodigoProduto": 135,
+          "TituloProduto": "AS820"
+        }
+      ],
+      "ComplementoAplicacao3_11": [
+        {
+          "CodigoProduto": 139,
+          "TituloProduto": "PSL283",
+          "CpoAuxProd53": "Sim"
+        }
+      ],
+      "ComplementoAplicacao3_13": [
+        {
+          "CodigoProduto": 1039,
+          "TituloProduto": "PSC706"
+        }
+      ],
+      "ComplementoAplicacao3_20": [
+        {
+          "CodigoProduto": 951,
+          "TituloProduto": "PSD981"
+        }
+      ],
+      "ComplementoAplicacao3_30": [
+        {
+          "CodigoProduto": 1457,
+          "TituloProduto": "PEA161"
+        }
+      ],
+      "ComplementoAplicacao3_33": ""
+    },
+    {
+      "DescricaoFabricante": "VOLKSWAGEN",
+      "CodigoAplicacao": 202221,
+      "DescricaoAplicacao": "11130",
+      "ComplementoAplicacao3_1": "4236",
+      "ComplementoAplicacao3_2": "MWM D229/6 T",
+      "ComplementoAplicacao3_3": "1982",
+      "ComplementoAplicacao3_4": "1986",
+      "ComplementoAplicacao3_5": "Diesel",
+      "ComplementoAplicacao3_9": [
+        {
+          "CodigoProduto": 161,
+          "TituloProduto": "AP2710",
+          "CpoAuxProd53": "Sim"
+        }
+      ],
+      "ComplementoAplicacao3_10": [
+        {
+          "CodigoProduto": 162,
+          "TituloProduto": "AS810"
+        }
+      ],
+      "ComplementoAplicacao3_11": [
+        {
+          "CodigoProduto": 136,
+          "TituloProduto": "PSL962",
+          "CpoAuxProd53": "Sim"
+        }
+      ],
+      "ComplementoAplicacao3_13": [
+        {
+          "CodigoProduto": 133,
+          "TituloProduto": "FC161",
+          "CpoAuxProd53": "Sim"
+        }
+      ],
+      "ComplementoAplicacao3_16": [
+        {
+          "CodigoProduto": 16,
+          "TituloProduto": "PH346"
+        }
+      ],
+      "ComplementoAplicacao3_33": ""
+    }
+  ],
+  "totalResultado": "643",
+  "camposSemInformacoes": [
+    "ComplementoAplicacao3_18",
+    "ComplementoAplicacao3_19",
+    "ComplementoAplicacao3_21",
+    "ComplementoAplicacao3_22",
+    "ComplementoAplicacao3_23",
+    "ComplementoAplicacao3_24",
+    "ComplementoAplicacao3_28",
+    "ComplementoAplicacao3_43",
+    "ComplementoAplicacao3_44",
+    "ComplementoAplicacao3_45",
+    "ComplementoAplicacao3_46",
+    "ComplementoAplicacao3_47",
+    "ComplementoAplicacao3_48"
+  ],
+  "quantidadeDetalhada": [
+    {
+      "Descricao": "Especificações",
+      "Tipo": "Especificacoes",
+      "Quantidade": 218
+    },
+    {
+      "Descricao": "Conversões",
+      "Tipo": "Conversoes",
+      "Quantidade": 7564
+    },
+    {
+      "Descricao": "Total",
+      "Tipo": "Total",
+      "Quantidade": 643
+    },
+    {
+      "Codigo": 1,
+      "Descricao": "Automóveis",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 362
+    },
+    {
+      "Codigo": 2,
+      "Descricao": "Motocicletas",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 0
+    },
+    {
+      "Codigo": 3,
+      "Descricao": "Ônibus",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 49
+    },
+    {
+      "Codigo": 4,
+      "Descricao": "Caminhões",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 232
+    },
+    {
+      "Codigo": 5,
+      "Descricao": "Colheitadeiras",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 0
+    },
+    {
+      "Codigo": 6,
+      "Descricao": "Máquinas e Equipamentos",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 0
+    },
+    {
+      "Codigo": 7,
+      "Descricao": "Tratores",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 0
+    }
+  ]
+}

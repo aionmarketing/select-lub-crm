@@ -1,0 +1,116 @@
+// Tables owned by the `services` module. Ownership is declared in ownership.json;
+// this file and that entry are kept in agreement by schema-ownership.test.ts.
+// Only `module_services` may write them.
+
+model Service {
+  id          String        @id @default(cuid())
+  customerId  String        @map("customer_id")
+  customer    Customer      @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  vehicleId   String?       @map("vehicle_id")
+  vehicle     Vehicle?      @relation(fields: [vehicleId], references: [id], onDelete: SetNull)
+  unitId      String        @map("unit_id")
+  unit        Unit          @relation(fields: [unitId], references: [id], onDelete: Restrict)
+  omieId      String?       @unique @map("omie_id")
+  performedAt DateTime?     @map("performed_at")
+  description String?
+  kind        String?
+  status      String?
+  amount      Decimal?      @db.Decimal(10, 2)
+  odometerKm  Int?          @map("odometer_km")
+  origin      String
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+  items             ServiceItem[]
+  scheduledMessages ScheduledMessage[]
+  scheduledAttributions    ServiceScheduledAttribution[]
+  conversationAttributions ServiceConversationAttribution[]
+  quoteAttributions        ServiceQuoteAttribution[]
+  vehicleReturns           VehicleReturn[]
+
+  @@index([customerId])
+  @@map("service")
+}
+
+model ServiceItem {
+  id           String   @id @default(cuid())
+  serviceId    String   @map("service_id")
+  service      Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  description  String
+  kind         String?
+  quantity     Float?
+  unitAmount   Decimal? @map("unit_amount") @db.Decimal(10, 2)
+  lineAmount   Decimal? @map("line_amount") @db.Decimal(10, 2)
+  oilViscosity String?  @map("oil_viscosity")
+  oilBrand     String?  @map("oil_brand")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@index([serviceId])
+  @@map("service_item")
+}
+
+model IntervalRule {
+  id                String             @id @default(cuid())
+  version           Int
+  criterion         String
+  criterionId       String?            @map("criterion_id")
+  intervalAmount    Int                @map("interval_amount")
+  intervalUnit      String             @map("interval_unit")
+  priority          Int
+  validFrom         DateTime?          @map("valid_from")
+  validTo           DateTime?          @map("valid_to")
+  active            Boolean
+  createdAt         DateTime           @default(now()) @map("created_at")
+  updatedAt         DateTime           @updatedAt @map("updated_at")
+  scheduledMessages ScheduledMessage[]
+  vehicleReturns    VehicleReturn[]
+
+  @@map("interval_rule")
+}
+
+/// The next expected return of ONE vehicle. Opened when a service is recorded on
+/// that vehicle, dated from it, and superseded by a newer service on the same
+/// vehicle — at most one OPEN row per vehicle: the partial unique index
+/// `vehicle_return_one_open_per_vehicle` (migration
+/// `20260925140000_one_open_return_per_vehicle`), which Prisma cannot express, so
+/// it lives only in SQL. Until 2026-09-25 this comment claimed an index that did
+/// not exist.
+///
+/// `returnDate` is stored rather than recomputed on every read. That is what
+/// makes it editable for a single vehicle without changing the interval rule for
+/// everyone, and it is why Follow-up and the Serviços return filter read this
+/// column instead of calling `suggestDate` again.
+///
+/// The unit is reached through `sourceService.unitId`; it is deliberately not
+/// duplicated here, so there is no second copy to disagree.
+model VehicleReturn {
+  id                  String        @id @default(cuid())
+  vehicleId           String        @map("vehicle_id")
+  vehicle             Vehicle       @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  /// The service this return was dated from. Kept even once superseded.
+  sourceServiceId     String        @map("source_service_id")
+  sourceService       Service       @relation(fields: [sourceServiceId], references: [id], onDelete: Cascade)
+  /// Calendar day the car is due back, in America/Sao_Paulo. A day, not an
+  /// instant: nobody sets a time of day for "this car is due".
+  returnDate          DateTime      @map("return_date") @db.Date
+  /// OPEN | ARCHIVED | SUPERSEDED. Archiving takes the row off the Follow-up
+  /// queue and nothing else — its reminders keep firing on their own schedule
+  /// (decided 2026-09-03). It is reversible; unarchiving restores only the
+  /// status and the two archived_* fields below.
+  status              String
+  /// The rule that produced the default date, for tracing why it is what it is.
+  /// Null when the six-month BR-06 default applied, or after a manual edit.
+  intervalRuleId      String?       @map("interval_rule_id")
+  intervalRule        IntervalRule? @relation(fields: [intervalRuleId], references: [id], onDelete: SetNull)
+  intervalRuleVersion Int?          @map("interval_rule_version")
+  archivedAt          DateTime?     @map("archived_at")
+  archivedByUserId    String?       @map("archived_by_user_id") @db.Uuid
+  archivedByUser      User?         @relation(fields: [archivedByUserId], references: [id], onDelete: SetNull)
+  createdAt           DateTime      @default(now()) @map("created_at")
+  updatedAt           DateTime      @updatedAt @map("updated_at")
+  reminderMessages    ReturnReminderMessage[]
+
+  @@index([vehicleId])
+  @@index([status, returnDate])
+  @@map("vehicle_return")
+}

@@ -1,0 +1,42 @@
+{
+  "vehicle": "HONDA Accord 2.0 16V i-VTEC 2012",
+  "parts": {
+    "motor": {
+      "capacities": [
+        {
+          "volume": "3,70"
+        }
+      ],
+      "products": [
+        {
+          "name": "MOTUL 6100 SAVE-LITE 5W-30",
+          "code": "15913",
+          "recOrder": 4,
+          "packs": [
+            "208L"
+          ],
+          "tier": "SPECIALIST"
+        }
+      ]
+    },
+    "transmissão, automática - automática convencional": {
+      "capacities": [
+        {
+          "volume": "6,5",
+          "note": "Volume seco."
+        },
+        {
+          "volume": "2,5",
+          "note": "Volume em serviço."
+        }
+      ],
+      "products": [
+        {
+          "name": "MOTUL MULTI ATF",
+          "code": "45600",
+          "recOrder": 5
+        }
+      ]
+    }
+  }
+}

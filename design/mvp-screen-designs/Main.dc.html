@@ -1,0 +1,1645 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap">
+  <style>
+/* ===== BEGIN SHARED FOUNDATION — byte-identical across all five artboards. Do not edit one copy alone. ===== */
+    :root {
+      /* yellow-cta palette (apps/web/src/theme.ts ROLE_TABLES["yellow-cta"]) */
+      --primary:#EAB63D; --on-primary:#111111;
+      --primary-container:#FFF3C4; --on-primary-container:#111111;
+      --secondary:#303030; --on-secondary:#FFFFFF;
+      --secondary-container:#E4E2E1; --on-secondary-container:#303030;
+      /* shared roles (identical on both palettes) */
+      --tertiary:#5f5e5e; --on-tertiary:#FFFFFF;
+      --tertiary-container:#e4e2e1; --on-tertiary-container:#474747;
+      --surface:#FFFFFF; --surface-variant:#EDEDED; --on-surface:#111111;
+      --outline:#D9D9D9;
+      --error:#B3261E; --on-error:#FFFFFF;
+      --error-container:#ffe0e0; --on-error-container:#8a1c1c;
+      --success-container:#e6f4ea; --on-success-container:#1e4620;
+      --whatsapp:#25D366; --on-whatsapp:#111111;
+      --read-tick:#1565C0;
+      /* Gold fails AA as text on white (~1.9:1), so text and icons that would
+         read as "primary" use charcoal — theme.ts does the same for yellow-cta
+         via MuiButton text/outlined and MuiLink overrides. Gold stays a FILL. */
+      --on-surface-accent:#303030;
+      /* spacing scale 4/8/12/16/24/32/48/64 */
+      --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-6:24px; --sp-8:32px; --sp-12:48px; --sp-16:64px;
+      /* radii — inputs/chips, cards (theme.shape.borderRadius), pill CTAs (spacing(2)) */
+      --radius-sm:4px; --radius-md:8px; --radius-lg:16px;
+      /* type scale */
+      --t-page:26px; --t-section:18px; --t-subsection:15px; --t-body:13px; --t-caption:11px; --t-metric:30px;
+    }
+    body { margin:0; font-family:'Inter', system-ui, sans-serif; color:var(--on-surface); background:var(--surface-variant); }
+    a { color:var(--on-surface-accent); }
+    a:hover { color:var(--on-surface); }
+    .t-page { font-size:var(--t-page); font-weight:800; letter-spacing:-0.02em; margin:0; }
+    .t-section { font-size:var(--t-section); font-weight:700; letter-spacing:-0.01em; margin:0; }
+    .t-subsection { font-size:var(--t-subsection); font-weight:600; margin:0; }
+    .t-body { font-size:var(--t-body); font-weight:400; }
+    .t-caption { font-size:var(--t-caption); font-weight:400; color:var(--tertiary); }
+    .t-metric { font-size:var(--t-metric); font-weight:800; letter-spacing:-0.02em; }
+    /* shell */
+    .shell { display:flex; align-items:center; gap:var(--sp-4); padding:0 var(--sp-6); height:52px;
+      background:var(--secondary); color:var(--on-secondary); flex-shrink:0; }
+    .shell-title { font-size:var(--t-subsection); font-weight:800; letter-spacing:-0.01em; flex:1; }
+    .palette-group { display:flex; background:var(--surface); border-radius:var(--radius-sm); padding:2px; gap:2px; }
+    .palette-opt { padding:4px 12px; border-radius:2px; font-size:var(--t-caption); font-weight:600; color:var(--tertiary); }
+    .palette-opt-on { background:var(--primary); color:var(--on-primary); }
+    /* page nav */
+    .nav { display:flex; align-items:stretch; gap:var(--sp-6); padding:0 var(--sp-6);
+      background:var(--surface); border-bottom:1px solid var(--outline); flex-shrink:0; }
+    .nav-item { display:flex; align-items:center; padding:var(--sp-3) 0; font-size:var(--t-body); font-weight:500;
+      color:var(--tertiary); border-bottom:2px solid transparent; }
+    .nav-item-on { color:var(--on-surface); font-weight:700; border-bottom-color:var(--primary); }
+    /* Follow-up pendency badge: the total of the four section counts, from the
+       same contract the Follow-up screen and the Relatórios alert read, so the
+       three cannot disagree. Zero — and counts unavailable — draw no badge at
+       all; a permanent "0" teaches the eye to ignore the one place the number
+       matters. Gold is a fill, never text, so the pill is gold with charcoal
+       digits rather than gold numerals. */
+    .nav-badge { display:inline-flex; align-items:center; justify-content:center;
+      min-width:18px; height:18px; padding:0 5px; margin-left:6px; border-radius:9px;
+      background:var(--primary); color:var(--on-primary); font-size:var(--t-caption);
+      font-weight:700; line-height:1; font-variant-numeric:tabular-nums; }
+    /* ===== END SHARED FOUNDATION ===== */
+
+    /* Conversas-only semantic tokens (declared, not inlined at point of use) */
+    :root {
+      --warning-container:#fff3cd; --on-warning-container:#7a5c00; --warning:#c99a00;
+    }
+    .chip { display:inline-flex; align-items:center; gap:4px; padding:2px 8px; border-radius:var(--radius-sm); font-size:11px; }
+    /* Derived pipeline stage (REP-15). Read-only by design: no affordance to
+       set it, because it is computed from the conversation's own events. */
+    .status-chip { display:inline-flex; align-items:center; gap:5px; padding:2px 10px; border-radius:var(--radius-lg);
+      font-size:11px; font-weight:600; background:var(--secondary); color:var(--on-secondary); white-space:nowrap; }
+    .status-chip::before { content:""; width:5px; height:5px; border-radius:50%; background:var(--primary); }
+    .field-label { font-size:11px; opacity:0.6; margin-bottom:4px; }
+    .field-box { padding:8px 10px; border-radius:var(--radius-sm); border:1px solid var(--outline); background:var(--surface); font-size:13px; }
+    .btn { padding:6px 12px; border-radius:var(--radius-lg); font-weight:600; font-size:12px; width:fit-content; cursor:pointer; user-select:none; }
+    .btn-outline { border:1px solid var(--outline); }
+    .choice { padding:6px 10px; border-radius:var(--radius-lg); font-size:11px; font-weight:600; border:1px solid var(--outline); cursor:pointer; user-select:none; }
+    .skeleton { background:linear-gradient(90deg,#eee,#f5f5f5,#eee); border-radius:4px; }
+    .card { background:var(--surface); border-radius:var(--radius-md); padding:12px; display:flex; flex-direction:column; gap:8px; }
+    .navlink { font-size:13px; font-weight:600; cursor:pointer; user-select:none; }
+    .navlink-static { font-size:13px; opacity:0.55; }
+    .icon-btn { cursor:pointer; }
+    .warning-line { display:flex; align-items:center; gap:6px; padding:4px 8px; border-radius:var(--radius-sm); background:var(--warning-container); color:var(--on-warning-container); font-size:11px; font-weight:600; }
+    /* One suggestion idiom, three placements (design D2). A marker says a
+       proposal exists; the value itself only shows where it costs nothing —
+       an empty field — or in edit mode under the field it would change. */
+    /* Read-mode indicator. Click, not hover: hover has no touch equivalent,
+       hides the affordance, and what it reveals contains buttons. */
+    .sug-cue { display:inline-flex; align-items:center; gap:5px; padding:2px 8px; border-radius:var(--radius-lg);
+      border:1px solid var(--primary); background:var(--primary-container); color:var(--on-primary-container);
+      font-size:10px; font-weight:700; cursor:pointer; user-select:none; flex-shrink:0; white-space:nowrap; }
+    .sug-cue:hover { background:var(--primary); }
+    .sug-dot { width:6px; height:6px; border-radius:50%; background:var(--primary); flex-shrink:0; }
+    .kv-row { display:flex; align-items:center; gap:8px; font-size:12px; }
+    .kv-label { font-size:11px; opacity:0.55; width:104px; flex-shrink:0; }
+    .ghost { font-style:italic; color:var(--tertiary); }
+    .sug-row { display:flex; align-items:center; gap:8px; margin-top:4px; padding:5px 8px;
+      border-left:2px solid var(--primary); background:var(--primary-container); border-radius:0 var(--radius-sm) var(--radius-sm) 0; }
+    .sug-text { flex:1; font-size:12px; font-style:italic; color:var(--on-primary-container); }
+    .sug-act { width:22px; height:22px; border-radius:50%; border:1px solid var(--outline); background:var(--surface);
+      display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700;
+      color:var(--on-surface-accent); cursor:pointer; user-select:none; flex-shrink:0; }
+    /* Per-field Omie merge: both values side by side, difference marked. */
+    .diff-row { display:flex; align-items:baseline; gap:8px; font-size:12px; }
+    .diff-side { width:34px; flex-shrink:0; font-size:10px; font-weight:700; color:var(--tertiary); }
+    .diff-val { flex:1; font-family:'Inter', system-ui, sans-serif; }
+    .diff-mark { background:var(--warning-container); color:var(--on-warning-container); font-weight:700; padding:0 2px; border-radius:2px; }
+    .veh-ghost { border:1px dashed var(--primary); background:var(--primary-container); }
+    /* Oil research (background-oil-research D17/D18). The block holds the one
+       status sentence and its secondary lines; the counter sits outside it,
+       as the app's role="timer" sibling does. Nothing here animates. */
+    .research-block { display:flex; flex-direction:column; gap:6px; padding:12px; border-radius:var(--radius-md); background:var(--surface-variant); }
+    .research-sentence { font-size:13px; font-weight:600; }
+    .research-line { font-size:12px; color:var(--on-tertiary-container); }
+    .research-timer { font-size:12px; color:var(--tertiary); font-variant-numeric:tabular-nums; padding-left:12px; }
+    .row-date { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+    .outcome-block { display:flex; flex-direction:column; gap:10px; padding:16px; font-size:13px; line-height:1.5; border:1px dashed var(--outline); border-radius:var(--radius-md); }
+    .fill-flag { font-size:11px; font-weight:600; color:var(--on-surface-accent); }
+    .pick-card { flex:1; background:var(--surface); border-radius:var(--radius-md); padding:12px; display:flex; flex-direction:column; gap:6px; border:1px solid var(--outline); cursor:pointer; user-select:none; }
+    .pick-card-on { flex:1; background:var(--primary-container); border-radius:var(--radius-md); padding:12px; display:flex; flex-direction:column; gap:6px; border:2px solid var(--primary); cursor:pointer; user-select:none; }
+    .pick-title { font-weight:600; font-size:14px; color:var(--on-primary-container); }
+    .pick-meta { font-size:12px; color:var(--on-primary-container); }
+    .pick-cite { font-size:11px; color:var(--tertiary); line-height:1.4; }
+    .vol-choice { padding:8px 12px; border-radius:var(--radius-sm); border:1px solid var(--outline); background:var(--surface); font-size:12px; cursor:pointer; user-select:none; }
+    .vol-choice-on { padding:8px 12px; border-radius:var(--radius-sm); border:2px solid var(--primary); background:var(--primary-container); color:var(--on-primary-container); font-size:12px; font-weight:600; cursor:pointer; user-select:none; }
+    .rail-research { display:flex; align-items:center; gap:6px; font-size:11px; color:var(--tertiary); }
+  </style>
+</helmet>
+<div style="width:1440px; height:1040px; display:flex; flex-direction:column; background:var(--surface); overflow:hidden; position:relative;">
+
+  <!-- ============================= MAIN VIEW ============================= -->
+
+  <!-- ===== BEGIN SHARED FOUNDATION MARKUP ===== -->
+  <div class="shell">
+    <span class="shell-title">Select Lub CRM</span>
+    <div class="palette-group">
+      <span class="palette-opt palette-opt-on">Amarelo</span>
+      <span class="palette-opt">Preto</span>
+    </div>
+  </div>
+  <div class="nav">
+    <span class="nav-item nav-item-on">Conversas</span>
+    <span class="nav-item">Serviços</span>
+    <span class="nav-item">Follow-up<span class="nav-badge">13</span></span>
+    <span class="nav-item">Relatórios</span>
+    <span class="nav-item">Configurações</span>
+    <span class="nav-item">Usuários</span>
+  </div>
+  <!-- ===== END SHARED FOUNDATION MARKUP ===== -->
+
+    <!-- Top bar -->
+    <div style="display:flex; align-items:center; gap:16px; padding:8px 16px; border-bottom:1px solid var(--outline); background:var(--surface); position:relative; z-index:2;">
+      <div style="flex:1; display:flex; align-items:center; gap:8px; padding:8px 12px; border-radius:var(--radius-sm); background:var(--surface-variant);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--on-surface)" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span style="font-size:14px; opacity:{{search.opacity}};">{{search.display}}</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:6px; padding:4px 8px 4px 12px; border-radius:var(--radius-sm); background:var(--surface-variant);">
+        <span style="font-size:12px; opacity:0.75;">Não respondidas</span>
+        <div style="width:28px; height:16px; border-radius:8px; background:var(--outline); position:relative;"><div style="width:12px; height:12px; border-radius:50%; background:var(--surface); position:absolute; top:2px; left:2px;"></div></div>
+      </div>
+      <div class="btn" style="background:var(--primary); color:var(--on-primary); padding:10px 20px;" onClick="{{go.novaConversa}}">+ Nova conversa</div>
+      <div style="display:flex; align-items:center; gap:6px; padding:4px 10px; border-radius:var(--radius-sm); background:{{conn.bg}};"><div style="width:8px; height:8px; border-radius:50%; background:{{conn.dot}};"></div><span style="font-size:12px; color:{{conn.fg}};">{{conn.label}}</span></div>
+      <div class="icon-btn" style="position:relative;" onClick="{{go.omiePanel}}">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--on-surface)" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <sc-if value="{{omie.badgeVisible}}" hint-placeholder-val="{{true}}">
+          <div style="position:absolute; top:-4px; right:-6px; min-width:16px; height:16px; border-radius:8px; background:var(--error); color:var(--on-error); font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; padding:0 3px;">{{omie.badgeCount}}</div>
+        </sc-if>
+      </div>
+    </div>
+
+    <div style="flex:1; display:flex; min-height:0;">
+
+      <!-- Conversation list -->
+      <div style="width:360px; border-right:1px solid var(--outline); display:flex; flex-direction:column; overflow:auto;">
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 16px 8px;">
+          <h1 class="t-section" style="margin:0;">Conversas</h1>
+        </div>
+        <div style="display:flex; gap:8px; padding:4px 16px 12px; flex-wrap:wrap;">
+          <div class="chip" style="background:var(--primary-container); color:var(--on-primary-container); font-weight:600;">Todas</div>
+          <div class="chip" style="background:var(--surface-variant);">Novo lead</div>
+        </div>
+        <div style="height:1px; background:var(--outline);"></div>
+
+        <sc-if value="{{list.loading}}" hint-placeholder-val="{{false}}">
+          <div style="padding:16px;"><div class="skeleton" style="height:48px; margin-bottom:12px;"></div><div class="skeleton" style="height:48px; margin-bottom:12px;"></div><div class="skeleton" style="height:48px;"></div></div>
+        </sc-if>
+        <sc-if value="{{list.empty}}" hint-placeholder-val="{{false}}">
+          <div style="text-align:center; font-size:13px; opacity:0.6; padding:40px 16px;">Nenhuma conversa</div>
+        </sc-if>
+        <sc-if value="{{list.error}}" hint-placeholder-val="{{false}}">
+          <div style="padding:16px; display:flex; flex-direction:column; gap:10px;">
+            <div style="padding:8px 12px; border-radius:var(--radius-sm); background:var(--error-container); color:var(--on-error-container); font-size:12px;">Não foi possível carregar as conversas</div>
+            <div class="btn" style="background:var(--primary); color:var(--on-primary);">Tentar de novo</div>
+          </div>
+        </sc-if>
+        <sc-if value="{{list.noMatch}}" hint-placeholder-val="{{false}}">
+          <div style="text-align:center; font-size:13px; opacity:0.6; padding:40px 16px;">Nenhuma conversa para "{{search.query}}"</div>
+        </sc-if>
+        <sc-if value="{{list.populated}}" hint-placeholder-val="{{true}}">
+          <div style="display:flex; gap:12px; padding:12px 16px; align-items:flex-start; background:var(--surface-variant);">
+            <div style="width:40px; height:40px; border-radius:50%; background:var(--secondary-container); flex-shrink:0;"></div>
+            <div style="flex:1; min-width:0;">
+              <div style="display:flex; justify-content:space-between;"><span style="font-weight:600; font-size:14px;">Roberto Aparecido</span><span style="font-size:12px; opacity:0.6;">5 min</span></div>
+              <div style="font-size:13px; opacity:0.75; margin:2px 0;">Quanto fica a troca de óleo do meu Corolla?</div>
+              <div style="display:flex; gap:6px; align-items:center;">
+                <div class="chip" style="border:1px solid var(--outline);">Anúncio</div>
+                <div class="chip" style="background:var(--primary-container); color:var(--on-primary-container);">Em atendimento</div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex; gap:12px; padding:12px 16px; align-items:flex-start;">
+            <div style="width:40px; height:40px; border-radius:50%; background:var(--secondary-container); flex-shrink:0;"></div>
+            <div style="flex:1; min-width:0;">
+              <div style="display:flex; justify-content:space-between;"><span style="font-weight:600; font-size:14px;">Fernanda Cardoso</span><span style="font-size:12px; opacity:0.6;">32 min</span></div>
+              <div style="font-size:13px; opacity:0.75; margin:2px 0;">Combinado, obrigada!</div>
+              <div style="display:flex; gap:6px; align-items:center;">
+                <div class="chip" style="border:1px solid var(--outline);">Orgânica</div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex; gap:12px; padding:12px 16px; align-items:flex-start;">
+            <div style="width:40px; height:40px; border-radius:50%; background:var(--secondary-container); flex-shrink:0;"></div>
+            <div style="flex:1; min-width:0;">
+              <div style="display:flex; justify-content:space-between;"><span style="font-weight:600; font-size:14px;">Marcos Vinícius</span><span style="font-size:12px; opacity:0.6;">ontem</span></div>
+              <div style="font-size:13px; opacity:0.75; margin:2px 0;">Vocês abrem no sábado?</div>
+              <div style="display:flex; gap:6px; align-items:center;">
+                <div class="chip" style="border:1px solid var(--outline);">Desconhecida</div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <!-- Thread panel -->
+      <div style="flex:1; min-width:0; display:flex; flex-direction:column; background:var(--surface-variant);">
+        <sc-if value="{{thread.open}}" hint-placeholder-val="{{true}}">
+          <div style="display:flex; align-items:center; gap:12px; padding:12px 20px; background:var(--surface);">
+            <div style="width:40px; height:40px; border-radius:50%; background:var(--secondary-container); flex-shrink:0;"></div>
+            <div style="flex:1; min-width:0;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span style="font-weight:600; font-size:15px;">Roberto Aparecido</span>
+                <span class="status-chip" title="Derivado dos eventos da conversa (REP-15)">{{status.label}}</span>
+              </div>
+              <div style="font-size:12px; opacity:0.6;">+55 19 98123-4567</div>
+            </div>
+          </div>
+          <div style="flex:1; overflow:auto; padding:16px 20px; display:flex; flex-direction:column; gap:8px;">
+            <div style="text-align:center;"><span style="font-size:12px; opacity:0.6; background:var(--surface); padding:4px 10px; border-radius:var(--radius-sm);">Hoje</span></div>
+            <div style="display:flex; justify-content:flex-start;"><div style="max-width:320px; padding:8px 12px; border-radius:var(--radius-md); background:var(--surface);"><div style="font-size:14px;">Olá! Quanto fica a troca de óleo do meu Corolla 2019?</div><div style="font-size:11px; opacity:0.5; margin-top:4px;">10:42</div></div></div>
+
+            <!-- Inbound media message (tweak-driven: carregada / falha) -->
+            <sc-if value="{{media.loaded}}" hint-placeholder-val="{{false}}">
+              <div style="display:flex; justify-content:flex-start;"><div style="max-width:320px; padding:6px; border-radius:var(--radius-md); background:var(--surface);">
+                <div style="width:220px; height:140px; border-radius:var(--radius-sm); background:var(--secondary-container); display:flex; align-items:center; justify-content:center;">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--on-secondary-container)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                </div>
+                <div style="font-size:11px; opacity:0.5; margin-top:4px; padding:0 4px;">10:43</div>
+              </div></div>
+            </sc-if>
+            <sc-if value="{{media.failed}}" hint-placeholder-val="{{false}}">
+              <div style="display:flex; justify-content:flex-start;"><div style="max-width:320px; padding:8px 12px; border-radius:var(--radius-md); background:var(--surface);">
+                <div style="display:flex; align-items:center; gap:8px; padding:8px 10px; border-radius:var(--radius-sm); background:var(--error-container);">
+                  <span style="font-size:12px; color:var(--on-error-container);">Não foi possível carregar a mídia</span>
+                  <span style="font-size:12px; font-weight:600; color:var(--on-error-container); text-decoration:underline; cursor:pointer;">Tentar de novo</span>
+                </div>
+                <div style="font-size:11px; opacity:0.5; margin-top:4px;">10:43</div>
+              </div></div>
+            </sc-if>
+
+            <!-- Outbound bubble with delivery status (tweak-driven) -->
+            <div style="display:flex; justify-content:flex-end;"><div style="max-width:320px; padding:8px 12px; border-radius:var(--radius-md); background:var(--primary-container); color:var(--on-primary-container);">
+              <sc-if value="{{msg.unavailable}}" hint-placeholder-val="{{false}}">
+                <div style="font-size:14px; font-style:italic; opacity:0.6;">Mensagem indisponível</div>
+              </sc-if>
+              <sc-if value="{{msg.hasBody}}" hint-placeholder-val="{{true}}">
+                <div style="font-size:14px;">Olá, Roberto! Consigo montar um orçamento rapidinho pra você, um momento.</div>
+              </sc-if>
+              <div style="display:flex; align-items:center; justify-content:flex-end; gap:4px; margin-top:4px;">
+                <sc-if value="{{msg.failed}}" hint-placeholder-val="{{false}}">
+                  <span style="font-size:11px; font-weight:600; color:var(--error);">Não entregue</span>
+                </sc-if>
+                <span style="font-size:11px; opacity:0.6;">10:45</span>
+                <sc-if value="{{msg.singleTick}}" hint-placeholder-val="{{false}}">
+                  <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M1 6l3.5 3.5L11 2.5" stroke="{{msg.tickColor}}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </sc-if>
+                <sc-if value="{{msg.doubleTick}}" hint-placeholder-val="{{true}}">
+                  <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M1 6l3.5 3.5L11 2.5" stroke="{{msg.tickColor}}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 6l3.5 3.5L15 2.5" stroke="{{msg.tickColor}}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </sc-if>
+              </div>
+            </div></div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; padding:12px 20px; background:var(--surface);">
+                        <sc-if value="{{conn.canSend}}" hint-placeholder-val="{{true}}">
+              <div class="btn btn-outline" style="display:flex; align-items:center; gap:6px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--on-surface)" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                Anexar
+              </div>
+              <div style="flex:1; padding:10px 12px; border-radius:var(--radius-sm); background:var(--surface-variant); font-size:14px; opacity:0.6;">Digite uma mensagem...</div>
+              <div class="btn" style="background:var(--whatsapp); color:var(--on-whatsapp);">Enviar</div>
+            </sc-if>
+            <sc-if value="{{conn.blocked}}" hint-placeholder-val="{{false}}">
+              <div style="flex:1; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 12px; border-radius:var(--radius-sm); background:var(--error-container);"><span style="font-size:13px; color:var(--on-error-container);">Envio pelo CRM indisponível.</span><sc-if value="{{conn.showWaLink}}" hint-placeholder-val="{{true}}"><span style="font-size:13px; font-weight:600; color:var(--on-error-container); text-decoration:underline;">Abrir no WhatsApp</span></sc-if></div>
+            </sc-if>
+          </div>
+        </sc-if>
+        <sc-if value="{{thread.closed}}" hint-placeholder-val="{{false}}">
+          <div style="flex:1; display:flex; align-items:center; justify-content:center; font-size:14px; opacity:0.6;">Selecione uma conversa</div>
+        </sc-if>
+      </div>
+
+      <!-- Client rail — the profile, always-visible stack -->
+      <div style="width:440px; background:var(--surface-variant); padding:16px 12px; display:flex; flex-direction:column; gap:12px; overflow:auto;">
+
+        <!-- Rail default stack -->
+        <sc-if value="{{rail.showStack}}" hint-placeholder-val="{{true}}">
+
+          <!-- Contato -->
+          <div class="card">
+            <sc-if value="{{contato.loading}}" hint-placeholder-val="{{false}}">
+              <div class="skeleton" style="height:14px; width:60%;"></div>
+              <div style="font-size:13px; opacity:0.7;">Carregando cadastro</div>
+            </sc-if>
+            <sc-if value="{{contato.error}}" hint-placeholder-val="{{false}}">
+              <div style="padding:8px 12px; border-radius:var(--radius-sm); background:var(--error-container); color:var(--on-error-container); font-size:12px;">Não foi possível carregar o cadastro</div>
+              <div class="btn" style="background:var(--primary); color:var(--on-primary);">Tentar de novo</div>
+            </sc-if>
+            <sc-if value="{{contato.showHeader}}" hint-placeholder-val="{{true}}">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <div style="width:48px; height:48px; border-radius:50%; background:var(--secondary-container); flex-shrink:0;"></div>
+              <sc-if value="{{contato.linked}}" hint-placeholder-val="{{true}}">
+                <div style="flex:1;"><div style="font-weight:600; font-size:15px;">Roberto Aparecido</div><div style="font-size:12px; opacity:0.6;">+55 19 98123-4567</div></div>
+              </sc-if>
+              <sc-if value="{{contato.unlinked}}" hint-placeholder-val="{{false}}">
+                <div style="flex:1;"><div style="font-weight:600; font-size:15px;">+55 19 97777-2222</div><div style="font-size:12px; opacity:0.6;">Sem cadastro vinculado</div></div>
+              </sc-if>
+              <sc-if value="{{contato.showEditar}}" hint-placeholder-val="{{true}}">
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <div class="btn btn-outline" onClick="{{go.editarContato}}">Editar</div>
+                  <sc-if value="{{prefill.hasPending}}" hint-placeholder-val="{{true}}">
+                    <span style="background:var(--primary); color:var(--on-primary); border-radius:999px; min-width:18px; height:18px; padding:0 5px; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center; cursor:pointer;" title="2 sugestões pendentes — abrir edição" onClick="{{go.editarContato}}">2</span>
+                  </sc-if>
+                </div>
+              </sc-if>
+              <sc-if value="{{contato.showSalvar}}" hint-placeholder-val="{{false}}">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <sc-if value="{{prefill.hasPending}}" hint-placeholder-val="{{true}}">
+                    <div class="btn btn-outline">Confirmar tudo</div>
+                  </sc-if>
+                  <div style="padding:6px 12px; font-size:13px; font-weight:600; cursor:pointer;" title="Sair da edição sem salvar" onClick="{{go.cancelarEdicaoContato}}">Cancelar</div>
+                  <div class="btn" style="background:var(--primary); color:var(--on-primary);" onClick="{{go.salvarContato}}">Salvar</div>
+                </div>
+              </sc-if>
+            </div>
+
+            <sc-if value="{{prefill.extracting}}" hint-placeholder-val="{{false}}">
+              <div style="display:flex; align-items:center; gap:8px; font-size:12px; opacity:0.7;">
+                <div class="skeleton" style="height:12px; width:90px;"></div>
+                Extraindo cadastro da conversa
+              </div>
+            </sc-if>
+            <sc-if value="{{prefill.failed}}" hint-placeholder-val="{{false}}">
+              <div style="display:flex; align-items:center; gap:8px; padding:6px 10px; border-radius:var(--radius-sm); background:var(--error-container); color:var(--on-error-container); font-size:12px;">
+                <span style="flex:1;">Não foi possível extrair o cadastro</span>
+                <span class="btn btn-outline" style="padding:2px 10px;">Tentar de novo</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{contato.omieDown}}" hint-placeholder-val="{{false}}">
+              <div style="padding:8px 12px; border-radius:var(--radius-sm); background:var(--error-container); color:var(--on-error-container); font-size:12px;">Omie indisponível. Os dados locais foram mantidos.</div>
+            </sc-if>
+
+            <sc-if value="{{contato.omieNeverSynced}}" hint-placeholder-val="{{false}}">
+              <div class="warning-line"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span>Cadastro ainda não enviado ao Omie — existe só no CRM</span></div>
+            </sc-if>
+            <sc-if value="{{contato.omieSyncFailed}}" hint-placeholder-val="{{false}}">
+              <div style="display:flex; align-items:center; gap:8px; padding:6px 10px; border-radius:var(--radius-sm); background:var(--error-container); color:var(--on-error-container); font-size:12px;">
+                <span style="flex:1;">Falha ao sincronizar com o Omie em 01/09/2026 08:12</span>
+                <span class="btn btn-outline" style="padding:2px 10px;">Tentar de novo</span>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{contato.pendingOnEmail}}" hint-placeholder-val="{{false}}">
+              <div class="warning-line"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span>E-mail tem uma pendência de conflito com o Omie</span></div>
+              <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                <div style="font-size:11px; opacity:0.6; width:100%;">CRM: roberto.a@example.com · Omie: roberto.aparecido@example.com</div>
+                <div class="choice">Usar CRM</div>
+                <div class="choice" style="background:var(--secondary); color:var(--on-secondary); border-color:var(--secondary);">Usar Omie</div>
+                <div class="choice">Editar</div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{contato.readOnlyLinked}}" hint-placeholder-val="{{true}}">
+              <div>
+                <div class="kv-row">
+                  <span class="kv-label">CPF/CNPJ</span>
+                  <span style="flex:1;">123.456.789-00</span>
+                  <sc-if value="{{prefill.hasPending}}" hint-placeholder-val="{{true}}">
+                    <span class="sug-cue" onClick="{{go.toggleSugestao}}" title="Ver a sugestão para este campo">{{prefill.cueLabel}}</span>
+                  </sc-if>
+                </div>
+                <sc-if value="{{prefill.disclosureOpen}}" hint-placeholder-val="{{false}}">
+                  <div class="sug-row" style="margin-left:112px;">
+                    <span class="sug-text">sugerido: 123.456.789-09</span>
+                    <span class="sug-act" title="Aceitar">✓</span>
+                    <span class="sug-act" title="Recusar">✕</span>
+                  </div>
+                </sc-if>
+              </div>
+              <div class="kv-row">
+                <span class="kv-label">E-mail</span>
+                <span style="flex:1;">roberto.a@example.com</span>
+              </div>
+              <div class="kv-row" style="align-items:flex-start;">
+                <span class="kv-label">Endereço</span>
+                <span style="flex:1;">Rua Barão do Rio Branco, 210 · Vila Industrial · Campinas · SP · 13035-000 · BR</span>
+              </div>
+              <div class="kv-row">
+                <span class="kv-label">Complemento</span>
+                <sc-if value="{{prefill.hasPending}}" hint-placeholder-val="{{true}}">
+                  <span class="ghost" style="flex:1;">Bloco B, apto 42</span>
+                  <span class="sug-act" title="Aceitar">✓</span>
+                  <span class="sug-act" title="Recusar">✕</span>
+                </sc-if>
+                <sc-if value="{{prefill.noneNeeded}}" hint-placeholder-val="{{false}}">
+                  <span style="flex:1; opacity:0.4;">—</span>
+                </sc-if>
+              </div>
+            </sc-if>
+            <sc-if value="{{contato.readOnlyUnlinked}}" hint-placeholder-val="{{false}}">
+              <div style="font-size:12px; opacity:0.6;">Preencha o cadastro em "Editar" para criar e vincular o cliente</div>
+            </sc-if>
+
+            <sc-if value="{{contato.editingLinked}}" hint-placeholder-val="{{false}}">
+              <div>
+                <div class="field-label">Nome</div>
+                <div class="field-box">Roberto Aparecido</div>
+                <sc-if value="{{prefill.hasPending}}" hint-placeholder-val="{{true}}">
+                  <div class="sug-row">
+                    <span class="sug-text">Roberto Aparecido Silva</span>
+                    <span class="sug-act" title="Aceitar">✓</span>
+                    <span class="sug-act" title="Recusar">✕</span>
+                  </div>
+                </sc-if>
+              </div>
+              <div><div class="field-label">CPF/CNPJ</div><div class="field-box">123.456.789-00</div></div>
+              <div><div class="field-label">Telefone principal</div><div class="field-box">+55 19 98123-4567</div></div>
+              <div>
+                <div class="field-label">E-mail</div>
+                <div class="field-box" style="{{contato.emailFieldBorder}}">roberto.a@example.com</div>
+              </div>
+              <div><div class="field-label">Rua</div><div class="field-box">Rua Barão do Rio Branco</div></div>
+              <div><div class="field-label">Número</div><div class="field-box">210</div></div>
+              <div><div class="field-label">Bairro</div><div class="field-box">Vila Industrial</div></div>
+              <div>
+                <div class="field-label">Complemento</div>
+                <sc-if value="{{prefill.hasPending}}" hint-placeholder-val="{{true}}">
+                  <div class="field-box ghost" style="display:flex; align-items:center; gap:8px;">
+                    <span style="flex:1;">Bloco B, apto 42</span>
+                    <span class="sug-act" title="Aceitar">✓</span>
+                    <span class="sug-act" title="Recusar">✕</span>
+                  </div>
+                </sc-if>
+                <sc-if value="{{prefill.noneNeeded}}" hint-placeholder-val="{{false}}">
+                  <div class="field-box" style="opacity:0.5;">(vazio)</div>
+                </sc-if>
+              </div>
+              <div><div class="field-label">Cidade</div><div class="field-box">Campinas</div></div>
+              <div><div class="field-label">UF</div><div class="field-box">SP</div></div>
+              <div><div class="field-label">CEP</div><div class="field-box">13035-000</div></div>
+              <div><div class="field-label">País</div><div class="field-box">BR</div></div>
+            </sc-if>
+            <sc-if value="{{contato.editingUnlinked}}" hint-placeholder-val="{{false}}">
+              <div><div class="field-label">Nome</div><div class="field-box" style="opacity:0.5;">(vazio)</div></div>
+              <div><div class="field-label">CPF/CNPJ</div><div class="field-box" style="opacity:0.5;">(vazio)</div></div>
+              <div><div class="field-label">Telefone principal</div><div class="field-box">+55 19 97777-2222</div></div>
+              <div><div class="field-label">E-mail</div><div class="field-box" style="opacity:0.5;">(vazio)</div></div>
+              <div><div class="field-label">Rua</div><div class="field-box" style="opacity:0.5;">(vazio)</div></div>
+              <div><div class="field-label">Número</div><div class="field-box" style="opacity:0.5;">(vazio)</div></div>
+              <div><div class="field-label">Bairro</div><div class="field-box" style="opacity:0.5;">(vazio)</div></div>
+              <div><div class="field-label">Complemento</div><div class="field-box" style="opacity:0.5;">(vazio)</div></div>
+              <div><div class="field-label">Cidade</div><div class="field-box" style="opacity:0.5;">(vazio)</div></div>
+              <div><div class="field-label">UF</div><div class="field-box" style="opacity:0.5;">(vazio)</div></div>
+              <div><div class="field-label">CEP</div><div class="field-box" style="opacity:0.5;">(vazio)</div></div>
+              <div><div class="field-label">País</div><div class="field-box" style="opacity:0.5;">(vazio)</div></div>
+              <div style="font-size:11px; opacity:0.6;">Salvar cria o cliente e vincula esta conversa a ele</div>
+            </sc-if>
+            </sc-if>
+          </div>
+
+          <!-- Tags -->
+          <div class="card">
+            <div style="font-weight:600; font-size:13px;">Tags</div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <div class="chip" style="background:var(--tertiary-container); color:var(--on-tertiary-container);">Anúncio ×</div>
+              <div class="chip" style="background:var(--tertiary-container); color:var(--on-tertiary-container);">Aguardando peça ×</div>
+              <div class="chip btn-outline">Aplicar "Cliente antigo"</div>
+              <div class="chip btn-outline">Aplicar "Frota"</div>
+            </div>
+          </div>
+
+          <!-- Veículos -->
+          <div class="card">
+            <div style="font-weight:600; font-size:13px;">Veículos</div>
+            <sc-if value="{{vehicles.loading}}" hint-placeholder-val="{{false}}">
+              <div class="skeleton" style="height:14px; width:60%;"></div>
+            </sc-if>
+            <sc-if value="{{vehicles.error}}" hint-placeholder-val="{{false}}">
+              <div style="padding:8px 12px; border-radius:var(--radius-sm); background:var(--error-container); color:var(--on-error-container); font-size:12px;">Não foi possível carregar os veículos</div>
+              <div class="btn" style="background:var(--primary); color:var(--on-primary);">Tentar de novo</div>
+            </sc-if>
+            <sc-if value="{{vehicles.noCustomer}}" hint-placeholder-val="{{false}}">
+              <div style="text-align:center; font-size:13px; opacity:0.6; padding:8px 0;">Nenhum cliente vinculado</div>
+            </sc-if>
+            <sc-if value="{{vehicles.noneRegistered}}" hint-placeholder-val="{{false}}">
+              <div style="text-align:center; font-size:13px; opacity:0.6; padding:8px 0;">Nenhum veículo cadastrado</div>
+              <div class="btn" style="background:var(--primary); color:var(--on-primary); cursor:pointer;" onClick="{{go.novoVeiculo}}">+ Adicionar veículo</div>
+            </sc-if>
+            <sc-if value="{{vehicles.populated}}" hint-placeholder-val="{{true}}">
+              <div style="max-height:150px; overflow:auto; display:flex; flex-direction:column; gap:6px;">
+                <sc-if value="{{prefill.hasPending}}" hint-placeholder-val="{{true}}">
+                  <div class="veh-ghost" style="border-radius:var(--radius-sm); padding:8px 10px; display:flex; align-items:center; gap:8px;">
+                    <span class="veh-name ghost" style="flex:1; font-size:13px;">Fiat Toro 2022 · QRS-4T56</span>
+                    <span style="font-size:10px; opacity:0.7;">sugerido</span>
+                    <span class="sug-act" title="Aceitar">✓</span>
+                    <span class="sug-act" title="Recusar">✕</span>
+                  </div>
+                </sc-if>
+                <div style="border:1px solid var(--outline); border-radius:var(--radius-sm); padding:8px 10px; display:flex; flex-direction:column; gap:6px;">
+                  <div style="display:flex; align-items:center; justify-content:space-between; cursor:pointer;" onClick="{{go.veiculoScreen}}">
+                    <span class="veh-name" style="font-size:13px; font-weight:600; color:var(--on-surface-accent);">Toyota Corolla XEi 2019 · ABC-1D23</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--on-surface-accent)" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                  </div>
+                  <sc-if value="{{vehicles.researching}}" hint-placeholder-val="{{false}}">
+                    <div class="rail-research"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--tertiary)" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span>Pesquisando lubrificante…</span></div>
+                  </sc-if>
+                  <div class="choice" style="align-self:flex-start;" onClick="{{go.orcamento}}">Montar orçamento</div>
+                </div>
+                <div style="border:1px solid var(--outline); border-radius:var(--radius-sm); padding:8px 10px; display:flex; flex-direction:column; gap:6px;">
+                  <div style="display:flex; align-items:center; justify-content:space-between; cursor:pointer;" onClick="{{go.veiculoScreen}}">
+                    <span class="veh-name" style="font-size:13px; font-weight:600; color:var(--on-surface-accent);">Honda Civic 2021 · XYZ-9F88</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--on-surface-accent)" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="choice" onClick="{{go.orcamento}}">Montar orçamento</div>
+                    <sc-if value="{{prefill.hasPending}}" hint-placeholder-val="{{true}}">
+                      <span style="flex:1; font-size:10px; color:var(--tertiary);">remoção sugerida</span>
+                      <span class="sug-act" title="Aceitar remoção">✓</span>
+                      <span class="sug-act" title="Recusar">✕</span>
+                    </sc-if>
+                  </div>
+                </div>
+              </div>
+              <div class="btn" style="background:var(--primary); color:var(--on-primary); cursor:pointer;" onClick="{{go.novoVeiculo}}">+ Adicionar veículo</div>
+            </sc-if>
+          </div>
+
+          <!-- Serviços preview -->
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-weight:600; font-size:13px;">Serviços</span>
+              <span class="navlink" style="font-size:12px;" onClick="{{go.servicosFull}}">Ver tudo</span>
+            </div>
+            <sc-if value="{{servicos.loading}}" hint-placeholder-val="{{false}}">
+              <div class="skeleton" style="height:14px; width:60%;"></div>
+            </sc-if>
+            <sc-if value="{{servicos.error}}" hint-placeholder-val="{{false}}">
+              <div style="padding:8px 12px; border-radius:var(--radius-sm); background:var(--error-container); color:var(--on-error-container); font-size:12px;">Não foi possível carregar os serviços</div>
+            </sc-if>
+            <sc-if value="{{servicos.noCustomer}}" hint-placeholder-val="{{false}}">
+              <div style="text-align:center; font-size:13px; opacity:0.6; padding:8px 0;">Nenhum cliente vinculado</div>
+            </sc-if>
+            <sc-if value="{{servicos.empty}}" hint-placeholder-val="{{false}}">
+              <div style="text-align:center; font-size:13px; opacity:0.6; padding:8px 0;">Nenhum serviço encontrado</div>
+            </sc-if>
+            <sc-if value="{{servicos.populated}}" hint-placeholder-val="{{true}}">
+              <div style="border-radius:var(--radius-sm); border:1px solid var(--outline); padding:8px 10px; display:flex; flex-direction:column; gap:4px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; cursor:pointer;" onClick="{{go.servicoDetail}}">
+                  <span style="font-size:13px; font-weight:600;">12/03/2026 · Troca de óleo</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--on-surface-accent)" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                </div>
+                <div style="font-size:12px; opacity:0.75;">Toyota Corolla XEi 2019 · R$ 189,90</div>
+                <div class="choice" style="align-self:flex-start;" onClick="{{go.programarShortcut}}">Programar mensagem</div>
+              </div>
+              <div style="border-radius:var(--radius-sm); border:1px solid var(--outline); padding:8px 10px; display:flex; flex-direction:column; gap:4px;">
+                <div style="display:flex; align-items:center; justify-content:space-between; cursor:pointer;" onClick="{{go.servicoDetail}}">
+                  <span style="font-size:13px; font-weight:600;">02/11/2025 · Alinhamento e balanceamento</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--on-surface-accent)" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                </div>
+                <div style="font-size:12px; opacity:0.75;">Toyota Corolla XEi 2019 · R$ 120,00</div>
+                <div class="choice" style="align-self:flex-start;" onClick="{{go.programarShortcut}}">Programar mensagem</div>
+              </div>
+            </sc-if>
+          </div>
+
+          <!-- Mensagens programadas preview — mirrors Serviços; ordered
+               most-recently-created first (design D3a) so a message just
+               scheduled is the first row you see. -->
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-weight:600; font-size:13px;">Mensagens programadas</span>
+              <span class="navlink" style="font-size:12px;" onClick="{{go.programadasFull}}">Ver tudo</span>
+            </div>
+            <sc-if value="{{programadas.loading}}" hint-placeholder-val="{{false}}">
+              <div class="skeleton" style="height:14px; width:60%;"></div>
+            </sc-if>
+            <sc-if value="{{programadas.error}}" hint-placeholder-val="{{false}}">
+              <div style="padding:8px 12px; border-radius:var(--radius-sm); background:var(--error-container); color:var(--on-error-container); font-size:12px;">Não foi possível carregar as mensagens programadas</div>
+            </sc-if>
+            <sc-if value="{{programadas.noCustomer}}" hint-placeholder-val="{{false}}">
+              <div style="text-align:center; font-size:13px; opacity:0.6; padding:8px 0;">Nenhum cliente vinculado</div>
+            </sc-if>
+            <sc-if value="{{programadas.empty}}" hint-placeholder-val="{{false}}">
+              <div style="text-align:center; font-size:13px; opacity:0.6; padding:8px 0;">Nenhuma mensagem programada</div>
+            </sc-if>
+            <sc-if value="{{programadas.populated}}" hint-placeholder-val="{{true}}">
+              <div style="border-radius:var(--radius-sm); border:1px solid var(--outline); padding:8px 10px; display:flex; flex-direction:column; gap:4px; cursor:pointer;" onClick="{{go.programadaDetail}}">
+                <div style="display:flex; align-items:center; justify-content:space-between;">
+                  <span style="font-size:13px; font-weight:600;">Lembrete de retorno</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--on-surface-accent)" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                </div>
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <span style="font-size:12px; opacity:0.75;">12/09/2026 09:00</span>
+                  <span class="chip" style="background:var(--primary-container); color:var(--on-primary-container);">Programada</span>
+                </div>
+              </div>
+              <div style="border-radius:var(--radius-sm); border:1px solid var(--outline); padding:8px 10px; display:flex; flex-direction:column; gap:4px; cursor:pointer;" onClick="{{go.programadaDetail}}">
+                <div style="display:flex; align-items:center; justify-content:space-between;">
+                  <span style="font-size:13px; font-weight:600;">Boas-vindas</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--on-surface-accent)" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                </div>
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <span style="font-size:12px; opacity:0.75;">20/08/2026 10:30</span>
+                  <span class="chip" style="background:var(--tertiary-container); color:var(--on-tertiary-container);">Enviada</span>
+                </div>
+              </div>
+            </sc-if>
+            <div class="btn" style="background:var(--primary); color:var(--on-primary); cursor:pointer;" onClick="{{go.programarNovo}}">+ Programar mensagem</div>
+          </div>
+        </sc-if>
+
+        <!-- Rail alternate view: Serviços full list (rail-scoped, list+thread+top bar unchanged) -->
+        <sc-if value="{{rail.showServicosFull}}" hint-placeholder-val="{{false}}">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="navlink" onClick="{{go.railStack}}">← Voltar</span>
+            <span style="font-weight:600; font-size:14px;">Serviços</span>
+          </div>
+          <div class="card"><div style="font-size:13px; font-weight:600;">12/03/2026 · Troca de óleo</div><div style="font-size:12px; opacity:0.75;">Toyota Corolla XEi 2019 · R$ 189,90 · 42.300 km</div></div>
+          <div class="card"><div style="font-size:13px; font-weight:600;">02/11/2025 · Alinhamento e balanceamento</div><div style="font-size:12px; opacity:0.75;">Toyota Corolla XEi 2019 · R$ 120,00 · 39.800 km</div></div>
+          <div class="card"><div style="font-size:13px; font-weight:600;">14/06/2025 · Troca de óleo</div><div style="font-size:12px; opacity:0.75;">Honda Civic 2021 · R$ 189,90 · 18.100 km</div></div>
+        </sc-if>
+
+        <!-- Rail alternate view: Mensagens programadas full list. Ordered by
+             scheduled date — soonest pending first, then resolved by recency —
+             because this is the "what goes out next" surface. The preview above
+             stays most-recently-created (design D3a), so a message just created
+             is still confirmed there. -->
+        <sc-if value="{{rail.showProgramadasFull}}" hint-placeholder-val="{{false}}">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="navlink" onClick="{{go.railStack}}">← Voltar</span>
+            <span style="font-weight:600; font-size:14px;">Mensagens programadas</span>
+          </div>
+          <div class="card" style="cursor:pointer;" onClick="{{go.programadaDetail}}"><div style="font-size:13px; font-weight:600;">Lembrete de revisão</div><div style="font-size:12px; opacity:0.75;">05/09/2026 09:00</div><div class="chip" style="background:var(--primary-container); color:var(--on-primary-container);">Programada</div></div>
+          <div class="card" style="cursor:pointer;" onClick="{{go.programadaDetail}}"><div style="font-size:13px; font-weight:600;">Lembrete de retorno</div><div style="font-size:12px; opacity:0.75;">12/09/2026 09:00</div><div class="chip" style="background:var(--primary-container); color:var(--on-primary-container);">Programada</div></div>
+          <div class="card" style="cursor:pointer;" onClick="{{go.programadaDetail}}"><div style="font-size:13px; font-weight:600;">Aniversário do Corolla</div><div style="font-size:12px; opacity:0.75;">03/10/2026 14:00</div><div class="chip" style="background:var(--primary-container); color:var(--on-primary-container);">Programada</div></div>
+          <div class="card"><div style="font-size:13px; font-weight:600;">Boas-vindas</div><div style="font-size:12px; opacity:0.75;">20/08/2026 10:30</div><div class="chip" style="background:var(--tertiary-container); color:var(--on-tertiary-container);">Enviada</div></div>
+          <div class="card"><div style="font-size:13px; font-weight:600;">Orçamento de óleo</div><div style="font-size:12px; opacity:0.75;">15/08/2026 14:00</div><div class="chip" style="background:var(--surface-variant);">Cancelada</div></div>
+          <div class="card"><div style="font-size:13px; font-weight:600;">Lembrete de retorno</div><div style="font-size:12px; opacity:0.75;">10/08/2026 09:00</div><div class="chip" style="background:var(--error-container); color:var(--on-error-container);">Falhou · conexão indisponível</div></div>
+        </sc-if>
+
+        <!-- Rail alternate view: one service, in detail (ServiceItem-backed) -->
+        <sc-if value="{{rail.showServicoDetail}}" hint-placeholder-val="{{false}}">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="navlink" onClick="{{go.servicosFull}}">← Voltar</span>
+            <span style="font-weight:600; font-size:14px;">12/03/2026 · Troca de óleo</span>
+          </div>
+          <div class="card">
+            <div class="kv-row"><span class="kv-label">Veículo</span><span style="flex:1;">Toyota Corolla XEi 2019 · ABC-1D23</span></div>
+            <div class="kv-row"><span class="kv-label">Quilometragem</span><span style="flex:1;">42.300 km</span></div>
+            <div class="kv-row"><span class="kv-label">Situação</span><span style="flex:1;">Concluído</span></div>
+            <div class="kv-row"><span class="kv-label">Origem</span><span style="flex:1;">Omie · OS 10482</span></div>
+            <div class="kv-row"><span class="kv-label">Unidade</span><span style="flex:1;">Centro</span></div>
+          </div>
+          <div style="font-weight:600; font-size:13px;">Itens</div>
+          <div class="card" style="gap:6px;">
+            <div class="kv-row"><span style="flex:1;">Motul 5100 5W-30 · sintético</span><span style="opacity:0.6;">4 ×</span><span style="font-weight:600;">R$ 139,60</span></div>
+            <div class="kv-row"><span style="flex:1;">Filtro de óleo</span><span style="opacity:0.6;">1 ×</span><span style="font-weight:600;">R$ 32,00</span></div>
+            <div class="kv-row"><span style="flex:1;">Mão de obra</span><span style="opacity:0.6;">1 ×</span><span style="font-weight:600;">R$ 18,30</span></div>
+            <div style="height:1px; background:var(--outline); margin:2px 0;"></div>
+            <div class="kv-row"><span style="flex:1; font-weight:600;">Total</span><span style="font-weight:800; font-size:14px;">R$ 189,90</span></div>
+          </div>
+          <div style="font-weight:600; font-size:13px;">Orçamento de origem</div>
+          <div class="card" style="gap:4px;">
+            <div style="font-size:12px;">Orçamento enviado em 08/03/2026</div>
+            <div style="font-size:11px; opacity:0.6;">Atribuído a este serviço pela regra de 30 dias (versão 1)</div>
+          </div>
+          <div class="choice" style="align-self:flex-start;" onClick="{{go.programarShortcut}}">Programar mensagem</div>
+        </sc-if>
+
+        <!-- Rail alternate view: one scheduled message, in detail -->
+        <sc-if value="{{rail.showProgramadaDetail}}" hint-placeholder-val="{{false}}">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="navlink" onClick="{{go.programadasFull}}">← Voltar</span>
+            <span style="font-weight:600; font-size:14px;">Lembrete de retorno</span>
+          </div>
+          <div class="card">
+            <div class="kv-row"><span class="kv-label">Envio</span><span style="flex:1;">12/09/2026 09:00 · America/Sao_Paulo</span></div>
+            <div class="kv-row"><span class="kv-label">Situação</span><span style="flex:1;"><span class="chip" style="background:var(--primary-container); color:var(--on-primary-container);">Programada</span></span></div>
+            <div class="kv-row"><span class="kv-label">Template</span><span style="flex:1;">Lembrete de retorno</span></div>
+            <div class="kv-row"><span class="kv-label">Serviço</span><span style="flex:1;">12/03/2026 · Troca de óleo</span></div>
+            <div class="kv-row"><span class="kv-label">Criada por</span><span style="flex:1;">Roberta Nunes · 12/03/2026</span></div>
+          </div>
+          <div style="font-weight:600; font-size:13px;">Texto</div>
+          <div class="card"><div style="font-size:12px; line-height:1.5; white-space:pre-wrap;">Olá, Roberto! Já faz um tempo desde a última troca de óleo do Corolla. Quer agendar uma visita?</div></div>
+          <div class="choice" style="align-self:flex-start;">Cancelar envio</div>
+        </sc-if>
+
+        <!-- Rail alternate view: Veículo drill-in (list+thread stay visible) -->
+        <sc-if value="{{rail.showVeiculo}}" hint-placeholder-val="{{false}}">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="navlink" onClick="{{go.railStack}}">← Voltar</span>
+            <span style="font-weight:600; font-size:14px;">Toyota Corolla XEi 2019 · ABC-1D23</span>
+          </div>
+          <sc-if value="{{vehicles.researching}}" hint-placeholder-val="{{false}}">
+            <div class="rail-research"><svg aria-hidden="true" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--tertiary)" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span>Pesquisando lubrificante…</span></div>
+          </sc-if>
+          <sc-if value="{{veiculoScreen.loading}}" hint-placeholder-val="{{false}}">
+            <div class="skeleton" style="height:18px; width:40%;"></div>
+            <div class="skeleton" style="height:80px;"></div>
+          </sc-if>
+          <sc-if value="{{veiculoScreen.empty}}" hint-placeholder-val="{{false}}">
+            <div style="text-align:center; font-size:13px; opacity:0.6; padding:40px 0;">Nenhum serviço registrado para este veículo</div>
+          </sc-if>
+          <sc-if value="{{veiculoScreen.error}}" hint-placeholder-val="{{false}}">
+            <div style="padding:8px 12px; border-radius:var(--radius-sm); background:var(--error-container); color:var(--on-error-container); font-size:12px;">Não foi possível carregar os dados deste veículo</div>
+            <div class="btn" style="background:var(--primary); color:var(--on-primary);">Tentar de novo</div>
+          </sc-if>
+          <sc-if value="{{veiculoScreen.populated}}" hint-placeholder-val="{{true}}">
+            <div class="card">
+              <div class="field-label">Quilometragem atual</div><div style="font-size:16px; font-weight:600;">42.300 km</div>
+              <div class="field-label">Ano</div><div style="font-size:16px; font-weight:600;">2019</div>
+              <div class="field-label">Placa</div><div style="font-size:16px; font-weight:600;">ABC-1D23</div>
+            </div>
+            <div style="font-weight:600; font-size:14px;">Sincronização com o Omie</div>
+            <div class="card">
+              <sc-if value="{{vehSync.never}}" hint-placeholder-val="{{false}}">
+                <div class="kv-row"><span class="sug-dot" style="background:var(--tertiary);"></span><span style="flex:1;">Ainda não sincronizado — este veículo existe só no CRM</span></div>
+              </sc-if>
+
+              <sc-if value="{{vehSync.ok}}" hint-placeholder-val="{{true}}">
+                <div class="kv-row"><span class="sug-dot" style="background:var(--whatsapp);"></span><span style="flex:1;">Sincronizado · última verificação 01/09/2026 08:12</span></div>
+              </sc-if>
+
+              <sc-if value="{{vehSync.failed}}" hint-placeholder-val="{{false}}">
+                <div style="display:flex; align-items:center; gap:8px; padding:6px 10px; border-radius:var(--radius-sm); background:var(--error-container); color:var(--on-error-container); font-size:12px;">
+                  <span style="flex:1;">Falha ao sincronizar em 01/09/2026 08:12 · tempo de resposta esgotado</span>
+                  <span class="btn btn-outline" style="padding:2px 10px;">Tentar de novo</span>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{vehSync.conflict}}" hint-placeholder-val="{{false}}">
+                <div class="warning-line"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span>2 campos em conflito com o Omie</span></div>
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                  <div class="field-label" style="margin:0;">Quilometragem</div>
+                  <div class="diff-row"><span class="diff-side">CRM</span><span class="diff-val">4<span class="diff-mark">2.300</span> km</span></div>
+                  <div class="diff-row"><span class="diff-side">Omie</span><span class="diff-val">4<span class="diff-mark">1.980</span> km</span></div>
+                  <div style="display:flex; gap:6px;"><div class="choice">Usar CRM</div><div class="choice">Usar Omie</div><div class="choice">Editar</div></div>
+                </div>
+                <div style="height:1px; background:var(--outline);"></div>
+                <div style="display:flex; flex-direction:column; gap:6px;">
+                  <div class="field-label" style="margin:0;">Placa</div>
+                  <div class="diff-row"><span class="diff-side">CRM</span><span class="diff-val">ABC-<span class="diff-mark">1D23</span></span></div>
+                  <div class="diff-row"><span class="diff-side">Omie</span><span class="diff-val">ABC-<span class="diff-mark">1234</span></span></div>
+                  <div style="display:flex; gap:6px;"><div class="choice">Usar CRM</div><div class="choice">Usar Omie</div><div class="choice">Editar</div></div>
+                </div>
+              </sc-if>
+
+              <div style="font-size:11px; opacity:0.6;">O espelhamento de veículo no Omie ainda não foi confirmado (GitHub #29); no MVP os dados do Omie são simulados.</div>
+            </div>
+
+            <div style="font-weight:600; font-size:14px;">Histórico de serviços</div>
+            <div class="card"><div style="font-size:13px; font-weight:600;">12/03/2026 · Troca de óleo</div><div style="font-size:12px; opacity:0.75;">R$ 189,90 · 42.300 km</div></div>
+            <div class="card"><div style="font-size:13px; font-weight:600;">02/11/2025 · Alinhamento e balanceamento</div><div style="font-size:12px; opacity:0.75;">R$ 120,00 · 39.800 km</div></div>
+          </sc-if>
+        </sc-if>
+
+      </div>
+    </div>
+
+
+  <!-- ============================= PANELS / DIALOGS (overlay whichever screen is active) ============================= -->
+
+  <!-- Nova conversa modal -->
+  <sc-if value="{{novaConversa.open}}" hint-placeholder-val="{{false}}">
+    <div style="position:absolute; inset:0; background:rgba(0,0,0,0.32); display:flex; align-items:center; justify-content:center; z-index:30;">
+      <div style="width:320px; background:var(--surface); border-radius:12px; padding:20px; display:flex; flex-direction:column; gap:12px; box-shadow:0 8px 32px rgba(0,0,0,0.24);">
+        <div style="display:flex; justify-content:space-between; align-items:center;"><span style="font-size:16px; font-weight:700;">{{novaConversa.title}}</span><span class="navlink" onClick="{{go.closeNovaConversa}}">✕</span></div>
+        <sc-if value="{{novaConversa.connected}}" hint-placeholder-val="{{true}}">
+          <div style="font-size:11px; opacity:0.6;">Telefone</div>
+          <div class="field-box">11999990000</div>
+          <div style="display:flex; justify-content:flex-end; gap:8px;"><div style="padding:8px 14px; font-size:13px; font-weight:600;" onClick="{{go.closeNovaConversa}}">Cancelar</div><div class="btn" style="background:var(--primary); color:var(--on-primary); padding:8px 14px;">Iniciar</div></div>
+        </sc-if>
+        <sc-if value="{{novaConversa.contingencia}}" hint-placeholder-val="{{false}}">
+          <div style="font-size:13px; opacity:0.75;">Envio pelo CRM indisponível no momento. Use o WhatsApp Web para iniciar essa conversa.</div>
+          <div style="display:flex; justify-content:flex-end; gap:8px;"><div style="padding:8px 14px; font-size:13px; font-weight:600;" onClick="{{go.closeNovaConversa}}">Fechar</div><div class="btn" style="background:var(--whatsapp); color:var(--on-whatsapp); padding:8px 14px;">Abrir no WhatsApp Web</div></div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- Global Omie-pendências panel — a per-field merge (design D6). Both
+       values are real customer data, so nothing is pre-selected and there is
+       no bulk "take one side". -->
+  <sc-if value="{{omiePanel.open}}" hint-placeholder-val="{{false}}">
+    <div style="position:absolute; inset:0; background:rgba(0,0,0,0.2); z-index:30;" onClick="{{go.closeOmiePanel}}"></div>
+    <div style="position:absolute; top:0; right:0; bottom:0; width:460px; background:var(--surface); box-shadow:-8px 0 32px rgba(0,0,0,0.18); z-index:31; padding:20px; display:flex; flex-direction:column; gap:12px; overflow:auto;">
+      <div style="display:flex; justify-content:space-between; align-items:center;"><span style="font-size:16px; font-weight:700;">Pendências com o Omie</span><span class="navlink" onClick="{{go.closeOmiePanel}}">✕</span></div>
+
+      <sc-if value="{{omiePanel.empty}}" hint-placeholder-val="{{false}}">
+        <div style="text-align:center; font-size:13px; opacity:0.6; padding:40px 0;">Nenhuma pendência aberta</div>
+      </sc-if>
+
+      <sc-if value="{{omiePanel.hasItems}}" hint-placeholder-val="{{true}}">
+        <div style="display:flex; align-items:center; gap:8px; padding:8px 12px; border-radius:var(--radius-sm); background:var(--warning-container); color:var(--on-warning-container); font-size:12px; font-weight:600;">
+          <span style="flex:1;">3 campos ainda sem resolução</span>
+        </div>
+
+        <div class="card" style="gap:10px;">
+          <div style="font-size:13px; font-weight:600;">Roberto Aparecido</div>
+
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div class="field-label" style="margin:0;">E-mail</div>
+            <div class="diff-row"><span class="diff-side">CRM</span><span class="diff-val">roberto<span class="diff-mark">.a</span>@example.com</span></div>
+            <div class="diff-row"><span class="diff-side">Omie</span><span class="diff-val">roberto<span class="diff-mark">.aparecido</span>@example.com</span></div>
+            <div style="display:flex; gap:6px;"><div class="choice">Usar CRM</div><div class="choice">Usar Omie</div><div class="choice">Editar</div></div>
+          </div>
+
+          <div style="height:1px; background:var(--outline);"></div>
+
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div class="field-label" style="margin:0;">Telefone principal</div>
+            <div class="diff-row"><span class="diff-side">CRM</span><span class="diff-val">+55 19 98123-<span class="diff-mark">4567</span></span></div>
+            <div class="diff-row"><span class="diff-side">Omie</span><span class="diff-val">+55 19 98123-<span class="diff-mark">9911</span></span></div>
+            <div style="display:flex; gap:6px;"><div class="choice">Usar CRM</div><div class="choice">Usar Omie</div><div class="choice">Editar</div></div>
+          </div>
+        </div>
+
+        <div class="card" style="gap:10px;">
+          <div style="font-size:13px; font-weight:600;">Fernanda Cardoso</div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <div class="field-label" style="margin:0;">CEP</div>
+            <div class="diff-row"><span class="diff-side">CRM</span><span class="diff-val">13035-<span class="diff-mark">000</span></span></div>
+            <div class="diff-row"><span class="diff-side">Omie</span><span class="diff-val">13035-<span class="diff-mark">210</span></span></div>
+            <div style="display:flex; gap:6px;"><div class="choice">Usar CRM</div><div class="choice">Usar Omie</div><div class="choice">Editar</div></div>
+          </div>
+          <span class="navlink" style="font-size:12px;">Abrir conversa</span>
+        </div>
+
+        <div style="font-size:11px; opacity:0.6;">O sistema não escolhe um lado automaticamente. Resolva campo a campo.</div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <!-- Orçamento de óleo panel (background-oil-research D17). Opening the quote
+       calls no provider: it reads the caches and the identity's research state.
+       No reuse-vs-refetch prompt — a verified row opens straight on its options,
+       with its date and "Buscar novamente"; with no row, the research warning.
+       In the app one role="status" element stays mounted and only its text
+       changes (loading → research sentence → outcome); the counter is a
+       role="timer" sibling outside it. Every pause hides the range. -->
+  <sc-if value="{{orcamento.open}}" hint-placeholder-val="{{false}}">
+    <div style="position:absolute; inset:0; background:rgba(0,0,0,0.32); display:flex; align-items:center; justify-content:center; z-index:30;">
+      <div style="width:640px; max-height:760px; background:var(--surface); border-radius:12px; padding:20px; display:flex; flex-direction:column; gap:12px; box-shadow:0 8px 32px rgba(0,0,0,0.24); overflow:auto;">
+        <div style="display:flex; justify-content:space-between; align-items:center;"><span style="font-size:16px; font-weight:700;">Montar orçamento — {{orcamento.title}}</span><span class="navlink" onClick="{{go.closeOrcamento}}">✕</span></div>
+
+        <sc-if value="{{orcamento.loading}}" hint-placeholder-val="{{false}}">
+          <div class="skeleton" style="height:14px; width:50%;"></div><div style="font-size:13px; opacity:0.7;">Carregando opções de orçamento…</div>
+        </sc-if>
+
+        <!-- Research under way with no row to show (researching) — or, above the
+             options, a new search under way for the shown row (refresh). -->
+        <sc-if value="{{orcamento.corrected}}" hint-placeholder-val="{{false}}">
+          <div style="padding:8px 12px; border-radius:var(--radius-sm); background:var(--success-container); color:var(--on-success-container); font-size:12px; font-weight:600;">Versão do veículo corrigida para {{orcamento.correctedTo}}.</div>
+        </sc-if>
+        <sc-if value="{{orcamento.research}}" hint-placeholder-val="{{false}}">
+          <div style="display:flex; flex-direction:column; gap:4px;">
+            <div class="research-block">
+              <div class="research-sentence">{{orcamento.researchSentence}}</div>
+              <sc-if value="{{orcamento.manualLine}}" hint-placeholder-val="{{false}}">
+                <div class="research-line">Encontramos o manual da montadora e estamos lendo o documento.</div>
+              </sc-if>
+              <sc-if value="{{orcamento.queueLine}}" hint-placeholder-val="{{false}}">
+                <div class="research-line">{{orcamento.queueText}}</div>
+              </sc-if>
+            </div>
+            <div class="research-timer">{{orcamento.timerText}}</div>
+          </div>
+        </sc-if>
+
+        <!-- The shown row's date (options, empty, missing volume), or the newer
+             attempt that did not confirm it; "Buscar novamente" beside it. -->
+        <sc-if value="{{orcamento.rowNotes}}" hint-placeholder-val="{{false}}">
+          <div class="row-date">
+            <span style="font-size:12px; color:var(--tertiary);">{{orcamento.rowDateText}}</span>
+            <div class="btn btn-outline" onClick="{{go.orcamentoBuscarNovamente}}">Buscar novamente</div>
+          </div>
+        </sc-if>
+        <sc-if value="{{orcamento.refetchFailed}}" hint-placeholder-val="{{false}}">
+          <div style="padding:8px 12px; border-radius:var(--radius-sm); background:var(--error-container); color:var(--on-error-container); font-size:12px;">Não foi possível pedir uma nova busca. Tente de novo.</div>
+        </sc-if>
+
+        <!-- Missing volume (owner, 2026-09-27, D24.1): the attendant types the
+             in-service volume. A human input, never an LLM answer; the cards it
+             prices say so. -->
+        <sc-if value="{{orcamento.noCapacity}}" hint-placeholder-val="{{false}}">
+          <div class="outcome-block">
+            <div>Encontramos a viscosidade (5W-30), mas não o volume de óleo da troca para este veículo. Informe o volume da troca para calcular o valor.</div>
+            <div style="display:flex; align-items:flex-end; gap:8px;">
+              <div style="width:200px;">
+                <div class="field-label">Volume de óleo da troca (litros)</div>
+                <div class="field-box" style="{{orcamento.volumeBoxStyle}}">{{orcamento.volumeValue}}</div>
+              </div>
+              <div class="btn btn-outline" style="margin-bottom:4px;" onClick="{{go.usarVolume}}">Usar este volume</div>
+            </div>
+            <sc-if value="{{orcamento.volumeInvalid}}" hint-placeholder-val="{{false}}">
+              <div style="font-size:11px; font-weight:600; color:var(--error);">Informe o volume em litros, maior que zero.</div>
+            </sc-if>
+            <!-- Above 30 L the volume warns, it does not block (owner, 2026-09-30). -->
+            <sc-if value="{{orcamento.volumeHigh}}" hint-placeholder-val="{{false}}">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div class="warning-line" style="flex:1;"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span>Volume alto — confira antes de usar.</span></div>
+                <div class="btn btn-outline" onClick="{{go.confirmarVolumeAlto}}">Usar mesmo assim</div>
+              </div>
+            </sc-if>
+            <div style="font-size:11px; color:var(--tertiary);">Informe o volume em serviço, com filtro.</div>
+          </div>
+        </sc-if>
+
+        <!-- Volume conflict (owner, 2026-09-27, F2): each source's volume is a
+             choice; picking one prices the cards, cited to that source. -->
+        <sc-if value="{{orcamento.volumeOnly}}" hint-placeholder-val="{{false}}">
+            <sc-if value="{{orcamento.volConflict}}" hint-placeholder-val="{{false}}">
+              <div style="display:flex; flex-direction:column; gap:6px;">
+                <div style="font-size:13px; line-height:1.5;">{{orcamento.volIntro}}</div>
+                <sc-if value="{{orcamento.volChoice1On}}" hint-placeholder-val="{{false}}">
+                  <div class="vol-choice-on" onClick="{{go.escolherVolume1}}">✓ 4,3 L — Toyota, Manual do proprietário Corolla 2019 (p. 412) — manual da montadora</div>
+                </sc-if>
+                <sc-if value="{{orcamento.volChoice1Off}}" hint-placeholder-val="{{false}}">
+                  <div class="vol-choice" onClick="{{go.escolherVolume1}}">4,3 L — Toyota, Manual do proprietário Corolla 2019 (p. 412) — manual da montadora</div>
+                </sc-if>
+                <sc-if value="{{orcamento.volChoice2On}}" hint-placeholder-val="{{false}}">
+                  <div class="vol-choice-on" onClick="{{go.escolherVolume2}}">✓ 4,0 L — Lubrax, Guia de aplicação Toyota (p. 18) — guia de aplicação do fabricante de lubrificante</div>
+                </sc-if>
+                <sc-if value="{{orcamento.volChoice2Off}}" hint-placeholder-val="{{false}}">
+                  <div class="vol-choice" onClick="{{go.escolherVolume2}}">4,0 L — Lubrax, Guia de aplicação Toyota (p. 18) — guia de aplicação do fabricante de lubrificante</div>
+                </sc-if>
+              </div>
+            </sc-if>
+          <div class="btn btn-outline" onClick="{{go.orcamentoBuscarNovamente}}">Buscar novamente</div>
+        </sc-if>
+
+        <sc-if value="{{orcamento.showCards}}" hint-placeholder-val="{{true}}">
+          <sc-if value="{{orcamento.newData}}" hint-placeholder-val="{{false}}">
+            <div class="row-date" style="padding:8px 12px; border-radius:var(--radius-sm); background:var(--primary-container); color:var(--on-primary-container);">
+              <span style="font-size:12px; font-weight:600;">Chegaram dados novos de 27/09/2026.</span>
+              <div class="btn" style="background:var(--primary); color:var(--on-primary);">Atualizar</div>
+            </div>
+          </sc-if>
+          <div style="font-size:12px; opacity:0.6;">{{orcamento.specLine}}</div>
+          <sc-if value="{{orcamento.filtersPending}}" hint-placeholder-val="{{false}}">
+            <div style="padding:8px 12px; border-radius:var(--radius-sm); background:var(--tertiary-container); color:var(--on-tertiary-container); font-size:12px;">Ainda estamos consultando os filtros na Tecfil — por enquanto, nenhum filtro entra no preço.</div>
+          </sc-if>
+          <div style="display:flex; gap:12px;">
+            <div style="flex:1; background:var(--primary-container); border-radius:var(--radius-md); padding:12px; display:flex; flex-direction:column; gap:6px; border:2px solid var(--primary);">
+              <div style="font-weight:600; font-size:14px; color:var(--on-primary-container);">✓ Motul 5100 5W-30</div>
+              <div style="font-size:12px; color:var(--on-primary-container);">Sintético · {{orcamento.price1}}</div>
+              <sc-if value="{{orcamento.fillFlag}}" hint-placeholder-val="{{false}}">
+                <div class="fill-flag">{{orcamento.fillFlagText}}</div>
+              </sc-if>
+            </div>
+            <div style="flex:1; background:var(--primary-container); border-radius:var(--radius-md); padding:12px; display:flex; flex-direction:column; gap:6px; border:2px solid var(--primary);">
+              <div style="font-weight:600; font-size:14px; color:var(--on-primary-container);">✓ Lubrax Top Turbo 5W-30</div>
+              <div style="font-size:12px; color:var(--on-primary-container);">Sintético · {{orcamento.price2}}</div>
+              <sc-if value="{{orcamento.fillFlag}}" hint-placeholder-val="{{false}}">
+                <div class="fill-flag">{{orcamento.fillFlagText}}</div>
+              </sc-if>
+            </div>
+          </div>
+          <div style="font-size:14px; font-weight:600;">Mensagem</div>
+          <div style="background:var(--surface-variant); border-radius:var(--radius-md); padding:12px; font-size:12px; line-height:1.5; white-space:pre-wrap;">Nesse valor já está incluso 👇
+
+✅ Troca de Óleo
+✅ Filtro de Óleo
+✅ Filtro de Combustível
+
+Temos 2 opções de troca de óleo para o seu veículo 👇
+
+1️⃣ Motul 5100 5W-30
+➡️ Tipo: Sintético
+➡️ Valor: {{orcamento.price1}}
+
+2️⃣ Lubrax Top Turbo 5W-30
+➡️ Tipo: Sintético
+➡️ Valor: {{orcamento.price2}}
+
+*Parcelamos em ate 6x sem juros./ Pix ou dinheiro
+5% de desconto .🤑
+
+Troca de óleo rápida e eficiente! 🚗💧
+📌 Atendimento por ordem de chegada.
+⏰ Segunda a sexta, das 7:30h às 18h.
+⏰ Sábado, das 7h às 12h.
+
+*📌NOSSA SENHORA DO CARMO 670 SANTA TERESINHA ( AO LADO POSTO BIGATON )*</div>
+          <sc-if value="{{orcamento.saveFailed}}" hint-placeholder-val="{{false}}">
+            <div style="padding:8px 12px; border-radius:var(--radius-sm); background:var(--error-container); color:var(--on-error-container); font-size:12px;">Não foi possível guardar o volume para os próximos orçamentos.</div>
+          </sc-if>
+          <div class="btn" style="background:var(--whatsapp); color:var(--on-whatsapp);">Enviar via WhatsApp</div>
+        </sc-if>
+
+        <!-- Conflicting grades (owner, 2026-09-27, D24.3; orchestrator,
+             2026-09-30): the choice is by grade, a radio group. Each grade
+             cites the source that lists it; nothing is preselected. Choosing a
+             grade offers every stocked oil of that grade as the quote's cards,
+             as options do, and the other grade's cards drop. -->
+        <sc-if value="{{orcamento.conflictCards}}" hint-placeholder-val="{{false}}">
+          <div style="font-size:13px; line-height:1.5;">As fontes consultadas discordam sobre a viscosidade deste veículo. Mostramos as opções de cada fonte — escolha a que vale para este carro.</div>
+          <sc-if value="{{orcamento.volAgreed}}" hint-placeholder-val="{{false}}">
+            <div style="font-size:12px; opacity:0.6;">Volume de troca 4,2 L — as duas fontes concordam</div>
+          </sc-if>
+          <sc-if value="{{orcamento.volConflict}}" hint-placeholder-val="{{false}}">
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <div style="font-size:13px; line-height:1.5;">{{orcamento.volIntro}}</div>
+              <sc-if value="{{orcamento.volChoice1On}}" hint-placeholder-val="{{false}}">
+                <div class="vol-choice-on" onClick="{{go.escolherVolume1}}">✓ 4,3 L — Toyota, Manual do proprietário Corolla 2019 (p. 412) — manual da montadora</div>
+              </sc-if>
+              <sc-if value="{{orcamento.volChoice1Off}}" hint-placeholder-val="{{false}}">
+                <div class="vol-choice" onClick="{{go.escolherVolume1}}">4,3 L — Toyota, Manual do proprietário Corolla 2019 (p. 412) — manual da montadora</div>
+              </sc-if>
+              <sc-if value="{{orcamento.volChoice2On}}" hint-placeholder-val="{{false}}">
+                <div class="vol-choice-on" onClick="{{go.escolherVolume2}}">✓ 4,0 L — Lubrax, Guia de aplicação Toyota (p. 18) — guia de aplicação do fabricante de lubrificante</div>
+              </sc-if>
+              <sc-if value="{{orcamento.volChoice2Off}}" hint-placeholder-val="{{false}}">
+                <div class="vol-choice" onClick="{{go.escolherVolume2}}">4,0 L — Lubrax, Guia de aplicação Toyota (p. 18) — guia de aplicação do fabricante de lubrificante</div>
+              </sc-if>
+            </div>
+          </sc-if>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <sc-if value="{{orcamento.grade1On}}" hint-placeholder-val="{{false}}">
+              <div class="vol-choice-on" onClick="{{go.escolherConflito1}}">◉ 0W-20 — Viscosidade indicada por: Toyota, Manual do proprietário Corolla 2019 (p. 412) — manual da montadora</div>
+              <div style="display:flex; gap:12px;">
+                <div class="pick-card-on">
+                  <div class="pick-title">✓ Mobil Super 3000 0W-20</div>
+                  <div class="pick-meta">Sintético · {{orcamento.cp1}}</div>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{orcamento.grade1Off}}" hint-placeholder-val="{{false}}">
+              <div class="vol-choice" onClick="{{go.escolherConflito1}}">○ 0W-20 — Viscosidade indicada por: Toyota, Manual do proprietário Corolla 2019 (p. 412) — manual da montadora</div>
+            </sc-if>
+            <sc-if value="{{orcamento.gradeNone}}" hint-placeholder-val="{{false}}">
+              <div style="display:flex; gap:12px;">
+                <div class="pick-card">
+                  <div class="pick-title">Mobil Super 3000 0W-20</div>
+                  <div class="pick-meta">Sintético · {{orcamento.cp1}}</div>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{orcamento.grade2On}}" hint-placeholder-val="{{false}}">
+              <div class="vol-choice-on" onClick="{{go.escolherConflito2}}">◉ 5W-30 — Viscosidade indicada por: Lubrax, Guia de aplicação Toyota (p. 18) — guia de aplicação do fabricante de lubrificante</div>
+              <div style="display:flex; gap:12px;">
+                <div class="pick-card-on">
+                  <div class="pick-title">✓ Motul 5100 5W-30</div>
+                  <div class="pick-meta">Sintético · {{orcamento.cp2}}</div>
+                </div>
+                <div class="pick-card-on">
+                  <div class="pick-title">✓ Lubrax Top Turbo 5W-30</div>
+                  <div class="pick-meta">Sintético · {{orcamento.cp3}}</div>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{orcamento.grade2Off}}" hint-placeholder-val="{{false}}">
+              <div class="vol-choice" onClick="{{go.escolherConflito2}}">○ 5W-30 — Viscosidade indicada por: Lubrax, Guia de aplicação Toyota (p. 18) — guia de aplicação do fabricante de lubrificante</div>
+            </sc-if>
+            <sc-if value="{{orcamento.gradeNone}}" hint-placeholder-val="{{false}}">
+              <div style="display:flex; gap:12px;">
+                <div class="pick-card">
+                  <div class="pick-title">Motul 5100 5W-30</div>
+                  <div class="pick-meta">Sintético · {{orcamento.cp2}}</div>
+                </div>
+                <div class="pick-card">
+                  <div class="pick-title">Lubrax Top Turbo 5W-30</div>
+                  <div class="pick-meta">Sintético · {{orcamento.cp3}}</div>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+          <sc-if value="{{orcamento.conflictPicked}}" hint-placeholder-val="{{false}}">
+            <div style="font-size:14px; font-weight:600;">Mensagem</div>
+            <div style="background:var(--surface-variant); border-radius:var(--radius-md); padding:12px; font-size:12px; line-height:1.5; white-space:pre-wrap;">{{orcamento.conflictMessage}}</div>
+          </sc-if>
+          <div class="btn" style="{{orcamento.conflictSendStyle}}">Enviar via WhatsApp</div>
+          <div class="btn btn-outline" onClick="{{go.orcamentoBuscarNovamente}}">Buscar novamente</div>
+        </sc-if>
+
+        <sc-if value="{{orcamento.noOptions}}" hint-placeholder-val="{{false}}">
+          <div class="outcome-block" style="text-align:center; opacity:0.7;">Nenhuma marca do catálogo interno é compatível. Nenhuma opção é exibida.</div>
+        </sc-if>
+
+        <!-- Recorded outcomes with no row to show. Each is Portuguese and names
+             no provider that was not the cause. -->
+        <sc-if value="{{orcamento.outcome}}" hint-placeholder-val="{{false}}">
+          <div class="outcome-block">
+            <div>{{orcamento.outcomeText}}</div>
+            <sc-if value="{{orcamento.conflict}}" hint-placeholder-val="{{false}}">
+              <div style="display:flex; flex-direction:column; gap:2px;">
+                <div style="font-size:11px; font-weight:600;">Volume de troca</div>
+                <div style="font-size:11px; color:var(--tertiary);">4,3 L — Toyota, Manual do proprietário Corolla 2019 (p. 412) — manual da montadora</div>
+                <div style="font-size:11px; color:var(--tertiary);">4,0 L — Lubrax, Guia de aplicação Toyota (p. 18) — guia de aplicação do fabricante de lubrificante</div>
+              </div>
+            </sc-if>
+            <!-- Clarification (owner, 2026-09-27, D24.2): a named engine is a
+                 button that corrects the version; none named opens the form. -->
+            <sc-if value="{{orcamento.engines}}" hint-placeholder-val="{{false}}">
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <div style="font-size:12px; color:var(--tertiary);">Escolha o motor deste veículo — a versão do cadastro é corrigida com ele e a fonte encontrada é lida de novo para esse motor.</div>
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                  <div class="btn btn-outline" onClick="{{go.escolherMotor1}}">{{orcamento.engine1}}</div>
+                  <sc-if value="{{orcamento.hasEngine2}}" hint-placeholder-val="{{false}}">
+                    <div class="btn btn-outline" onClick="{{go.escolherMotor2}}">{{orcamento.engine2}}</div>
+                  </sc-if>
+                  <sc-if value="{{orcamento.hasEngine3}}" hint-placeholder-val="{{false}}">
+                    <div class="btn btn-outline" onClick="{{go.escolherMotor3}}">{{orcamento.engine3}}</div>
+                  </sc-if>
+                </div>
+                <span class="navlink" style="font-size:12px; font-weight:500; text-decoration:underline; width:fit-content;" onClick="{{go.corrigirVersao}}">Nenhum destes? Corrigir versão do veículo</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{orcamento.fixVersion}}" hint-placeholder-val="{{false}}">
+              <div class="btn" style="background:var(--primary); color:var(--on-primary);" onClick="{{go.corrigirVersao}}">Corrigir versão do veículo</div>
+            </sc-if>
+            <sc-if value="{{orcamento.outcomeRefetch}}" hint-placeholder-val="{{false}}">
+              <div class="btn btn-outline" onClick="{{go.orcamentoBuscarNovamente}}">Buscar novamente</div>
+            </sc-if>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- Asked when a typed volume is used (D24.1; orchestrator, 2026-09-30):
+       "Guardar para este modelo" sends the volume and the quote dialog stays
+       open, its cards priced; "Enviar via WhatsApp" never opens this. -->
+  <sc-if value="{{orcamento.askSave}}" hint-placeholder-val="{{false}}">
+    <div style="position:absolute; inset:0; background:rgba(0,0,0,0.32); display:flex; align-items:center; justify-content:center; z-index:40;">
+      <div style="width:420px; background:var(--surface); border-radius:12px; padding:20px; display:flex; flex-direction:column; gap:16px; box-shadow:0 8px 32px rgba(0,0,0,0.24);">
+        <div style="font-size:14px; font-weight:600; line-height:1.5;">Guardar {{orcamento.typedLiters}} L como volume da troca para os próximos orçamentos de Toyota Corolla XEi 2019?</div>
+        <div style="display:flex; justify-content:flex-end; gap:8px;">
+          <div class="btn btn-outline" style="padding:8px 14px;" onClick="{{go.soNesteOrcamento}}">Só neste orçamento</div>
+          <div class="btn" style="background:var(--primary); color:var(--on-primary); padding:8px 14px;" onClick="{{go.guardarVolume}}">Guardar para este modelo</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- Novo veículo dialog (a creation flow, so a dialog — design D4) -->
+  <sc-if value="{{novoVeiculo.open}}" hint-placeholder-val="{{false}}">
+    <div style="position:absolute; inset:0; background:rgba(0,0,0,0.32); display:flex; align-items:center; justify-content:center; z-index:30;">
+      <div style="width:420px; background:var(--surface); border-radius:12px; padding:20px; display:flex; flex-direction:column; gap:12px; box-shadow:0 8px 32px rgba(0,0,0,0.24);">
+        <div style="display:flex; justify-content:space-between; align-items:center;"><span style="font-size:16px; font-weight:700;">Adicionar veículo</span><span class="navlink" onClick="{{go.closeNovoVeiculo}}">✕</span></div>
+        <div style="font-size:12px; opacity:0.6;">Roberto Aparecido</div>
+        <div style="display:flex; gap:8px;">
+          <div style="flex:1;"><div class="field-label">Marca</div><div class="field-box">Fiat</div></div>
+          <div style="flex:1;"><div class="field-label">Modelo</div><div class="field-box">Toro</div></div>
+        </div>
+        <div><div class="field-label">Versão</div><div class="field-box">Volcano 2.0 Diesel</div></div>
+        <div style="display:flex; gap:8px;">
+          <div style="flex:1;"><div class="field-label">Ano</div><div class="field-box">2022</div></div>
+          <div style="flex:1;"><div class="field-label">Placa</div><div class="field-box">QRS-4T56</div></div>
+        </div>
+        <div><div class="field-label">Quilometragem atual</div><div class="field-box">31.500</div></div>
+        <div class="warning-line"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--warning)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg><span>O espelhamento de veículo no Omie ainda não foi confirmado (GitHub #29). O veículo é gravado no CRM.</span></div>
+        <div style="display:flex; justify-content:flex-end; gap:8px;"><div style="padding:8px 14px; font-size:13px; font-weight:600; cursor:pointer;" onClick="{{go.closeNovoVeiculo}}">Cancelar</div><div class="btn" style="background:var(--primary); color:var(--on-primary); padding:8px 14px;">Salvar veículo</div></div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- Programar mensagem panel — the create/edit form only. The list of this
+       conversation's scheduled messages lives in the rail section and its
+       "Ver tudo" drill-in (design D5). -->
+  <sc-if value="{{programar.open}}" hint-placeholder-val="{{false}}">
+    <div style="position:absolute; inset:0; background:rgba(0,0,0,0.32); display:flex; align-items:center; justify-content:center; z-index:30;">
+      <div style="width:440px; background:var(--surface); border-radius:12px; padding:20px; display:flex; flex-direction:column; gap:12px; box-shadow:0 8px 32px rgba(0,0,0,0.24);">
+        <div style="display:flex; justify-content:space-between; align-items:center;"><span style="font-size:16px; font-weight:700;">Programar mensagem</span><span class="navlink" onClick="{{go.closeProgramar}}">✕</span></div>
+
+        <sc-if value="{{programar.fromService}}" hint-placeholder-val="{{true}}">
+          <div style="background:var(--tertiary-container); color:var(--on-tertiary-container); border-radius:var(--radius-sm); padding:8px 10px; font-size:12px;">Pré-preenchido a partir do serviço "12/03/2026 · Troca de óleo"</div>
+        </sc-if>
+
+        <div><div class="field-label">Cliente</div><div class="field-box">Roberto Aparecido</div></div>
+        <div><div class="field-label">Template</div><div class="field-box">{{programar.template}}</div></div>
+        <div>
+          <div class="field-label">Mensagem (editável antes de programar)</div>
+          <div class="field-box" style="min-height:72px; line-height:1.5; white-space:pre-wrap;">{{programar.body}}</div>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <div style="flex:1;"><div class="field-label">Data</div><div class="field-box">{{programar.date}}</div></div>
+          <div style="flex:1;"><div class="field-label">Hora</div><div class="field-box">09:00</div></div>
+        </div>
+        <div style="font-size:11px; opacity:0.6;">Fuso America/Sao_Paulo</div>
+
+        <div style="display:flex; justify-content:flex-end; gap:8px;">
+          <div style="padding:8px 14px; font-size:13px; font-weight:600; cursor:pointer;" onClick="{{go.closeProgramar}}">Cancelar</div>
+          <div class="btn" style="background:var(--primary); color:var(--on-primary); padding:8px 14px;">Programar</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script data-dc-script data-props='{
+  "connectionState": {"editor":"enum","default":"CONNECTED","options":["CONNECTING","CONNECTED","DEGRADED","DISCONNECTED"],"section":"Sempre relevantes"},
+  "conversationStatus": {"editor":"enum","default":"Em atendimento","options":["Novos Contatos","Em atendimento","Orçamento enviado","Serviços feitos"],"section":"Sempre relevantes — status derivado (REP-15)"},
+  "listState": {"editor":"enum","default":"Com itens","options":["Carregando","Vazia","Erro","Com itens"],"section":"Sempre relevantes"},
+  "searchState": {"editor":"enum","default":"Sem busca","options":["Sem busca","Buscando \"roberto\"","Buscando \"xyz\" (sem correspondência)"],"section":"Sempre relevantes"},
+  "omieFieldPending": {"editor":"enum","default":"Sem pendência (cliente atual)","options":["Sem pendência (cliente atual)","Pendência no e-mail (cliente atual)"],"section":"Rail — Contato"},
+  "omieBadgeState": {"editor":"enum","default":"3 pendências","options":["Ausente (zero)","3 pendências"],"section":"Barra superior — Omie"},
+  "assistivePrefillState": {"editor":"enum","default":"Pendente (com sugestões)","options":["Extraindo","Falha na extração","Pendente (com sugestões)","Nenhuma sugestão pendente"],"section":"Rail — Sugestão assistiva"},
+  "veiculosState": {"editor":"enum","default":"Populado","options":["Carregando","Erro","Nenhum cliente vinculado","Nenhum veículo cadastrado","Populado"],"section":"Rail — Veículos"},
+  "servicosPreviewState": {"editor":"enum","default":"Populado","options":["Carregando","Erro","Nenhum cliente vinculado","Vazio","Populado"],"section":"Rail — Serviços (prévia)"},
+  "programadasPreviewState": {"editor":"enum","default":"Populado","options":["Carregando","Erro","Nenhum cliente vinculado","Vazio","Populado"],"section":"Rail — Mensagens programadas (prévia)"},
+  "veiculoSyncState": {"editor":"enum","default":"Sincronizado","options":["Ainda não sincronizado","Sincronizado","Falha ao sincronizar","Campos em conflito"],"section":"Rail — Veículo (drill-in): sincronização com o Omie"},
+  "veiculoScreenState": {"editor":"enum","default":"Populado","options":["Carregando","Erro","Vazio","Populado"],"section":"Rail — Veículo (drill-in, abra pelo chevron da linha)"},
+  "servicosStandaloneState": {"editor":"enum","default":"Populado","options":["Carregando","Erro","Vazio","Populado"],"section":"Tela — Serviços (aberto na aba Serviços)"},
+  "orcamentoState": {"editor":"enum","default":"Com opções","options":["Carregando","Pesquisando — prazo de 1 a 5 minutos","Pesquisando — há menos de um minuto","Pesquisando — demorando mais que o normal","Pesquisando — lendo o manual da montadora","Pesquisando — 2 pesquisas na frente","Pesquisando — 1 pesquisa na frente","Pausa — nova tentativa agendada","Pausa — pesquisa automática parada","Com opções","Com opções — buscando dados novos","Com opções — busca nova demorando","Com opções — busca nova parada","Com opções — busca nova com nova tentativa","Com opções — nova busca sem fonte confiável","Com opções — nova busca não concluída","Com opções — filtros ainda em consulta","Com opções — chegaram dados novos (após edição)","Com opções — falha ao pedir nova busca","Sem opções compatíveis","Sem volume de troca","Sem volume de troca — volume digitado","Sem volume de troca — guardar o volume? (ao usar o volume)","Sem volume de troca — falha ao guardar o volume","Sem volume de troca — volume inválido","Sem volume de troca — volume alto (confirmar)","Sem volume de troca — volume alto confirmado","Com opções — volume guardado pelo atendente","Dados do veículo incompletos — marca e versão","Dados do veículo incompletos — modelo, versão e ano","Sem fonte confiável","Falha na pesquisa","Esclarecer — vários motores citados","Esclarecer — vários motores, nenhum nomeado","Esclarecer — outro motor citado","Esclarecer — outros motores citados","Esclarecer — outro motor, nenhum nomeado","Esclarecer — motor escolhido (lendo a fonte)","Fontes divergentes — viscosidade (opções de cada fonte)","Fontes divergentes — viscosidade escolhida (5W-30)","Fontes divergentes — viscosidade e volume","Fontes divergentes — viscosidade e volume escolhidos","Fontes divergentes — volume da troca (escolher o volume)","Fontes divergentes — volume escolhido","Fontes divergentes — registro antigo (sem opções)"],"section":"Painel — Montar orçamento (abra pelo botão de um veículo)"},
+  "pesquisaVeiculoState": {"editor":"enum","default":"Sem pesquisa","options":["Sem pesquisa","Pesquisando (Corolla)"],"section":"Rail — Veículos: pesquisa de lubrificante"},
+  "messageStatus": {"editor":"enum","default":"read","options":["sent","delivered","read","failed","unavailable"],"section":"Painel de conversa — status da última mensagem enviada"},
+  "mediaState": {"editor":"enum","default":"Nenhuma mídia","options":["Nenhuma mídia","Mídia carregada","Falha ao carregar"],"section":"Painel de conversa — mensagem de mídia"},
+  "contatoState": {"editor":"enum","default":"Cliente vinculado","options":["Cliente vinculado","Pré-cadastro (sem cliente)","Carregando","Erro ao carregar"],"section":"Rail — Contato (combine com \"Nenhum cliente vinculado\" em Veículos/Serviços)"},
+  "cadastroOmieState": {"editor":"enum","default":"Ok","options":["Ok","Ainda não sincronizado","Falha ao sincronizar","Omie indisponível"],"section":"Rail — Contato: sincronização com o Omie"}
+}'>
+class Component extends DCLogic {
+  state = {
+    railView: "stack",
+    editingContato: false, sugestaoAberta: false,
+    novaConversaOpen: false, omiePanelOpen: false, orcamentoOpen: false, novoVeiculoOpen: false,
+    programarOpen: false, programarVariant: "shortcut",
+    orcamentoBuscou: false, orcamentoVolume: false, orcamentoPerguntaVolume: false,
+    orcamentoMotor: null, orcamentoConflito: null, orcamentoVolumeFonte: null, orcamentoVolumeAlto: false,
+    orcamentoPromptDone: false
+  };
+  renderVals() {
+    const s = this.state;
+
+    const connKey = this.props.connectionState ?? "CONNECTED";
+    const connTable = {
+      CONNECTING: { label: "Conectando", bg: "var(--secondary-container)", fg: "var(--on-secondary-container)", dot: "var(--secondary)", canSend: false, showWaLink: false },
+      CONNECTED: { label: "Conectado", bg: "var(--tertiary-container)", fg: "var(--on-tertiary-container)", dot: "var(--tertiary)", canSend: true, showWaLink: false },
+      DEGRADED: { label: "Instável", bg: "var(--warning-container)", fg: "var(--on-warning-container)", dot: "var(--warning)", canSend: false, showWaLink: false },
+      DISCONNECTED: { label: "Desconectado", bg: "var(--error-container)", fg: "var(--on-error-container)", dot: "var(--error)", canSend: false, showWaLink: true }
+    };
+    const conn = connTable[connKey] ?? connTable.CONNECTED;
+
+    const listKey = this.props.listState ?? "Com itens";
+    const searchKey = this.props.searchState ?? "Sem busca";
+    const searching = searchKey !== "Sem busca";
+    const noMatch = searchKey === 'Buscando "xyz" (sem correspondência)';
+    const populated = listKey === "Com itens" && !noMatch;
+
+    const omieFieldKey = this.props.omieFieldPending ?? "Sem pendência (cliente atual)";
+    const omieBadgeKey = this.props.omieBadgeState ?? "3 pendências";
+
+    const prefillKey = this.props.assistivePrefillState ?? "Pendente (com sugestões)";
+    const vehiclesKey = this.props.veiculosState ?? "Populado";
+    const servicosKey = this.props.servicosPreviewState ?? "Populado";
+    const programadasKey = this.props.programadasPreviewState ?? "Populado";
+    const veiculoScreenKey = this.props.veiculoScreenState ?? "Populado";
+    const vehSyncKey = this.props.veiculoSyncState ?? "Sincronizado";
+    const servicosStandaloneKey = this.props.servicosStandaloneState ?? "Populado";
+    const orcamentoKey = this.props.orcamentoState ?? "Com opções";
+    const pesquisaKey = this.props.pesquisaVeiculoState ?? "Sem pesquisa";
+    // Orçamento de óleo (background-oil-research D17). One entry per switch
+    // value; each names what the panel draws. The counter is static on the
+    // canvas — in the app it ticks every second from requestedAt.
+    const RANGE = "Procurando lubrificante compatível — pode levar entre 1 e 5 minutos.";
+    const REFRESH_RANGE = "Buscando dados novos — pode levar entre 1 e 5 minutos.";
+    const ROW_DATE = "Dados consultados em 12/09/2026.";
+    const orcamentoTable = {
+      "Carregando": { loading: true },
+      "Pesquisando — prazo de 1 a 5 minutos": { research: RANGE, timer: "Pesquisando há 2 min 14 s" },
+      "Pesquisando — há menos de um minuto": { research: RANGE, timer: "Pesquisando há 38 s" },
+      "Pesquisando — demorando mais que o normal": { research: "Procurando lubrificante compatível. Está demorando mais que o normal.", timer: "Pesquisando há 7 min 12 s" },
+      "Pesquisando — lendo o manual da montadora": { research: RANGE, manual: true, timer: "Pesquisando há 3 min 5 s" },
+      "Pesquisando — 2 pesquisas na frente": { research: "Procurando lubrificante compatível — pode levar entre 5 e 9 minutos.", queue: "Há 2 pesquisas na frente.", timer: "Pesquisando há 41 s" },
+      "Pesquisando — 1 pesquisa na frente": { research: "Procurando lubrificante compatível — pode levar entre 3 e 7 minutos.", queue: "Há 1 pesquisa na frente.", timer: "Pesquisando há 1 min 20 s" },
+      "Pausa — nova tentativa agendada": { research: "A última tentativa falhou; vamos tentar de novo às 14:35.", timer: "Pesquisando há 4 min 50 s" },
+      "Pausa — pesquisa automática parada": { research: "A pesquisa automática não está rodando agora; o pedido fica na fila.", timer: "Na fila há 1 h 12 min" },
+      "Com opções": { view: "options" },
+      "Com opções — buscando dados novos": { view: "options", research: REFRESH_RANGE, timer: "Pesquisando há 1 min 5 s" },
+      "Com opções — busca nova demorando": { view: "options", research: "Buscando dados novos. Está demorando mais que o normal.", timer: "Pesquisando há 6 min 30 s" },
+      "Com opções — busca nova parada": { view: "options", research: "Nova busca na fila, mas a pesquisa automática não está rodando agora.", timer: "Na fila há 25 min 0 s" },
+      "Com opções — busca nova com nova tentativa": { view: "options", research: "A nova busca falhou; vamos tentar de novo às 14:35.", timer: "Pesquisando há 2 min 50 s" },
+      "Com opções — nova busca sem fonte confiável": { view: "options", rowDate: "A nova busca de 26/09/2026 não encontrou uma fonte confiável; mostramos os dados consultados em 12/09/2026." },
+      "Com opções — nova busca não concluída": { view: "options", rowDate: "Não conseguimos concluir a nova busca de 26/09/2026; mostramos os dados consultados em 12/09/2026." },
+      "Com opções — filtros ainda em consulta": { view: "options", filtersPending: true },
+      "Com opções — chegaram dados novos (após edição)": { view: "options", newData: true },
+      "Com opções — falha ao pedir nova busca": { view: "options", refetchFailed: true },
+      "Sem opções compatíveis": { view: "empty" },
+      "Sem volume de troca": { view: "noCapacity" },
+      "Sem volume de troca — volume digitado": { view: "noCapacity", typed: true },
+      "Sem volume de troca — guardar o volume? (ao usar o volume)": { view: "noCapacity", typed: true, askSave: true },
+      "Sem volume de troca — falha ao guardar o volume": { view: "noCapacity", typed: true, saveFailed: true },
+      "Sem volume de troca — volume inválido": { view: "noCapacity", volumeInvalid: true },
+      "Sem volume de troca — volume alto (confirmar)": { view: "noCapacity", volumeHigh: true },
+      "Sem volume de troca — volume alto confirmado": { view: "noCapacity", typed: true, high: true },
+      "Com opções — volume guardado pelo atendente": { view: "options", stored: true },
+      "Dados do veículo incompletos — marca e versão": { outcome: "Para pesquisar o lubrificante, complete os dados do veículo: marca e versão.", title: "Corolla 2019 · ABC-1D23", noRefetch: true },
+      "Dados do veículo incompletos — modelo, versão e ano": { outcome: "Para pesquisar o lubrificante, complete os dados do veículo: modelo, versão e ano.", title: "Toyota · ABC-1D23", noRefetch: true },
+      "Sem fonte confiável": { outcome: "Não encontramos o óleo indicado para este veículo em um manual ou catálogo confiável, por isso nenhuma opção é exibida." },
+      "Falha na pesquisa": { outcome: "Não conseguimos concluir a pesquisa de lubrificante deste veículo." },
+      "Esclarecer — vários motores citados": { title: "Toyota Corolla XEi 2019", outcome: "A fonte cita mais de um motor para este veículo: 1.8 Dual VVT-i e 2.0 Dynamic Force. Confira a versão do veículo.", engines: ["1.8 Dual VVT-i", "2.0 Dynamic Force"] },
+      "Esclarecer — vários motores, nenhum nomeado": { title: "Toyota Corolla XEi 2019", outcome: "A fonte cita mais de um motor e não diz qual é o deste veículo. Confira a versão do veículo.", fixVersion: true },
+      "Esclarecer — outro motor citado": { title: "Toyota Corolla XEi 2019", outcome: "A fonte encontrada descreve outro motor (2.0 Dynamic Force). Confira a versão do veículo.", engines: ["2.0 Dynamic Force"] },
+      "Esclarecer — outros motores citados": { title: "Toyota Corolla XEi 2019", outcome: "A fonte encontrada descreve outros motores (1.6 16V, 1.8 Dual VVT-i e 2.0 Dynamic Force). Confira a versão do veículo.", engines: ["1.6 16V", "1.8 Dual VVT-i", "2.0 Dynamic Force"] },
+      "Esclarecer — outro motor, nenhum nomeado": { title: "Toyota Corolla XEi 2019", outcome: "A fonte encontrada descreve outro motor. Confira a versão do veículo.", fixVersion: true },
+      "Esclarecer — motor escolhido (lendo a fonte)": { research: "Lendo a fonte para o motor 1.8 Dual VVT-i…", timer: "Pesquisando há 4 s", corrected: "XEi 1.8 Dual VVT-i", title: "Toyota Corolla XEi 1.8 Dual VVT-i 2019" },
+      "Fontes divergentes — viscosidade (opções de cada fonte)": { view: "conflict" },
+      "Fontes divergentes — viscosidade escolhida (5W-30)": { view: "conflict", picked: 2 },
+      "Fontes divergentes — viscosidade e volume": { view: "conflict", volConflict: true },
+      "Fontes divergentes — viscosidade e volume escolhidos": { view: "conflict", volConflict: true, picked: 2, volPicked: 1 },
+      "Fontes divergentes — volume da troca (escolher o volume)": { view: "volumeConflict" },
+      "Fontes divergentes — volume escolhido": { view: "volumeConflict", volPicked: 1 },
+      "Fontes divergentes — registro antigo (sem opções)": { outcome: "As fontes consultadas discordam sobre este veículo. Nenhuma opção é exibida até que a divergência seja resolvida. A primeira de cada lista é a fonte de maior autoridade.", conflict: true }
+    };
+    let orc = orcamentoTable[orcamentoKey] ?? orcamentoTable["Com opções"];
+    // Real clicks inside the panel (D24): an engine chosen corrects the
+    // version and the new identity's research starts; "Usar este volume"
+    // prices the cards; saving a typed volume asks whether to keep it.
+    if (s.orcamentoMotor) {
+      orc = { research: "Lendo a fonte para o motor " + s.orcamentoMotor + "…", timer: "Pesquisando há 1 s", corrected: "XEi " + s.orcamentoMotor, title: "Toyota Corolla XEi " + s.orcamentoMotor + " 2019" };
+    } else if (orc.view === "noCapacity" && orc.volumeHigh && s.orcamentoVolumeAlto) {
+      // "Usar mesmo assim": the high volume, confirmed, prices the cards.
+      orc = { view: "noCapacity", typed: true, high: true, askSave: s.orcamentoPerguntaVolume };
+    } else if (orc.view === "noCapacity" && !orc.volumeHigh && !orc.volumeInvalid && s.orcamentoVolume) {
+      orc = { ...orc, typed: true, askSave: (orc.askSave && !s.orcamentoPromptDone) || s.orcamentoPerguntaVolume };
+    } else if (orc.askSave && s.orcamentoPromptDone) {
+      orc = { ...orc, askSave: false };
+    }
+    // The typed figure: 4,2 L, or 42 L in the high-volume states.
+    const typedLiters = orc.high || orc.volumeHigh ? "42" : "4,2";
+    const conflictPick = s.orcamentoConflito ?? orc.picked ?? 0;
+    // The volume choice (F2): 0 none, 1 the manual's 4,3 L, 2 the guide's 4,0 L.
+    const volPick = s.orcamentoVolumeFonte ?? orc.volPicked ?? 0;
+    const volSources = ["", "Toyota, Manual do proprietário Corolla 2019 (p. 412) — manual da montadora", "Lubrax, Guia de aplicação Toyota (p. 18) — guia de aplicação do fabricante de lubrificante"];
+    const volLiters = ["", "4,3 L", "4,0 L"];
+    // Grade-conflict cards: Mobil 0W-20; Motul and Lubrax 5W-30. Priced from
+    // the chosen volume when the volume is in dispute too.
+    const conflictPrices = volPick === 1 ? ["R$ 183,20", "R$ 193,40", "R$ 173,20"]
+      : volPick === 2 ? ["R$ 172,00", "R$ 181,90", "R$ 162,70"]
+      : ["R$ 179,90", "R$ 189,90", "R$ 169,90"];
+    // A real "Buscar novamente" click: the answer to the POST is the new
+    // state. A shown row gains the new search above it (refresh); an outcome
+    // with no row becomes research under way.
+    if (s.orcamentoBuscou && !orc.loading && !orc.noRefetch && !orc.research) {
+      orc = orc.view && orc.view !== "conflict" && orc.view !== "volumeConflict"
+        ? { view: orc.view, research: REFRESH_RANGE, timer: "Pesquisando há 3 s" }
+        : { research: RANGE, timer: "Pesquisando há 3 s" };
+    }
+    const orcView = orc.view ?? null;
+    // Per-open state of the Orçamento panel's real clicks; cleared on open and close.
+    const ORC_RESET = { orcamentoBuscou: false, orcamentoVolume: false, orcamentoPerguntaVolume: false, orcamentoMotor: null, orcamentoConflito: null, orcamentoVolumeFonte: null, orcamentoVolumeAlto: false, orcamentoPromptDone: false };
+    const rowView = orcView === "options" || orcView === "empty" || orcView === "noCapacity";
+    const volNeeded = orcView === "volumeConflict" || (orcView === "conflict" && !!orc.volConflict);
+    const volUnset = volNeeded && volPick === 0;
+    const engines = orc.engines ?? [];
+    const fillFlagText = orc.stored
+      ? "Volume informado por Marina em 20/09/2026: 4,2 L"
+      : orc.typed ? "Volume informado pelo atendente: " + typedLiters + " L"
+      : volNeeded && volPick !== 0 ? "Volume indicado por: " + volSources[volPick] + ": " + volLiters[volPick] : "";
+
+    // Derived pipeline stage: the furthest REP-15 stage this conversation has
+    // reached. Read-only — nothing in the artboard sets it.
+    const statusKey = this.props.conversationStatus ?? "Em atendimento";
+
+    const msgKey = this.props.messageStatus ?? "read";
+    const msg = {
+      hasBody: msgKey !== "unavailable",
+      unavailable: msgKey === "unavailable",
+      failed: msgKey === "failed",
+      singleTick: msgKey === "sent",
+      doubleTick: msgKey === "delivered" || msgKey === "read",
+      tickColor: msgKey === "read" ? "var(--read-tick)" : "var(--on-primary-container)"
+    };
+
+    const mediaKey = this.props.mediaState ?? "Nenhuma mídia";
+    const media = {
+      loaded: mediaKey === "Mídia carregada",
+      failed: mediaKey === "Falha ao carregar"
+    };
+
+    const contatoKey = this.props.contatoState ?? "Cliente vinculado";
+    const linked = contatoKey === "Cliente vinculado";
+    const unlinked = contatoKey === "Pré-cadastro (sem cliente)";
+    const contatoLoading = contatoKey === "Carregando";
+    const contatoError = contatoKey === "Erro ao carregar";
+    // Customer-level Omie state. Only the unhealthy cases surface on the
+    // Contato card — a permanent "tudo certo" line would be noise on the
+    // densest always-visible surface in the app.
+    const cadastroOmieKey = this.props.cadastroOmieState ?? "Ok";
+    const omieDown = cadastroOmieKey === "Omie indisponível";
+
+    return {
+      go: {
+        veiculoScreen: () => this.setState({ railView: "veiculo" }),
+        railStack: () => this.setState({ railView: "stack" }),
+        servicosFull: () => this.setState({ railView: "servicosFull" }),
+        programadasFull: () => this.setState({ railView: "programadasFull" }),
+        servicoDetail: () => this.setState({ railView: "servicoDetail" }),
+        programadaDetail: () => this.setState({ railView: "programadaDetail" }),
+        toggleSugestao: () => this.setState({ sugestaoAberta: !this.state.sugestaoAberta }),
+        editarContato: () => this.setState({ editingContato: true }),
+        salvarContato: () => this.setState({ editingContato: false }),
+        cancelarEdicaoContato: () => this.setState({ editingContato: false }),
+        novoVeiculo: () => this.setState({ novoVeiculoOpen: true }),
+        closeNovoVeiculo: () => this.setState({ novoVeiculoOpen: false }),
+        novaConversa: () => this.setState({ novaConversaOpen: true }),
+        closeNovaConversa: () => this.setState({ novaConversaOpen: false }),
+        omiePanel: () => this.setState({ omiePanelOpen: true }),
+        closeOmiePanel: () => this.setState({ omiePanelOpen: false }),
+        orcamento: () => this.setState({ orcamentoOpen: true, ...ORC_RESET }),
+        closeOrcamento: () => this.setState({ orcamentoOpen: false, ...ORC_RESET }),
+        orcamentoBuscarNovamente: () => this.setState({ orcamentoBuscou: true }),
+        usarVolume: () => this.setState({ orcamentoVolume: true, orcamentoPerguntaVolume: true }),
+        confirmarVolumeAlto: () => this.setState({ orcamentoVolume: true, orcamentoVolumeAlto: true, orcamentoPerguntaVolume: true }),
+        guardarVolume: () => this.setState({ orcamentoPerguntaVolume: false, orcamentoPromptDone: true }),
+        soNesteOrcamento: () => this.setState({ orcamentoPerguntaVolume: false, orcamentoPromptDone: true }),
+        escolherMotor1: () => this.setState({ orcamentoMotor: engines[0] ?? null }),
+        escolherMotor2: () => this.setState({ orcamentoMotor: engines[1] ?? null }),
+        escolherMotor3: () => this.setState({ orcamentoMotor: engines[2] ?? null }),
+        corrigirVersao: () => this.setState({ orcamentoOpen: false, ...ORC_RESET, railView: "veiculo" }),
+        escolherConflito1: () => this.setState({ orcamentoConflito: 1 }),
+        escolherConflito2: () => this.setState({ orcamentoConflito: 2 }),
+        escolherVolume1: () => this.setState({ orcamentoVolumeFonte: 1 }),
+        escolherVolume2: () => this.setState({ orcamentoVolumeFonte: 2 }),
+        programarShortcut: () => this.setState({ programarOpen: true, programarVariant: "shortcut" }),
+        programarNovo: () => this.setState({ programarOpen: true, programarVariant: "novo" }),
+        closeProgramar: () => this.setState({ programarOpen: false })
+      },
+      search: {
+        opacity: searching ? 1 : 0.6,
+        display: searching ? (noMatch ? 'xyz' : 'roberto') : "Buscar por cliente, conversa ou dados relacionados...",
+        query: "xyz"
+      },
+      list: { loading: listKey === "Carregando", empty: listKey === "Vazia" && !searching, error: listKey === "Erro", noMatch, populated },
+      thread: { open: populated, closed: !populated },
+      status: { label: statusKey },
+      msg,
+      media,
+      conn: { ...conn, blocked: !conn.canSend },
+      omie: {
+        badgeVisible: omieBadgeKey !== "Ausente (zero)",
+        badgeCount: "3"
+      },
+      contato: {
+        loading: contatoLoading,
+        error: contatoError,
+        showHeader: linked || unlinked,
+        linked,
+        unlinked,
+        showEditar: !s.editingContato && (linked || unlinked),
+        showSalvar: s.editingContato && (linked || unlinked),
+        readOnlyLinked: !s.editingContato && linked,
+        readOnlyUnlinked: !s.editingContato && unlinked,
+        editingLinked: s.editingContato && linked,
+        editingUnlinked: s.editingContato && unlinked,
+        omieDown: (linked || unlinked) && omieDown,
+        omieNeverSynced: (linked || unlinked) && cadastroOmieKey === "Ainda não sincronizado",
+        omieSyncFailed: (linked || unlinked) && cadastroOmieKey === "Falha ao sincronizar",
+        pendingOnEmail: linked && omieFieldKey === "Pendência no e-mail (cliente atual)",
+        emailFieldBorder: omieFieldKey === "Pendência no e-mail (cliente atual)" ? "border-color:var(--warning);" : ""
+      },
+      prefill: {
+        disclosureOpen: s.sugestaoAberta && prefillKey === "Pendente (com sugestões)",
+        cueLabel: s.sugestaoAberta ? "ocultar" : "1 sugestão",
+        extracting: prefillKey === "Extraindo",
+        failed: prefillKey === "Falha na extração",
+        hasPending: prefillKey === "Pendente (com sugestões)",
+        noneNeeded: prefillKey === "Nenhuma sugestão pendente"
+      },
+      vehicles: {
+        loading: vehiclesKey === "Carregando",
+        error: vehiclesKey === "Erro",
+        noCustomer: vehiclesKey === "Nenhum cliente vinculado",
+        noneRegistered: vehiclesKey === "Nenhum veículo cadastrado",
+        populated: vehiclesKey === "Populado",
+        // D18: only while research is attended and not stopped; never animates.
+        researching: pesquisaKey === "Pesquisando (Corolla)"
+      },
+      servicos: {
+        loading: servicosKey === "Carregando",
+        error: servicosKey === "Erro",
+        noCustomer: servicosKey === "Nenhum cliente vinculado",
+        empty: servicosKey === "Vazio",
+        populated: servicosKey === "Populado"
+      },
+      programadas: {
+        loading: programadasKey === "Carregando",
+        error: programadasKey === "Erro",
+        noCustomer: programadasKey === "Nenhum cliente vinculado",
+        empty: programadasKey === "Vazio",
+        populated: programadasKey === "Populado"
+      },
+      rail: {
+        showStack: s.railView === "stack",
+        showServicosFull: s.railView === "servicosFull",
+        showProgramadasFull: s.railView === "programadasFull",
+        showServicoDetail: s.railView === "servicoDetail",
+        showProgramadaDetail: s.railView === "programadaDetail",
+        showVeiculo: s.railView === "veiculo"
+      },
+      vehSync: {
+        never: vehSyncKey === "Ainda não sincronizado",
+        ok: vehSyncKey === "Sincronizado",
+        failed: vehSyncKey === "Falha ao sincronizar",
+        conflict: vehSyncKey === "Campos em conflito"
+      },
+      veiculoScreen: {
+        loading: veiculoScreenKey === "Carregando",
+        error: veiculoScreenKey === "Erro",
+        empty: veiculoScreenKey === "Vazio",
+        populated: veiculoScreenKey === "Populado"
+      },
+      servicosStandalone: {
+        loading: servicosStandaloneKey === "Carregando",
+        error: servicosStandaloneKey === "Erro",
+        empty: servicosStandaloneKey === "Vazio",
+        populated: servicosStandaloneKey === "Populado"
+      },
+      novaConversa: {
+        open: s.novaConversaOpen,
+        connected: s.novaConversaOpen && connKey === "CONNECTED",
+        contingencia: s.novaConversaOpen && connKey !== "CONNECTED",
+        title: connKey === "CONNECTED" ? "Nova conversa" : "Nova conversa — instância indisponível"
+      },
+      omiePanel: {
+        open: s.omiePanelOpen,
+        empty: s.omiePanelOpen && omieBadgeKey === "Ausente (zero)",
+        hasItems: s.omiePanelOpen && omieBadgeKey !== "Ausente (zero)"
+      },
+      orcamento: {
+        open: s.orcamentoOpen,
+        title: orc.title ?? "Toyota Corolla XEi 2019",
+        loading: s.orcamentoOpen && !!orc.loading,
+        research: s.orcamentoOpen && !!orc.research,
+        researchSentence: orc.research ?? "",
+        manualLine: !!orc.manual,
+        queueLine: !!orc.queue,
+        queueText: orc.queue ?? "",
+        timerText: orc.timer ?? "",
+        rowNotes: s.orcamentoOpen && rowView,
+        rowDateText: orc.rowDate ?? ROW_DATE,
+        refetchFailed: s.orcamentoOpen && !!orc.refetchFailed,
+        showCards: s.orcamentoOpen && (orcView === "options" || orcView === "volumeConflict" || (orcView === "noCapacity" && !!orc.typed)),
+        specLine: orc.typed || orc.stored || volNeeded ? "Viscosidades aceitas: 5W-30, API SN" : "Viscosidades aceitas: 5W-30, API SN — volume de troca 4,2 L",
+        fillFlag: fillFlagText !== "",
+        volumeOnly: s.orcamentoOpen && orcView === "volumeConflict",
+        volConflict: volNeeded,
+        volAgreed: !volNeeded,
+        volIntro: orcView === "volumeConflict"
+          ? "As fontes consultadas discordam sobre o volume de óleo da troca. Escolha o volume que vale para este carro."
+          : "As fontes também discordam sobre o volume da troca. Escolha o volume:",
+        volChoice1On: volPick === 1, volChoice1Off: volPick !== 1,
+        volChoice2On: volPick === 2, volChoice2Off: volPick !== 2,
+        volumeHigh: !!orc.volumeHigh && !orc.typed,
+        volumeInvalid: !!orc.volumeInvalid,
+        typedLiters,
+        fillFlagText,
+        volumeValue: orc.volumeInvalid ? "0" : orc.typed || orc.volumeHigh ? typedLiters : "ex.: 4,2",
+        volumeBoxStyle: orc.volumeInvalid ? "border-color:var(--error);" : orc.volumeHigh && !orc.typed ? "border-color:var(--warning);" : orc.typed || orc.volumeHigh ? "" : "color:var(--tertiary);",
+        askSave: s.orcamentoOpen && !!orc.askSave,
+        saveFailed: !!orc.saveFailed,
+        conflictCards: s.orcamentoOpen && orcView === "conflict",
+        grade1On: conflictPick === 1,
+        grade1Off: conflictPick !== 1,
+        grade2On: conflictPick === 2,
+        grade2Off: conflictPick !== 2,
+        gradeNone: conflictPick === 0,
+        conflictPicked: conflictPick !== 0,
+        cp1: volUnset ? "escolha o volume" : conflictPrices[0],
+        cp2: volUnset ? "escolha o volume" : conflictPrices[1],
+        cp3: volUnset ? "escolha o volume" : conflictPrices[2],
+        conflictMessage: conflictPick === 1
+          ? "Nesse valor já está incluso 👇\n\n✅ Troca de Óleo\n✅ Filtro de Óleo\n✅ Filtro de Combustível\n\nTemos 1 opção de troca de óleo para o seu veículo 👇\n\n1️⃣ Mobil Super 3000 0W-20\n➡️ Tipo: Sintético\n➡️ Valor: " + (volUnset ? "—" : conflictPrices[0])
+          : "Nesse valor já está incluso 👇\n\n✅ Troca de Óleo\n✅ Filtro de Óleo\n✅ Filtro de Combustível\n\nTemos 2 opções de troca de óleo para o seu veículo 👇\n\n1️⃣ Motul 5100 5W-30\n➡️ Tipo: Sintético\n➡️ Valor: " + (volUnset ? "—" : conflictPrices[1]) + "\n\n2️⃣ Lubrax Top Turbo 5W-30\n➡️ Tipo: Sintético\n➡️ Valor: " + (volUnset ? "—" : conflictPrices[2]),
+        // Nothing picked: sending is not available yet.
+        conflictSendStyle: "background:var(--whatsapp); color:var(--on-whatsapp);" + (conflictPick === 0 || volUnset ? " opacity:0.4;" : ""),
+        engines: engines.length > 0,
+        engine1: engines[0] ?? "",
+        engine2: engines[1] ?? "",
+        engine3: engines[2] ?? "",
+        hasEngine2: engines.length > 1,
+        hasEngine3: engines.length > 2,
+        fixVersion: !!orc.fixVersion,
+        corrected: s.orcamentoOpen && !!orc.corrected,
+        correctedTo: orc.corrected ?? "",
+        newData: !!orc.newData,
+        filtersPending: !!orc.filtersPending,
+        // Filters not yet consulted: no filter enters the price (D17).
+        price1: orc.high ? "R$ 1.689,90" : volUnset ? "escolha o volume" : volPick === 1 ? "R$ 193,40" : volPick === 2 ? "R$ 181,90" : orc.filtersPending ? "R$ 149,90" : "R$ 189,90",
+        price2: orc.high ? "R$ 1.521,90" : volUnset ? "escolha o volume" : volPick === 1 ? "R$ 173,20" : volPick === 2 ? "R$ 162,70" : orc.filtersPending ? "R$ 129,90" : "R$ 169,90",
+        noOptions: s.orcamentoOpen && orcView === "empty",
+        noCapacity: s.orcamentoOpen && orcView === "noCapacity",
+        outcome: s.orcamentoOpen && !!orc.outcome,
+        outcomeText: orc.outcome ?? "",
+        conflict: !!orc.conflict,
+        outcomeRefetch: !orc.noRefetch
+      },
+      novoVeiculo: { open: s.novoVeiculoOpen },
+      programar: {
+        open: s.programarOpen,
+        // Same form from both triggers; only the pre-fill differs.
+        fromService: s.programarVariant === "shortcut",
+        template: s.programarVariant === "shortcut" ? "Lembrete de retorno" : "Selecione um template",
+        body: s.programarVariant === "shortcut"
+          ? "Olá, Roberto! Já faz um tempo desde a última troca de óleo do Corolla. Quer agendar uma visita?"
+          : "Escreva a mensagem ou escolha um template acima.",
+        date: s.programarVariant === "shortcut" ? "12/09/2026" : "dd/mm/aaaa"
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

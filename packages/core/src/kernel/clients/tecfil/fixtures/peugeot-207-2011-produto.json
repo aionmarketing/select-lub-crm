@@ -1,0 +1,655 @@
+{
+  "success": true,
+  "data": [
+    {
+      "CodigoProduto": 265,
+      "NumeroProduto": "ACP800",
+      "DescricaoProduto": "Ar Cabine",
+      "FlagLancamento": 0,
+      "DataFlagLancamento": "",
+      "FlagPromocao": 0,
+      "DataFlagPromocao": "",
+      "FlagPontaEstoque": 0,
+      "DataFlagPontaEstoque": "",
+      "ArquivoFotoProduto": "ACP800_A.jpg",
+      "ArquivoFotoProduto2": "ACP800_B.jpg",
+      "Unidade": "",
+      "CodigoGrupoProduto": 1,
+      "CpoAuxProd1": "",
+      "CpoAuxProd2": "7891342007955",
+      "CpoAuxProd3": "30",
+      "CpoAuxProd4": "",
+      "CpoAuxProd5": "",
+      "CpoAuxProd6": "",
+      "CpoAuxProd7": "Não",
+      "CpoAuxProd8": "30 x 338 - 239 x 159 x Não",
+      "CpoAuxProd9": "7891342007955",
+      "CpoAuxProd10": "Ar Cabine",
+      "CpoAuxProd14": "",
+      "CpoAuxProd15": "Aire Cabina",
+      "CpoAuxProd16": "Cabin Air",
+      "CpoAuxProd19": "Sintética",
+      "CpoAuxProd24": "Não",
+      "CpoAuxProd25": "Não",
+      "CpoAuxProd27": "",
+      "CpoAuxProd28": "30",
+      "CpoAuxProd29": "159",
+      "CpoAuxProd30": "338 - 239",
+      "CpoAuxProd31": "",
+      "CpoAuxProd35": "Não",
+      "CpoAuxProd42": "0,136",
+      "CpoAuxProd43": "0,082",
+      "CpoAuxProd44": "32",
+      "CpoAuxProd45": "181",
+      "CpoAuxProd46": "372",
+      "CpoAuxProd47": "06",
+      "CpoAuxProd53": "",
+      "CpoAuxProd54": "",
+      "CpoAuxProd55": "30 x 338 - 239 x 159 x -",
+      "FabricantesAplicacao": [
+        {
+          "DescricaoFabricante": "PEUGEOT",
+          "Aplicacoes": [
+            {
+              "DescricaoFabricante": "PEUGEOT",
+              "CodigoAplicacao": 184838,
+              "DescricaoAplicacao": "206",
+              "ComplementoAplicacao3_1": "",
+              "ComplementoAplicacao3_2": "1.0 16V",
+              "ComplementoAplicacao3_3": "2001",
+              "ComplementoAplicacao3_4": "2006",
+              "ComplementoAplicacao3_5": "Gasolina",
+              "ComplementoAplicacao3_6": [
+                {
+                  "CodigoProduto": 265,
+                  "TituloProduto": "ACP800"
+                }
+              ],
+              "ComplementoAplicacao3_9": [
+                {
+                  "CodigoProduto": 266,
+                  "TituloProduto": "ARL5136"
+                }
+              ],
+              "ComplementoAplicacao3_11": [
+                {
+                  "CodigoProduto": 262,
+                  "TituloProduto": "PSL77"
+                }
+              ],
+              "ComplementoAplicacao3_13": [
+                {
+                  "CodigoProduto": 46,
+                  "TituloProduto": "GI50/7"
+                }
+              ],
+              "ComplementoAplicacao3_33": ""
+            }
+          ]
+        }
+      ],
+      "ReferenciasCruzada": [
+        {
+          "DescricaoFabricante": "ACDELCO",
+          "NumerosProduto": [
+            {
+              "NumeroProduto": "BCF05010"
+            }
+          ]
+        },
+        {
+          "DescricaoFabricante": "Authomix",
+          "NumerosProduto": [
+            {
+              "NumeroProduto": "FCA0800"
+            }
+          ]
+        },
+        {
+          "DescricaoFabricante": "BOSCH",
+          "NumerosProduto": [
+            {
+              "NumeroProduto": "0986BF010"
+            },
+            {
+              "NumeroProduto": "0986BF0533"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CodigoProduto": 268,
+      "NumeroProduto": "ARL5049",
+      "DescricaoProduto": "Ar Plano",
+      "FlagLancamento": 0,
+      "DataFlagLancamento": "",
+      "FlagPromocao": 0,
+      "DataFlagPromocao": "",
+      "FlagPontaEstoque": 0,
+      "DataFlagPontaEstoque": "",
+      "ArquivoFotoProduto": "ARL5049_A.jpg",
+      "ArquivoFotoProduto2": "ARL5049_B.jpg",
+      "Unidade": "",
+      "CodigoGrupoProduto": 1,
+      "CpoAuxProd1": "",
+      "CpoAuxProd2": "7891342010719",
+      "CpoAuxProd3": "60.5",
+      "CpoAuxProd4": "",
+      "CpoAuxProd5": "",
+      "CpoAuxProd6": "",
+      "CpoAuxProd7": "Não",
+      "CpoAuxProd8": "60,5 x 424 x 94 x Não",
+      "CpoAuxProd9": "7891342010719",
+      "CpoAuxProd10": "Ar Plano",
+      "CpoAuxProd14": "",
+      "CpoAuxProd15": "Aire Plano",
+      "CpoAuxProd16": "Panel Air",
+      "CpoAuxProd19": "Papel",
+      "CpoAuxProd24": "Não",
+      "CpoAuxProd25": "Não",
+      "CpoAuxProd27": "",
+      "CpoAuxProd28": "60.5",
+      "CpoAuxProd29": "94",
+      "CpoAuxProd30": "424",
+      "CpoAuxProd31": "",
+      "CpoAuxProd35": "Não",
+      "CpoAuxProd42": "0,254",
+      "CpoAuxProd43": "0,203",
+      "CpoAuxProd44": "430",
+      "CpoAuxProd45": "65",
+      "CpoAuxProd46": "98",
+      "CpoAuxProd47": "06",
+      "CpoAuxProd53": "",
+      "CpoAuxProd54": "",
+      "CpoAuxProd55": "60,5 x 424 x 94 x -",
+      "FabricantesAplicacao": [
+        {
+          "DescricaoFabricante": "CITROEN",
+          "Aplicacoes": [
+            {
+              "DescricaoFabricante": "CITROEN",
+              "CodigoAplicacao": 184165,
+              "DescricaoAplicacao": "C4",
+              "ComplementoAplicacao3_1": "GLX",
+              "ComplementoAplicacao3_2": "1.6 16V",
+              "ComplementoAplicacao3_3": "2009",
+              "ComplementoAplicacao3_4": "2015",
+              "ComplementoAplicacao3_5": "Flex",
+              "ComplementoAplicacao3_6": [
+                {
+                  "CodigoProduto": 52,
+                  "TituloProduto": "ACP903"
+                }
+              ],
+              "ComplementoAplicacao3_9": [
+                {
+                  "CodigoProduto": 268,
+                  "TituloProduto": "ARL5049"
+                }
+              ],
+              "ComplementoAplicacao3_11": [
+                {
+                  "CodigoProduto": 54,
+                  "TituloProduto": "PEL108"
+                }
+              ],
+              "ComplementoAplicacao3_13": [
+                {
+                  "CodigoProduto": 46,
+                  "TituloProduto": "GI50/7"
+                }
+              ],
+              "ComplementoAplicacao3_33": ""
+            }
+          ]
+        }
+      ],
+      "ReferenciasCruzada": [
+        {
+          "DescricaoFabricante": "Authomix",
+          "NumerosProduto": [
+            {
+              "NumeroProduto": "FAR5049"
+            }
+          ]
+        },
+        {
+          "DescricaoFabricante": "BOSCH",
+          "NumerosProduto": [
+            {
+              "NumeroProduto": "0986B02354"
+            }
+          ]
+        },
+        {
+          "DescricaoFabricante": "FRAM",
+          "NumerosProduto": [
+            {
+              "NumeroProduto": "CA10237"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CodigoProduto": 267,
+      "NumeroProduto": "ARL5055",
+      "DescricaoProduto": "Ar Plano",
+      "FlagLancamento": 0,
+      "DataFlagLancamento": "",
+      "FlagPromocao": 0,
+      "DataFlagPromocao": "",
+      "FlagPontaEstoque": 0,
+      "DataFlagPontaEstoque": "",
+      "ArquivoFotoProduto": "ARL5055_A.jpg",
+      "ArquivoFotoProduto2": "ARL5055_B.jpg",
+      "Unidade": "",
+      "CodigoGrupoProduto": 1,
+      "CpoAuxProd1": "",
+      "CpoAuxProd2": "7891342011358",
+      "CpoAuxProd3": "75",
+      "CpoAuxProd4": "",
+      "CpoAuxProd5": "",
+      "CpoAuxProd6": "",
+      "CpoAuxProd7": "Não",
+      "CpoAuxProd8": "75 x 355 x 101,5 x Não",
+      "CpoAuxProd9": "7891342011358",
+      "CpoAuxProd10": "Ar Plano",
+      "CpoAuxProd14": "",
+      "CpoAuxProd15": "Aire Plano",
+      "CpoAuxProd16": "Panel Air",
+      "CpoAuxProd19": "Papel",
+      "CpoAuxProd24": "Não",
+      "CpoAuxProd25": "Não",
+      "CpoAuxProd27": "",
+      "CpoAuxProd28": "75",
+      "CpoAuxProd29": "101.5",
+      "CpoAuxProd30": "355",
+      "CpoAuxProd31": "",
+      "CpoAuxProd35": "Não",
+      "CpoAuxProd42": "0,23",
+      "CpoAuxProd43": "0,185",
+      "CpoAuxProd44": "362",
+      "CpoAuxProd45": "80",
+      "CpoAuxProd46": "106",
+      "CpoAuxProd47": "06",
+      "CpoAuxProd53": "",
+      "CpoAuxProd54": "",
+      "CpoAuxProd55": "75 x 355 x 101,5 x -",
+      "FabricantesAplicacao": [
+        {
+          "DescricaoFabricante": "PEUGEOT",
+          "Aplicacoes": [
+            {
+              "DescricaoFabricante": "PEUGEOT",
+              "CodigoAplicacao": 184842,
+              "DescricaoAplicacao": "207",
+              "ComplementoAplicacao3_1": "PRESENCE / SENSATION",
+              "ComplementoAplicacao3_2": "1.4 8V",
+              "ComplementoAplicacao3_3": "2008",
+              "ComplementoAplicacao3_4": "2015",
+              "ComplementoAplicacao3_5": "Flex",
+              "ComplementoAplicacao3_6": [
+                {
+                  "CodigoProduto": 265,
+                  "TituloProduto": "ACP800"
+                }
+              ],
+              "ComplementoAplicacao3_9": [
+                {
+                  "CodigoProduto": 267,
+                  "TituloProduto": "ARL5055"
+                }
+              ],
+              "ComplementoAplicacao3_11": [
+                {
+                  "CodigoProduto": 54,
+                  "TituloProduto": "PEL108"
+                }
+              ],
+              "ComplementoAplicacao3_13": [
+                {
+                  "CodigoProduto": 46,
+                  "TituloProduto": "GI50/7"
+                }
+              ],
+              "ComplementoAplicacao3_33": ""
+            }
+          ]
+        }
+      ],
+      "ReferenciasCruzada": [
+        {
+          "DescricaoFabricante": "Authomix",
+          "NumerosProduto": [
+            {
+              "NumeroProduto": "FAR5055"
+            }
+          ]
+        },
+        {
+          "DescricaoFabricante": "DELPHI",
+          "NumerosProduto": [
+            {
+              "NumeroProduto": "EFA980"
+            }
+          ]
+        },
+        {
+          "DescricaoFabricante": "FILTRAN",
+          "NumerosProduto": [
+            {
+              "NumeroProduto": "2055055"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CodigoProduto": 46,
+      "NumeroProduto": "GI50/7",
+      "DescricaoProduto": "Combustível",
+      "FlagLancamento": 0,
+      "DataFlagLancamento": "",
+      "FlagPromocao": 0,
+      "DataFlagPromocao": "",
+      "FlagPontaEstoque": 0,
+      "DataFlagPontaEstoque": "",
+      "ArquivoFotoProduto": "GI50-7_A.jpg",
+      "ArquivoFotoProduto2": "GI50-7_B.jpg",
+      "ArquivoFotoProduto3": "GI50-7_C.jpg",
+      "Unidade": "",
+      "CodigoGrupoProduto": 1,
+      "Observacao": "SUBSTITUI GI50/1 E GI50",
+      "CpoAuxProd1": "",
+      "CpoAuxProd2": "7891342008181",
+      "CpoAuxProd3": "143",
+      "CpoAuxProd4": "",
+      "CpoAuxProd5": "",
+      "CpoAuxProd6": "",
+      "CpoAuxProd7": "Não",
+      "CpoAuxProd8": "143 x 63 x - x Não",
+      "CpoAuxProd9": "7891342008181",
+      "CpoAuxProd10": "Combustível",
+      "CpoAuxProd14": "",
+      "CpoAuxProd15": "Combustible",
+      "CpoAuxProd16": "Fuel",
+      "CpoAuxProd19": "Papel",
+      "CpoAuxProd24": "Não",
+      "CpoAuxProd25": "Não",
+      "CpoAuxProd27": "",
+      "CpoAuxProd28": "143",
+      "CpoAuxProd29": "-",
+      "CpoAuxProd30": "63",
+      "CpoAuxProd31": "",
+      "CpoAuxProd35": "Não",
+      "CpoAuxProd42": "0,135",
+      "CpoAuxProd43": "0,116",
+      "CpoAuxProd44": "145",
+      "CpoAuxProd45": "65",
+      "CpoAuxProd46": "65",
+      "CpoAuxProd47": "20",
+      "CpoAuxProd53": "",
+      "CpoAuxProd54": "",
+      "CpoAuxProd55": "143 x 63 x - x -",
+      "FabricantesAplicacao": [
+        {
+          "DescricaoFabricante": "AUDI",
+          "Aplicacoes": [
+            {
+              "DescricaoFabricante": "AUDI",
+              "CodigoAplicacao": 199951,
+              "DescricaoAplicacao": "A3",
+              "ComplementoAplicacao3_1": "(Attraction/ Ambition)",
+              "ComplementoAplicacao3_2": "1.4 16V TFSI - 150cv",
+              "ComplementoAplicacao3_3": "2016",
+              "ComplementoAplicacao3_4": ">",
+              "ComplementoAplicacao3_5": "Flex",
+              "ComplementoAplicacao3_6": [
+                {
+                  "CodigoProduto": 962,
+                  "TituloProduto": "ACP311"
+                }
+              ],
+              "ComplementoAplicacao3_9": [
+                {
+                  "CodigoProduto": 1474,
+                  "TituloProduto": "ARL6074"
+                }
+              ],
+              "ComplementoAplicacao3_11": [
+                {
+                  "CodigoProduto": 857,
+                  "TituloProduto": "PSL545"
+                }
+              ],
+              "ComplementoAplicacao3_12": [
+                {
+                  "CodigoProduto": 4,
+                  "TituloProduto": "TM1"
+                }
+              ],
+              "ComplementoAplicacao3_13": [
+                {
+                  "CodigoProduto": 46,
+                  "TituloProduto": "GI50/7"
+                }
+              ],
+              "ComplementoAplicacao3_33": ""
+            }
+          ]
+        }
+      ],
+      "ReferenciasCruzada": [
+        {
+          "DescricaoFabricante": "ACDELCO",
+          "NumerosProduto": [
+            {
+              "NumeroProduto": "19347708"
+            },
+            {
+              "NumeroProduto": "FS9002E"
+            }
+          ]
+        },
+        {
+          "DescricaoFabricante": "Authomix",
+          "NumerosProduto": [
+            {
+              "NumeroProduto": "FCO0507"
+            }
+          ]
+        },
+        {
+          "DescricaoFabricante": "BLUE PRINT",
+          "NumerosProduto": [
+            {
+              "NumeroProduto": "ADN12324"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "CodigoProduto": 54,
+      "NumeroProduto": "PEL108",
+      "DescricaoProduto": "Lubrificante",
+      "FlagLancamento": 0,
+      "DataFlagLancamento": "",
+      "FlagPromocao": 0,
+      "DataFlagPromocao": "",
+      "FlagPontaEstoque": 0,
+      "DataFlagPontaEstoque": "",
+      "ArquivoFotoProduto": "PEL108_A.jpg",
+      "ArquivoFotoProduto2": "PEL108_B.jpg",
+      "ArquivoFotoProduto3": "PEL108_C.jpg",
+      "Unidade": "",
+      "CodigoGrupoProduto": 1,
+      "Observacao": "* LINHA ECOLÓGICA.",
+      "CpoAuxProd1": "",
+      "CpoAuxProd2": "7891342008297",
+      "CpoAuxProd3": "71",
+      "CpoAuxProd4": "",
+      "CpoAuxProd5": "",
+      "CpoAuxProd6": "",
+      "CpoAuxProd7": "Não",
+      "CpoAuxProd8": "71 x 65,6 x 24,5 x Não",
+      "CpoAuxProd9": "7891342008297",
+      "CpoAuxProd10": "Lubrificante",
+      "CpoAuxProd14": "",
+      "CpoAuxProd15": "Lubricante",
+      "CpoAuxProd16": "Lube",
+      "CpoAuxProd19": "Papel",
+      "CpoAuxProd24": "Não",
+      "CpoAuxProd25": "Não",
+      "CpoAuxProd27": "",
+      "CpoAuxProd28": "71",
+      "CpoAuxProd29": "24.5",
+      "CpoAuxProd30": "65.6",
+      "CpoAuxProd31": "",
+      "CpoAuxProd35": "Não",
+      "CpoAuxProd42": "0,068",
+      "CpoAuxProd43": "0,051",
+      "CpoAuxProd44": "73",
+      "CpoAuxProd45": "72",
+      "CpoAuxProd46": "72",
+      "CpoAuxProd47": "12",
+      "CpoAuxProd53": "",
+      "CpoAuxProd54": "",
+      "CpoAuxProd55": "71 x 65,6 x 24,5 x -",
+      "FabricantesAplicacao": [
+        {
+          "DescricaoFabricante": "CITROEN",
+          "Aplicacoes": [
+            {
+              "DescricaoFabricante": "CITROEN",
+              "CodigoAplicacao": 184150,
+              "DescricaoAplicacao": "Air Cross",
+              "ComplementoAplicacao3_1": "",
+              "ComplementoAplicacao3_2": "1.6 16V",
+              "ComplementoAplicacao3_3": "2010",
+              "ComplementoAplicacao3_4": ">",
+              "ComplementoAplicacao3_5": "Flex",
+              "ComplementoAplicacao3_6": [
+                {
+                  "CodigoProduto": 863,
+                  "TituloProduto": "ACP809"
+                }
+              ],
+              "ComplementoAplicacao3_9": [
+                {
+                  "CodigoProduto": 53,
+                  "TituloProduto": "ARL5053"
+                }
+              ],
+              "ComplementoAplicacao3_11": [
+                {
+                  "CodigoProduto": 54,
+                  "TituloProduto": "PEL108"
+                }
+              ],
+              "ComplementoAplicacao3_13": [
+                {
+                  "CodigoProduto": 46,
+                  "TituloProduto": "GI50/7"
+                }
+              ],
+              "ComplementoAplicacao3_33": ""
+            }
+          ]
+        }
+      ],
+      "ReferenciasCruzada": [
+        {
+          "DescricaoFabricante": "ACDELCO",
+          "NumerosProduto": [
+            {
+              "NumeroProduto": "19347726"
+            }
+          ]
+        },
+        {
+          "DescricaoFabricante": "Authomix",
+          "NumerosProduto": [
+            {
+              "NumeroProduto": "FOL0108"
+            }
+          ]
+        },
+        {
+          "DescricaoFabricante": "BALDWIN",
+          "NumerosProduto": [
+            {
+              "NumeroProduto": "P7450"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "totalResultado": "5",
+  "quantidadeDetalhada": [
+    {
+      "Tipo": "temPalhetas",
+      "Flag": true
+    },
+    {
+      "Descricao": "Especificações",
+      "Tipo": "Especificacoes",
+      "Quantidade": 5
+    },
+    {
+      "Descricao": "Conversões",
+      "Tipo": "Conversoes",
+      "Quantidade": 218
+    },
+    {
+      "Descricao": "Total",
+      "Tipo": "Total",
+      "Quantidade": 295
+    },
+    {
+      "Codigo": 1,
+      "Descricao": "Automóveis",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 295
+    },
+    {
+      "Codigo": 2,
+      "Descricao": "Motocicletas",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 0
+    },
+    {
+      "Codigo": 3,
+      "Descricao": "Ônibus",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 0
+    },
+    {
+      "Codigo": 4,
+      "Descricao": "Caminhões",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 0
+    },
+    {
+      "Codigo": 5,
+      "Descricao": "Colheitadeiras",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 0
+    },
+    {
+      "Codigo": 6,
+      "Descricao": "Máquinas e Equipamentos",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 0
+    },
+    {
+      "Codigo": 7,
+      "Descricao": "Tratores",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 0
+    }
+  ]
+}

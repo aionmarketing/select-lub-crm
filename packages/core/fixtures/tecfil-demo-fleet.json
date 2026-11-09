@@ -1,0 +1,116 @@
+{
+  "capturedAt": "2026-09-09T18:06:10.927Z",
+  "identities": [
+    {
+      "make": "Volkswagen",
+      "year": 2021,
+      "model": "Polo",
+      "version": "1.0 TSI",
+      "capturedAt": "2026-09-09T18:06:02.477Z",
+      "status": "ok",
+      "tecfilEngine": "1.0 12V 128cv",
+      "fitment": {
+        "manufacturerLabel": "VOLKSWAGEN",
+        "vehicleLabel": "Polo",
+        "engineLabel": "1.0 12V 128cv",
+        "matchedBy": {
+          "manufacturer": "exact",
+          "vehicle": "exact",
+          "engine": "exact"
+        },
+        "oilFilters": [
+          {
+            "partNumber": "PSL545",
+            "productCode": 857,
+            "description": "Lubrificante",
+            "crossReferences": [
+              {
+                "brand": "Authomix",
+                "partNumber": "FOL0545"
+              },
+              {
+                "brand": "FRAM",
+                "partNumber": "PH11457"
+              },
+              {
+                "brand": "HENGST",
+                "partNumber": "H317W01"
+              }
+            ],
+            "sourceColumns": [
+              "ComplementoAplicacao3_11"
+            ]
+          },
+          {
+            "partNumber": "TM1",
+            "productCode": 4,
+            "description": "Lubrificante",
+            "crossReferences": [
+              {
+                "brand": "Authomix",
+                "partNumber": "FOL2034"
+              },
+              {
+                "brand": "BOSCH",
+                "partNumber": "0986B00044"
+              },
+              {
+                "brand": "BOSCH",
+                "partNumber": "B7TOP3/4S"
+              },
+              {
+                "brand": "Controil",
+                "partNumber": "CLFO00003"
+              }
+            ],
+            "sourceColumns": [
+              "ComplementoAplicacao3_12"
+            ]
+          }
+        ],
+        "fuelFilters": [
+          {
+            "partNumber": "GI50/7",
+            "productCode": 46,
+            "description": "Combustível",
+            "crossReferences": [
+              {
+                "brand": "ACDELCO",
+                "partNumber": "19347708"
+              },
+              {
+                "brand": "ACDELCO",
+                "partNumber": "FS9002E"
+              },
+              {
+                "brand": "Authomix",
+                "partNumber": "FCO0507"
+              },
+              {
+                "brand": "BLUE PRINT",
+                "partNumber": "ADN12324"
+              }
+            ],
+            "sourceColumns": [
+              "ComplementoAplicacao3_13"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "make": "Honda",
+      "year": 2021,
+      "model": "HR-V",
+      "version": "EX CVT",
+      "capturedAt": "2026-09-09T18:06:10.927Z",
+      "status": "unmatched",
+      "field": "engine",
+      "options": [
+        "1.5 16V 173cv iVtec",
+        "1.8 16V",
+        "1.5 176cv Turbo"
+      ]
+    }
+  ]
+}

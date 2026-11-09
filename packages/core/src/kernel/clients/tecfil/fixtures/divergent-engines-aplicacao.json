@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "data": [
+    {
+      "DescricaoFabricante": "FIAT",
+      "CodigoAplicacao": 900001,
+      "DescricaoAplicacao": "UNO",
+      "ComplementoAplicacao3_1": "",
+      "ComplementoAplicacao3_2": "1.0 8V FLEX",
+      "ComplementoAplicacao3_3": "2015",
+      "ComplementoAplicacao3_4": ">",
+      "ComplementoAplicacao3_5": "Flex",
+      "ComplementoAplicacao3_11": [{ "CodigoProduto": 9001, "TituloProduto": "PSL123" }],
+      "ComplementoAplicacao3_13": [{ "CodigoProduto": 9010, "TituloProduto": "GI30/1" }]
+    },
+    {
+      "DescricaoFabricante": "FIAT",
+      "CodigoAplicacao": 900002,
+      "DescricaoAplicacao": "UNO",
+      "ComplementoAplicacao3_1": "",
+      "ComplementoAplicacao3_2": "1.4 8V FLEX",
+      "ComplementoAplicacao3_3": "2015",
+      "ComplementoAplicacao3_4": ">",
+      "ComplementoAplicacao3_5": "Flex",
+      "ComplementoAplicacao3_11": [{ "CodigoProduto": 9002, "TituloProduto": "PSL456" }],
+      "ComplementoAplicacao3_13": [{ "CodigoProduto": 9010, "TituloProduto": "GI30/1" }]
+    }
+  ],
+  "totalResultado": "2",
+  "quantidadeDetalhada": []
+}

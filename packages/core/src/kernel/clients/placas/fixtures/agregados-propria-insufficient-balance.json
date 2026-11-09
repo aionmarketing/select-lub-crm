@@ -1,0 +1,15 @@
+{
+  "http": 402,
+  "json": {
+    "user": {
+      "first_name": "REDACTED",
+      "email": "REDACTED",
+      "cellphone": "REDACTED",
+      "notification": "yes"
+    },
+    "error": true,
+    "message": "Você não possui saldo suficiente para realizar essa consulta, por favor, recarregue seu saldo.",
+    "balance": "R$ 0,00",
+    "recharge_url": "https://app.apibrasil.io/dashboard?modal=recharge"
+  }
+}

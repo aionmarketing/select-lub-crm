@@ -1,0 +1,65 @@
+// Tables owned by the `erp` module. Ownership is declared in ownership.json;
+// this file and that entry are kept in agreement by schema-ownership.test.ts.
+// Only `module_erp` may write them.
+
+model SyncExecution {
+  id         String    @id @default(cuid())
+  source     String
+  entity     String
+  mode       String
+  windowFrom DateTime? @map("window_from")
+  windowTo   DateTime? @map("window_to")
+  cursor     String?
+  status     String
+  totals     Json?
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+
+  @@index([status])
+  @@map("sync_execution")
+}
+
+model IntegrationError {
+  id            String    @id @default(cuid())
+  integration   String
+  operation     String
+  correlationId String?   @map("correlation_id")
+  code          String?
+  message       String?
+  retryable     Boolean
+  attemptCount  Int       @default(0) @map("attempt_count")
+  resolvedAt    DateTime? @map("resolved_at")
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  @@index([integration, createdAt])
+  @@map("integration_error")
+}
+
+// One write the CRM owes the ERP. Sized to the only write-back that exists
+// today, the sync engine's per-field `put(erpRecordId, fields, integrationCode)`
+// guarded by field-sync versions; `customers` (4B) and `services` (3C) enqueue
+// through erp's `enqueue-write` contract and `drain-outbox` pushes. The CHECK
+// constraints live in the migration.
+model ErpOutbox {
+  id              String    @id @default(cuid())
+  entity          String
+  entityId        String    @map("entity_id")
+  operation       String    @default("put")
+  erpRecordId     String    @map("erp_record_id")
+  integrationCode String?   @map("integration_code")
+  fields          Json
+  versions        Json?
+  status          String    @default("pending")
+  attemptCount    Int       @default(0) @map("attempt_count")
+  nextAttemptAt   DateTime  @default(now()) @map("next_attempt_at")
+  claimedAt       DateTime? @map("claimed_at")
+  sentAt          DateTime? @map("sent_at")
+  lastError       String?   @map("last_error")
+  idempotencyKey  String?   @unique @map("idempotency_key")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@index([status, nextAttemptAt])
+  @@map("erp_outbox")
+}

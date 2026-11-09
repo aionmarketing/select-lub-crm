@@ -1,0 +1,90 @@
+{
+  "vehicle": "CHEVROLET (GM) Agile 1.4L ECONO. FLEX 2012",
+  "parts": {
+    "motor": {
+      "capacities": [
+        {
+          "volume": "3,50"
+        }
+      ],
+      "products": [
+        {
+          "name": "MOTUL 8100 ECO-LITE 5W-30",
+          "code": "17201",
+          "recOrder": 4,
+          "spec": "API SERVICE SQ-RC, ILSAC GF-7A",
+          "packs": [
+            "1L",
+            "208L"
+          ],
+          "tier": "SPECIALIST"
+        },
+        {
+          "name": "MOTUL X-TECH LITE SAE 5W-30",
+          "code": "17210",
+          "recOrder": 5,
+          "spec": "API PERFORMANCE SP-RC, ILSAC GF-6A",
+          "packs": [
+            "1L",
+            "208L"
+          ],
+          "tier": "AUTHENTIC"
+        },
+        {
+          "name": "MOTUL 6100 SAVE-LITE 5W-30",
+          "code": "15913",
+          "recOrder": 6,
+          "packs": [
+            "208L"
+          ],
+          "tier": "PREMIUM"
+        }
+      ]
+    },
+    "transmissão, automática - easytronic": {
+      "capacities": [
+        {
+          "volume": "0,60",
+          "note": "Utilizado no sistema de atuação hidráulica do câmbio."
+        }
+      ],
+      "products": [
+        {
+          "name": "MOTUL MULTI HF",
+          "code": "45750",
+          "recOrder": 1,
+          "notes": [
+            "Utilizado no sistema de atuação hidráulica do câmbio."
+          ]
+        },
+        {
+          "name": "MOTUL MOTYLGEAR 75W-85",
+          "code": "44901",
+          "recOrder": 5,
+          "notes": [
+            "Para o compartimento de engrenagens."
+          ]
+        }
+      ]
+    },
+    "transmissão, manual - 5 marchas": {
+      "capacities": [
+        {
+          "volume": "1,60"
+        }
+      ],
+      "products": [
+        {
+          "name": "MOTUL MOTYLGEAR 75W-85",
+          "code": "44901",
+          "recOrder": 1
+        },
+        {
+          "name": "MOTUL GEAR 300 75W-90",
+          "code": "34200",
+          "recOrder": 5
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,46 @@
+// Tables owned by the `accounts` module. Ownership is declared in ownership.json;
+// this file and that entry are kept in agreement by schema-ownership.test.ts.
+// Only `module_accounts` may write them.
+
+model Unit {
+  id          String               @id @default(cuid())
+  name        String
+  createdAt   DateTime             @default(now()) @map("created_at")
+  updatedAt   DateTime             @updatedAt @map("updated_at")
+  connections WhatsAppConnection[]
+  customers   Customer[]
+  tags        Tag[]
+  templates   Template[]
+  userUnits   UserUnit[]
+  services    Service[]
+  followUpClosedEntries FollowUpClosedEntry[]
+
+  @@map("unit")
+}
+
+model User {
+  id        String     @id @db.Uuid
+  email     String     @unique
+  name      String
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+  units             UserUnit[]
+  scheduledMessages ScheduledMessage[]
+  oilQuotes         OilQuote[]
+  oilAttendantFills OilAttendantFill[]
+  archivedVehicleReturns VehicleReturn[]
+  returnReminderMessages ReturnReminderMessage[]
+  followUpClosedEntries  FollowUpClosedEntry[]
+
+  @@map("user")
+}
+
+model UserUnit {
+  userId String @map("user_id") @db.Uuid
+  unitId String @map("unit_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  unit   Unit   @relation(fields: [unitId], references: [id], onDelete: Restrict)
+
+  @@id([userId, unitId])
+  @@map("user_unit")
+}

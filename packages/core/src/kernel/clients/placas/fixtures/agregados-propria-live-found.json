@@ -1,0 +1,70 @@
+{
+  "http": 200,
+  "json": {
+    "user": {
+      "first_name": "REDACTED",
+      "email": "REDACTED",
+      "cellphone": "REDACTED",
+      "notification": "yes"
+    },
+    "balance": "45,550",
+    "balance_before": "45,630",
+    "tax": "0,080",
+    "status_code": 200,
+    "error": false,
+    "message": "Dados validos! Voce foi tarifado em R$ 0,08.",
+    "valor_consulta": 0.08,
+    "api_limit_for": "credit",
+    "homolog": false,
+    "data": {
+      "placa": "PZY7782",
+      "placaMercosul": "PZY7H82",
+      "chassi": "9BHBG51CAJP791679",
+      "fabricante": "HYUNDAI",
+      "marca": "HYUNDAI",
+      "marcaDetalhes": {
+        "nome": "HYUNDAI",
+        "fipeId": null
+      },
+      "modelo": "HB20",
+      "modelo_bruto": "HYUNDAI/HB20 1.0M COMFOR",
+      "modeloDetalhes": {
+        "nome": "HB20",
+        "sintetico": true,
+        "origem": "chassi"
+      },
+      "versao": null,
+      "ano_fabricacao": 2017,
+      "ano_modelo": 2018,
+      "motor_descricao": null,
+      "transmissao_descricao": null,
+      "combustivel": "ALCOOL / GASOLINA",
+      "tipo_veiculo": "Automovel",
+      "especie": "PASSAGEIRO",
+      "cor": "BRANCA",
+      "numero_carroceria": "DESCONHECIDO",
+      "tipo_carroceria": "999",
+      "nacionalidade": "NACIONAL",
+      "numero_motor": "F3LAHU799188",
+      "potencia": 80,
+      "carga": 0,
+      "numero_caixa_cambio": "D37DC4275",
+      "numero_eixo_traseiro": null,
+      "numero_terceiro_eixo": null,
+      "quantidade_eixo": 2,
+      "quantidade_portas": null,
+      "cilindradas": "998",
+      "capacidade_max_tracao": 182,
+      "peso_bruto_total": 142,
+      "quantidade_lugares": 5,
+      "tipo_montagem": 1,
+      "uf_jurisdicao": "MG",
+      "cidade": "BELO HORIZONTE",
+      "pais_fabricacao": null,
+      "documento_faturado": "00000000000000",
+      "tipo_faturado": "2",
+      "uf_faturado": "SP"
+    }
+  },
+  "_note": "Live capture 2026-09-06, homolog off, billed R$ 0,08. sintetico is boolean true (not the sandbox string). Account identity and documento_faturado scrubbed."
+}

@@ -1,0 +1,32 @@
+// Tables owned by the `plate-lookup` module. Ownership is declared in ownership.json;
+// this file and that entry are kept in agreement by schema-ownership.test.ts.
+// Only `module_plate_lookup` may write them.
+
+/// Cached plate lookup: one row per normalized plate. Stores a resolution or a miss; provider failures are not written.
+model PlateLookup {
+  id         String   @id @default(cuid())
+  plate      String   @unique
+  outcome    String
+  provider   String
+  fields     Json?
+  rawPayload Json?    @map("raw_payload")
+  lookedUpAt DateTime @map("looked_up_at")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@map("plate_lookup")
+}
+
+/// Ledger of billed provider hops. One row per credit-consuming call, not per plate.
+model PlateLookupCall {
+  id        String   @id @default(cuid())
+  plate     String
+  provider  String
+  outcome   String
+  unitId    String?  @map("unit_id")
+  billedAt  DateTime @map("billed_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([plate])
+  @@map("plate_lookup_call")
+}

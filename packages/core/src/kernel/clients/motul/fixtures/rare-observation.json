@@ -1,0 +1,2926 @@
+{
+  "meta": {
+    "key": "d38e175b84bfc0f585d326b9",
+    "brand": "CHEVROLET (GM)",
+    "year": "2012",
+    "model": "Agile",
+    "submodel": "1.4L ECONO. FLEX",
+    "vehicleTypeId": "eyJpZCI6ImV5SnBaQ0k2TVRJeE5qQXNJbU1pT2lJeElpd2liU0k2TnpnMU1Td2llU0k2SWpJd01USWlmUSIsInByb3ZpZGVySWQiOjF9"
+  },
+  "cacheKey": "d38e175b84bfc0f585d326b9",
+  "vehicle": {
+    "categoryId": "CAR",
+    "brand": "",
+    "type": "1.4L ECONO. FLEX",
+    "model": "Agile",
+    "startYear": "2012",
+    "endYear": "2012",
+    "extraData": {
+      "motulExpertLegends": {
+        "a": "Somente para uso em veículos fora de garantia de fábrica.",
+        "b": "Utilizado no sistema de atuação hidráulica do câmbio.",
+        "c": "Volume seco.",
+        "d": "Volume em serviço.",
+        "e": "Para o compartimento de embreagens.",
+        "f": "Para o compartimento de engrenagens.",
+        "g": "Volume com radiador.",
+        "h": "Seção média.",
+        "i": "Seção externa.",
+        "j": "Número de produção 7 340 241 em diante.",
+        "k": "Até número de produção 7 340 240.",
+        "l": "Número de produção 2834527 em diante.",
+        "m": "Até número de produção 2834526.",
+        "n": "Mecanismo de transferência de torque.",
+        "o": "Para a linha Adventure (FIAT).",
+        "p": "Sem LSD.",
+        "q": "Com LSD."
+      }
+    },
+    "components": [
+      {
+        "capacities": [
+          {
+            "label": "3,50"
+          }
+        ],
+        "category": {
+          "code": "",
+          "name": "motor"
+        },
+        "recommendations": [
+          {
+            "conditions": {
+              "usage": "Normal",
+              "mileage": "-150 000km"
+            },
+            "products": [
+              {
+                "name": "MOTUL 8100 ECO-LITE 5W-30",
+                "emg": "17201",
+                "apporder": "4",
+                "recommendationCategory": {
+                  "title": "SPECIALIST",
+                  "description": "A melhor recomendação, de um especialista em lubrificantes, para alto desempenho."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_108212_1L_8100_ECO-LITE_5W30_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL 8100 ECO-LITE 5W-30"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "17201"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Óleo de motor 100% sintético para economia de combustível especialmente formulado para motores a gasolina recentes, naturalmente aspirados ou turboalimentados, com injeção indireta ou direta, projetados para usar óleo de motor com baixo atrito e baixa viscosidade HTHS (High Temperature High Shear) (≥ 2,9 mPa.s). Adequado para motores a gasolina modernos que exigem um lubrificante com grau de viscosidade 30 e economia de combustível (normas API SP-RC, API SP e/ou ILSAC GF-6A). Recomendado para todos os motores a gasolina da GM que exigem a especificação GM-dexos1™GEN3: BUICK, CADILLAC, CHEVROLET, GM, GMC, OPEL e VAUXHALL. Compatível com conversores catalíticos. Esse tipo de óleo pode não ser adequado para uso em alguns motores. Em caso de dúvida, consulte o manual do proprietário."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": "API SERVICE SQ-RC, ILSAC GF-7A"
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": "MS 6395, WSS-M2C929-A, WSS-M2C946-A, GM 6094 M, GM 4718 M, 9.55535-CR1, WSS-M2C946-B1, WSS-M2C961-A1, GM dexos1 GEN3, VWC 530 34"
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": "CHRYSLER, DODGE, FORD, HONDA, MAZDA, MITSUBISHI, NISSAN, SUBARU, TOYOTA, HYUNDAI, KIA, LEXUS, ACURA, INFINITI, GENESIS, FIAT"
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/8100_eco-lite_5w-30_pt_pt_motul_17201_20250902.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L",
+                        "208L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "8100"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "108212"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650277912"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "208L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "8100"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "108230"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650278346"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "4T"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "8100"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "5W-30"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Motor"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "108212"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "3374650277912"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "108212": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_108212_1L_8100_ECO-LITE_5W30_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_108212_1L_8100_ECO-LITE_5W30_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL 8100 ECO-LITE 5W-30 - SKU 108212"
+                      }
+                    ],
+                    "108230": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_barrel_208l_4_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_barrel_208l_4_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL 8100 ECO-LITE 5W-30 - SKU 108230"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "MOTUL X-TECH LITE SAE 5W-30",
+                "emg": "17210",
+                "apporder": "5",
+                "recommendationCategory": {
+                  "title": "AUTHENTIC",
+                  "description": "Uma escolha autêntica, compatível com as exigências da montadora."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/111563_MOTUL_X-TECH%20LITE%205W-30%2012X1L_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL X-TECH LITE SAE 5W-30"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "17210"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "<p>100% Synthetic Fuel Economy engine oil specially formulated for recent gasoline engines, naturally aspirated or turbocharged, indirect or direct injection, designed to use engine oil with low friction and low HTHS (High Temperature High Shear) viscosity (≥ 2.9 mPa.s).<br />Suitable for modern gasoline engines requiring a viscosity grade 30 and fuel economy lubricant (API SP-RC, API SP and/or ILSAC GF-6A standards).<br />Compatible with catalytic converters.<br />This type of oil may be unsuitable for use in some engines. Refer to the owner manual if in doubt.</p>"
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": "API PERFORMANCE SP-RC, ILSAC GF-6A"
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": ""
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": "CHRYSLER, DODGE, FIAT, FORD, GENERAL MOTORS, HYUNDAI, INFINITI, JEEP, KIA, LEXUS, MAZDA, MITSUBISHI, NISSAN, SUBARU, SUZUKI, TOYOTA"
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/X-TECH_LITE_5W30_en_FR_motul_17210_20220428.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L",
+                        "208L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "X-TECH"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "111563"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "7898971528042"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "208L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "X-TECH"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "111549"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "7898971528127"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "4T"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "X-TECH"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "5W-30"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Motor"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "111563"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "7898971528042"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "111549": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_203598_leerfass_208_l_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_203598_leerfass_208_l_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL X-TECH LITE SAE 5W-30 - SKU 111549"
+                      }
+                    ],
+                    "111563": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/111563_MOTUL_X-TECH%20LITE%205W-30%2012X1L_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/111563_MOTUL_X-TECH%20LITE%205W-30%2012X1L_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL X-TECH LITE SAE 5W-30 - SKU 111563"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "MOTUL 6100 SAVE-LITE 5W-30",
+                "emg": "15913",
+                "apporder": "6",
+                "recommendationCategory": {
+                  "title": "PREMIUM",
+                  "description": "O melhor custo-benefício, com um produto premium."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/113006_MOTUL_6100%20SAVE-LITE%205W-30%2012X1L%20BR_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL 6100 SAVE-LITE 5W-30"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "15913"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Óleo de motor Technosynthese® “Fuel Economy”, especialmente projetado para motores modernos movidos a gasolina, etanol ou flex, naturalmente aspirados ou turboalimentados, de injeção indireta ou direta, projetados para uso com óleos de baixo atrito e muito baixa viscosidade HTHS (alta temperatura e alto cisalhamento) (≥ 2,9 mPa.s). Recomendado para motores modernos que utilizam lubrificante com grau de viscosidade 5W-30 e \"Fuel Economy\" com norma API SP e/ou ILSAC GF-6A. Compatível com catalisadores."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": ""
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": ""
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": ""
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "208L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "208L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "6100"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "113006"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "7898971528219"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "208L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "6100"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "112810"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "7898971528196"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "208L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "4T"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "6100"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "5W-30"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Motor"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "113006"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "7898971528219"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "112810": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_203598_leerfass_208_l_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_203598_leerfass_208_l_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL 6100 SAVE-LITE 5W-30 - SKU 112810"
+                      }
+                    ],
+                    "113006": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/113006_MOTUL_6100%20SAVE-LITE%205W-30%2012X1L%20BR_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/113006_MOTUL_6100%20SAVE-LITE%205W-30%2012X1L%20BR_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL 6100 SAVE-LITE 5W-30 - SKU 113006"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "conditions": {
+              "usage": "Normal",
+              "mileage": "+150 000km"
+            },
+            "products": [
+              {
+                "name": "MOTUL 8100 ECO-LITE 5W-30",
+                "emg": "17201",
+                "apporder": "4",
+                "recommendationCategory": {
+                  "title": "SPECIALIST",
+                  "description": "A melhor recomendação, de um especialista em lubrificantes, para alto desempenho."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_108212_1L_8100_ECO-LITE_5W30_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL 8100 ECO-LITE 5W-30"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "17201"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Óleo de motor 100% sintético para economia de combustível especialmente formulado para motores a gasolina recentes, naturalmente aspirados ou turboalimentados, com injeção indireta ou direta, projetados para usar óleo de motor com baixo atrito e baixa viscosidade HTHS (High Temperature High Shear) (≥ 2,9 mPa.s). Adequado para motores a gasolina modernos que exigem um lubrificante com grau de viscosidade 30 e economia de combustível (normas API SP-RC, API SP e/ou ILSAC GF-6A). Recomendado para todos os motores a gasolina da GM que exigem a especificação GM-dexos1™GEN3: BUICK, CADILLAC, CHEVROLET, GM, GMC, OPEL e VAUXHALL. Compatível com conversores catalíticos. Esse tipo de óleo pode não ser adequado para uso em alguns motores. Em caso de dúvida, consulte o manual do proprietário."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": "API SERVICE SQ-RC, ILSAC GF-7A"
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": "MS 6395, WSS-M2C929-A, WSS-M2C946-A, GM 6094 M, GM 4718 M, 9.55535-CR1, WSS-M2C946-B1, WSS-M2C961-A1, GM dexos1 GEN3, VWC 530 34"
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": "CHRYSLER, DODGE, FORD, HONDA, MAZDA, MITSUBISHI, NISSAN, SUBARU, TOYOTA, HYUNDAI, KIA, LEXUS, ACURA, INFINITI, GENESIS, FIAT"
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/8100_eco-lite_5w-30_pt_pt_motul_17201_20250902.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L",
+                        "208L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "8100"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "108212"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650277912"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "208L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "8100"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "108230"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650278346"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "4T"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "8100"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "5W-30"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Motor"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "108212"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "3374650277912"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "108212": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_108212_1L_8100_ECO-LITE_5W30_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_108212_1L_8100_ECO-LITE_5W30_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL 8100 ECO-LITE 5W-30 - SKU 108212"
+                      }
+                    ],
+                    "108230": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_barrel_208l_4_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_barrel_208l_4_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL 8100 ECO-LITE 5W-30 - SKU 108230"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "MOTUL X-TECH LITE SAE 5W-30",
+                "emg": "17210",
+                "apporder": "5",
+                "recommendationCategory": {
+                  "title": "AUTHENTIC",
+                  "description": "Uma escolha autêntica, compatível com as exigências da montadora."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/111563_MOTUL_X-TECH%20LITE%205W-30%2012X1L_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL X-TECH LITE SAE 5W-30"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "17210"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "<p>100% Synthetic Fuel Economy engine oil specially formulated for recent gasoline engines, naturally aspirated or turbocharged, indirect or direct injection, designed to use engine oil with low friction and low HTHS (High Temperature High Shear) viscosity (≥ 2.9 mPa.s).<br />Suitable for modern gasoline engines requiring a viscosity grade 30 and fuel economy lubricant (API SP-RC, API SP and/or ILSAC GF-6A standards).<br />Compatible with catalytic converters.<br />This type of oil may be unsuitable for use in some engines. Refer to the owner manual if in doubt.</p>"
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": "API PERFORMANCE SP-RC, ILSAC GF-6A"
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": ""
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": "CHRYSLER, DODGE, FIAT, FORD, GENERAL MOTORS, HYUNDAI, INFINITI, JEEP, KIA, LEXUS, MAZDA, MITSUBISHI, NISSAN, SUBARU, SUZUKI, TOYOTA"
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/X-TECH_LITE_5W30_en_FR_motul_17210_20220428.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L",
+                        "208L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "X-TECH"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "111563"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "7898971528042"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "208L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "X-TECH"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "111549"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "7898971528127"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "4T"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "X-TECH"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "5W-30"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Motor"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "111563"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "7898971528042"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "111549": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_203598_leerfass_208_l_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_203598_leerfass_208_l_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL X-TECH LITE SAE 5W-30 - SKU 111549"
+                      }
+                    ],
+                    "111563": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/111563_MOTUL_X-TECH%20LITE%205W-30%2012X1L_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/111563_MOTUL_X-TECH%20LITE%205W-30%2012X1L_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL X-TECH LITE SAE 5W-30 - SKU 111563"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "MOTUL 6100 SAVE-LITE 5W-30",
+                "emg": "15913",
+                "apporder": "6",
+                "recommendationCategory": {
+                  "title": "PREMIUM",
+                  "description": "O melhor custo-benefício, com um produto premium."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/113006_MOTUL_6100%20SAVE-LITE%205W-30%2012X1L%20BR_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL 6100 SAVE-LITE 5W-30"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "15913"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Óleo de motor Technosynthese® “Fuel Economy”, especialmente projetado para motores modernos movidos a gasolina, etanol ou flex, naturalmente aspirados ou turboalimentados, de injeção indireta ou direta, projetados para uso com óleos de baixo atrito e muito baixa viscosidade HTHS (alta temperatura e alto cisalhamento) (≥ 2,9 mPa.s). Recomendado para motores modernos que utilizam lubrificante com grau de viscosidade 5W-30 e \"Fuel Economy\" com norma API SP e/ou ILSAC GF-6A. Compatível com catalisadores."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": ""
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": ""
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": ""
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "208L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "208L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "6100"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "113006"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "7898971528219"
+                        }
+                      },
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "208L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "4T"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "6100"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "5W-30"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Motor"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "112810"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "7898971528196"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "208L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "4T"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "6100"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "5W-30"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Motor"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "113006"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "7898971528219"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "112810": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_203598_leerfass_208_l_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_203598_leerfass_208_l_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL 6100 SAVE-LITE 5W-30 - SKU 112810"
+                      }
+                    ],
+                    "113006": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/113006_MOTUL_6100%20SAVE-LITE%205W-30%2012X1L%20BR_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/113006_MOTUL_6100%20SAVE-LITE%205W-30%2012X1L%20BR_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL 6100 SAVE-LITE 5W-30 - SKU 113006"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "conditions": {
+          "usage": [
+            {
+              "default": true,
+              "label": "Normal",
+              "comments": []
+            }
+          ]
+        }
+      },
+      {
+        "capacities": [
+          {
+            "label": "0,60 - B"
+          }
+        ],
+        "category": {
+          "code": "",
+          "name": "transmissão, automática - easytronic"
+        },
+        "recommendations": [
+          {
+            "conditions": {
+              "usage": "Normal",
+              "mileage": "-150 000km"
+            },
+            "products": [
+              {
+                "name": "MOTUL MOTYLGEAR 75W-85",
+                "emg": "44901",
+                "apporder": "5",
+                "recommendationCategory": {
+                  "title": "SPECIALIST",
+                  "description": "A melhor recomendação, de um especialista em lubrificantes, para alto desempenho."
+                },
+                "providerData": {
+                  "motulExpertObservation": "F"
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106745_motylgear_75w85_1l_svb38_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL MOTYLGEAR 75W-85"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "44901"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Todas as transmissões mecânicas, caixas de velocidades sincronizadas ou não, caixa/ponte ou caixa de transferência sem deslizamento limitado que operem sob altas cargas de choque, cargas pesadas e regimes de rotação baixos ou cargas moderadas e regimes de rotação elevados. Especialmente desenvolvido para veículos das marcas General Motors, Hyundai, Mitsubishi, Nissan, Toyota, Mercedes Benz, Suzuki, Kia, etc., e qualquer fabricante que recomende um óleo de transmissão SAE 75W-85."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": "API GL-4, API GL-5"
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": ""
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": ""
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/MOTYLGEAR_75W-85_pt_PT_motul_44901_20211109.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Manual"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Motylgear"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "75W-85"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "106745"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650259925"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "Manual"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "Motylgear"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "75W-85"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Transmissão"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "106745"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "3374650259925"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "106745": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106745_motylgear_75w85_1l_svb38_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106745_motylgear_75w85_1l_svb38_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL MOTYLGEAR 75W-85 - SKU 106745"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "MOTUL MULTI HF",
+                "emg": "45750",
+                "apporder": "1",
+                "recommendationCategory": {
+                  "title": "AUTHENTIC",
+                  "description": "Uma escolha autêntica, compatível com as exigências da montadora."
+                },
+                "providerData": {
+                  "motulExpertObservation": "B"
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106399_multi_hf_1l_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL MULTI HF"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "45750"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Fluido hidráulico multifuncional de alto desempenho, com excepcionais bases sintéticas, especialmente desenvolvido para veículos recentes equipados com sistemas hidráulicos, como direção hidráulica, amortecedores hidráulicos e tetos conversíveis hidráulicos. Este produto é especialmente recomendado para uso com os seguintes fabricantes europeus: VW (VAG) , AUDI, PORSCHE, BMW, CITROËN, MERCEDES, MINI, PEUGEOT, VOLVO, SAAB e americanos: FORD, GENERAL MOTORS-OPEL. Este fluido não deve ser utilizado para lubrificar engrenagens em caixas de câmbio."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": ""
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": "G 002 000, G 002 000, G 00 4000, G 004 000, TL 52 146, TL 52 146, TH 5000, RH 5000, 81 22 9 407 758, 81 22 9 407 758, 82 11 1 468 041, 82 11 1 468 041, 82 11 0 148 132, 82 11 0 148 132, 83 29 0 429 576, 83 29 0 429 576, 05127381AB, MS 11655, MS 10838, MS 5931, 99 7969, Total Fluide DA, Total Fluide DA, Total Fluide DA, Total Fluide DA, Total Fluide LDS, Total Fluide LDS, Total Fluide LDS, Total Fluide LDS, X 902 011 622, Tutela GI/R, Tutela GI/R, Tutela GI/R, 9.55550-SA1, WSS-M2C204-A, GM 1940715, GM 1940766, B 040 0070, M 3289 (3623/93), MB 345.0, Q 1 32 0001, 001 989 24 03 10, 001 989 24 03 12, H 50126, H 50126, H 50126, H 50126, 99 7969, 99 7969, 99 7969, 9979 A4, 9979 A4, 9979 A4, 9979 A4, 9730 A5, 9730 A5, 9730 A5, 9730 A5, 000 043 203 33, 000 043 206 56, 3032 380, 1161529, TE-ML 02K, CHF, CHF, PSF 9109, PSF 9109, TITAN ZH 4300 B, TITAN ZH 3044, BLOCK DA, CHF 11S, CHF 202, Tutela CS Speed, Tutela CS Speed, Fluide DA, Fluide LDS, LDA, 54 34 0 392 235, 54 34 0 394 395, 54 34 7 117 733, MS 11655, 68088485AA, PSA S71 2710, 9979-A1, MS 11655, MS 11655, B 040 0070, B 040 2012, 00232-19017, 00232-19017, PSF-4, PSF-4, LR003401, Cold Climate PAS Fluid LRN2261, PSA S71 2710, PSA S71 2710, PSF NEW-W, 54 34 0 392 235, 54 34 0 394 395, 54 34 7 117 733, GM 1940 715, GM 1940766, B 040 0070, B 040 2012, 9735-EJ, 9735-EJ, 93160548, G 002 000, G 002 000, G 004 000, G 004 000, G 004 012, G 004 012, G 004 012, TL 52 146, TL 52 146, TL 52 146, PSA S71 2710, PSF NEW-W, 1273 36, 30741424, 9735-EJ, 9735-EJ, MB 345.1"
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": ""
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/multi_hf_pt_pt_motul_45750_20240103.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": ""
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Multi Hf"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "NC"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Hidráulica"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "106399"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650258010"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": ""
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "Multi Hf"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "NC"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Hidráulica"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "106399"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "3374650258010"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "106399": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106399_multi_hf_1l_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106399_multi_hf_1l_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL MULTI HF - SKU 106399"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "conditions": {
+              "usage": "Normal",
+              "mileage": "+150 000km"
+            },
+            "products": [
+              {
+                "name": "MOTUL MOTYLGEAR 75W-85",
+                "emg": "44901",
+                "apporder": "5",
+                "recommendationCategory": {
+                  "title": "SPECIALIST",
+                  "description": "A melhor recomendação, de um especialista em lubrificantes, para alto desempenho."
+                },
+                "providerData": {
+                  "motulExpertObservation": "F"
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106745_motylgear_75w85_1l_svb38_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL MOTYLGEAR 75W-85"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "44901"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Todas as transmissões mecânicas, caixas de velocidades sincronizadas ou não, caixa/ponte ou caixa de transferência sem deslizamento limitado que operem sob altas cargas de choque, cargas pesadas e regimes de rotação baixos ou cargas moderadas e regimes de rotação elevados. Especialmente desenvolvido para veículos das marcas General Motors, Hyundai, Mitsubishi, Nissan, Toyota, Mercedes Benz, Suzuki, Kia, etc., e qualquer fabricante que recomende um óleo de transmissão SAE 75W-85."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": "API GL-4, API GL-5"
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": ""
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": ""
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/MOTYLGEAR_75W-85_pt_PT_motul_44901_20211109.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Manual"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Motylgear"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "75W-85"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "106745"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650259925"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "Manual"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "Motylgear"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "75W-85"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Transmissão"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "106745"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "3374650259925"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "106745": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106745_motylgear_75w85_1l_svb38_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106745_motylgear_75w85_1l_svb38_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL MOTYLGEAR 75W-85 - SKU 106745"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "MOTUL MULTI HF",
+                "emg": "45750",
+                "apporder": "1",
+                "recommendationCategory": {
+                  "title": "AUTHENTIC",
+                  "description": "Uma escolha autêntica, compatível com as exigências da montadora."
+                },
+                "providerData": {
+                  "motulExpertObservation": "B"
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106399_multi_hf_1l_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL MULTI HF"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "45750"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Fluido hidráulico multifuncional de alto desempenho, com excepcionais bases sintéticas, especialmente desenvolvido para veículos recentes equipados com sistemas hidráulicos, como direção hidráulica, amortecedores hidráulicos e tetos conversíveis hidráulicos. Este produto é especialmente recomendado para uso com os seguintes fabricantes europeus: VW (VAG) , AUDI, PORSCHE, BMW, CITROËN, MERCEDES, MINI, PEUGEOT, VOLVO, SAAB e americanos: FORD, GENERAL MOTORS-OPEL. Este fluido não deve ser utilizado para lubrificar engrenagens em caixas de câmbio."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": ""
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": "G 002 000, G 002 000, G 00 4000, G 004 000, TL 52 146, TL 52 146, TH 5000, RH 5000, 81 22 9 407 758, 81 22 9 407 758, 82 11 1 468 041, 82 11 1 468 041, 82 11 0 148 132, 82 11 0 148 132, 83 29 0 429 576, 83 29 0 429 576, 05127381AB, MS 11655, MS 10838, MS 5931, 99 7969, Total Fluide DA, Total Fluide DA, Total Fluide DA, Total Fluide DA, Total Fluide LDS, Total Fluide LDS, Total Fluide LDS, Total Fluide LDS, X 902 011 622, Tutela GI/R, Tutela GI/R, Tutela GI/R, 9.55550-SA1, WSS-M2C204-A, GM 1940715, GM 1940766, B 040 0070, M 3289 (3623/93), MB 345.0, Q 1 32 0001, 001 989 24 03 10, 001 989 24 03 12, H 50126, H 50126, H 50126, H 50126, 99 7969, 99 7969, 99 7969, 9979 A4, 9979 A4, 9979 A4, 9979 A4, 9730 A5, 9730 A5, 9730 A5, 9730 A5, 000 043 203 33, 000 043 206 56, 3032 380, 1161529, TE-ML 02K, CHF, CHF, PSF 9109, PSF 9109, TITAN ZH 4300 B, TITAN ZH 3044, BLOCK DA, CHF 11S, CHF 202, Tutela CS Speed, Tutela CS Speed, Fluide DA, Fluide LDS, LDA, 54 34 0 392 235, 54 34 0 394 395, 54 34 7 117 733, MS 11655, 68088485AA, PSA S71 2710, 9979-A1, MS 11655, MS 11655, B 040 0070, B 040 2012, 00232-19017, 00232-19017, PSF-4, PSF-4, LR003401, Cold Climate PAS Fluid LRN2261, PSA S71 2710, PSA S71 2710, PSF NEW-W, 54 34 0 392 235, 54 34 0 394 395, 54 34 7 117 733, GM 1940 715, GM 1940766, B 040 0070, B 040 2012, 9735-EJ, 9735-EJ, 93160548, G 002 000, G 002 000, G 004 000, G 004 000, G 004 012, G 004 012, G 004 012, TL 52 146, TL 52 146, TL 52 146, PSA S71 2710, PSF NEW-W, 1273 36, 30741424, 9735-EJ, 9735-EJ, MB 345.1"
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": ""
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/multi_hf_pt_pt_motul_45750_20240103.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": ""
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Multi Hf"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "NC"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Hidráulica"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "106399"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650258010"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": ""
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "Multi Hf"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "NC"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Hidráulica"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "106399"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "3374650258010"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "106399": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106399_multi_hf_1l_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106399_multi_hf_1l_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL MULTI HF - SKU 106399"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "conditions": {
+          "usage": [
+            {
+              "default": true,
+              "label": "Normal",
+              "comments": []
+            }
+          ]
+        }
+      },
+      {
+        "capacities": [
+          {
+            "label": "1,60"
+          }
+        ],
+        "category": {
+          "code": "",
+          "name": "transmissão, manual - 5 marchas"
+        },
+        "recommendations": [
+          {
+            "conditions": {
+              "usage": "Normal",
+              "mileage": "-150 000km"
+            },
+            "products": [
+              {
+                "name": "MOTUL GEAR 300 75W-90",
+                "emg": "34200",
+                "apporder": "5",
+                "recommendationCategory": {
+                  "title": "SPECIALIST",
+                  "description": "A melhor recomendação, de um especialista em lubrificantes, para alto desempenho."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/Motul_105777_Gear_300_75W90_1L_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL GEAR 300 75W-90"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "34200"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Óleo de transmissão de alto desempenho especialmente projetado para caixas de câmbio de veículos de corrida: speed way, rally, raid... etc. e quaisquer outras aplicações de alta carga. Todas as transmissões mecânicas sincronizadas ou não sincronizadas, caixas de câmbio/diferenciais, caixas de transferência ou diferenciais hipoides sem sistema de deslizamento limitado e todos os sistemas de transmissão que usam engrenagens, engrenagens cônicas, engrenagens de redução, caixas de redução de velocidade, caixas de propulsão... etc. operando sob choques, cargas pesadas e baixa velocidade de rotação ou cargas moderadas e alta velocidade de rotação."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": "API GL-4, API GL-5, Above existing standards"
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": ""
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": ""
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/gear_300_75w-90_pt_pt_motul_34200_20240905.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Manual"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Gear"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "75W-90"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "105777"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650003399"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "Manual"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "Gear"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "75W-90"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Transmissão"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "105777"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "3374650003399"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "105777": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/Motul_105777_Gear_300_75W90_1L_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/Motul_105777_Gear_300_75W90_1L_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL GEAR 300 75W-90 - SKU 105777"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "MOTUL MOTYLGEAR 75W-85",
+                "emg": "44901",
+                "apporder": "1",
+                "recommendationCategory": {
+                  "title": "AUTHENTIC",
+                  "description": "Uma escolha autêntica, compatível com as exigências da montadora."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106745_motylgear_75w85_1l_svb38_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL MOTYLGEAR 75W-85"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "44901"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Todas as transmissões mecânicas, caixas de velocidades sincronizadas ou não, caixa/ponte ou caixa de transferência sem deslizamento limitado que operem sob altas cargas de choque, cargas pesadas e regimes de rotação baixos ou cargas moderadas e regimes de rotação elevados. Especialmente desenvolvido para veículos das marcas General Motors, Hyundai, Mitsubishi, Nissan, Toyota, Mercedes Benz, Suzuki, Kia, etc., e qualquer fabricante que recomende um óleo de transmissão SAE 75W-85."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": "API GL-4, API GL-5"
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": ""
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": ""
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/MOTYLGEAR_75W-85_pt_PT_motul_44901_20211109.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Manual"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Motylgear"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "75W-85"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "106745"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650259925"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "Manual"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "Motylgear"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "75W-85"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Transmissão"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "106745"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "3374650259925"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "106745": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106745_motylgear_75w85_1l_svb38_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106745_motylgear_75w85_1l_svb38_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL MOTYLGEAR 75W-85 - SKU 106745"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "conditions": {
+              "usage": "Normal",
+              "mileage": "+150 000km"
+            },
+            "products": [
+              {
+                "name": "MOTUL GEAR 300 75W-90",
+                "emg": "34200",
+                "apporder": "5",
+                "recommendationCategory": {
+                  "title": "SPECIALIST",
+                  "description": "A melhor recomendação, de um especialista em lubrificantes, para alto desempenho."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/Motul_105777_Gear_300_75W90_1L_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL GEAR 300 75W-90"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "34200"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Óleo de transmissão de alto desempenho especialmente projetado para caixas de câmbio de veículos de corrida: speed way, rally, raid... etc. e quaisquer outras aplicações de alta carga. Todas as transmissões mecânicas sincronizadas ou não sincronizadas, caixas de câmbio/diferenciais, caixas de transferência ou diferenciais hipoides sem sistema de deslizamento limitado e todos os sistemas de transmissão que usam engrenagens, engrenagens cônicas, engrenagens de redução, caixas de redução de velocidade, caixas de propulsão... etc. operando sob choques, cargas pesadas e baixa velocidade de rotação ou cargas moderadas e alta velocidade de rotação."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": "API GL-4, API GL-5, Above existing standards"
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": ""
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": ""
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/gear_300_75w-90_pt_pt_motul_34200_20240905.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Manual"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Gear"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "75W-90"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "105777"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650003399"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "Manual"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "Gear"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "75W-90"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Transmissão"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "105777"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "3374650003399"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "105777": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/Motul_105777_Gear_300_75W90_1L_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/Motul_105777_Gear_300_75W90_1L_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL GEAR 300 75W-90 - SKU 105777"
+                      }
+                    ]
+                  }
+                }
+              },
+              {
+                "name": "MOTUL MOTYLGEAR 75W-85",
+                "emg": "44901",
+                "apporder": "1",
+                "recommendationCategory": {
+                  "title": "AUTHENTIC",
+                  "description": "Uma escolha autêntica, compatível com as exigências da montadora."
+                },
+                "providerData": {
+                  "motulExpertObservation": null
+                },
+                "pictureUrl": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106745_motylgear_75w85_1l_svb38_png.png",
+                "details": {
+                  "normalizedData": {
+                    "name": {
+                      "title": "name",
+                      "value": "MOTUL MOTYLGEAR 75W-85"
+                    },
+                    "emg": {
+                      "title": "emg",
+                      "value": "44901"
+                    },
+                    "description": {
+                      "title": "description",
+                      "value": "Todas as transmissões mecânicas, caixas de velocidades sincronizadas ou não, caixa/ponte ou caixa de transferência sem deslizamento limitado que operem sob altas cargas de choque, cargas pesadas e regimes de rotação baixos ou cargas moderadas e regimes de rotação elevados. Especialmente desenvolvido para veículos das marcas General Motors, Hyundai, Mitsubishi, Nissan, Toyota, Mercedes Benz, Suzuki, Kia, etc., e qualquer fabricante que recomende um óleo de transmissão SAE 75W-85."
+                    },
+                    "apiStandards": {
+                      "title": "apiStandards",
+                      "value": "API GL-4, API GL-5"
+                    },
+                    "jasoStandards": {
+                      "title": "jasoStandards",
+                      "value": ""
+                    },
+                    "aceaStandards": {
+                      "title": "aceaStandards",
+                      "value": ""
+                    },
+                    "approvals": {
+                      "title": "approvals",
+                      "value": ""
+                    },
+                    "performances": {
+                      "title": "performances",
+                      "value": ""
+                    },
+                    "recommendations": {
+                      "title": "recommendations",
+                      "value": ""
+                    },
+                    "safetyDataSheetLanguages": [
+                      "CS",
+                      "DA",
+                      "DE",
+                      "EL",
+                      "EN",
+                      "ES",
+                      "FI",
+                      "FR",
+                      "HU",
+                      "IT",
+                      "NL",
+                      "NO",
+                      "PL",
+                      "PT",
+                      "RO",
+                      "RU",
+                      "SK",
+                      "SL",
+                      "SV",
+                      "TR",
+                      "UK"
+                    ],
+                    "technicalDataSheetHref": {
+                      "title": "technicalDataSheetHref",
+                      "value": "https://azupim01.motul.com/media/motulData/DO/base/MOTYLGEAR_75W-85_pt_PT_motul_44901_20211109.pdf"
+                    },
+                    "quantities": {
+                      "title": "quantities",
+                      "value": [
+                        "1L"
+                      ]
+                    },
+                    "upsell": [],
+                    "variants": [
+                      {
+                        "quantity": {
+                          "title": "quantity",
+                          "value": "1L"
+                        },
+                        "engineType": {
+                          "title": "engineType",
+                          "value": "Manual"
+                        },
+                        "productType": {
+                          "title": "productType",
+                          "value": "Motylgear"
+                        },
+                        "quality": {
+                          "title": "quality",
+                          "value": ""
+                        },
+                        "viscosity": {
+                          "title": "viscosity",
+                          "value": "75W-85"
+                        },
+                        "application": {
+                          "title": "application",
+                          "value": "Transmissão"
+                        },
+                        "segment": {
+                          "title": "segment",
+                          "value": "Auto"
+                        },
+                        "sku": {
+                          "title": "sku",
+                          "value": "106745"
+                        },
+                        "ean": {
+                          "title": "ean",
+                          "value": "3374650259925"
+                        }
+                      }
+                    ],
+                    "defaultVariant": {
+                      "quantity": {
+                        "title": "quantity",
+                        "value": "1L"
+                      },
+                      "engineType": {
+                        "title": "engineType",
+                        "value": "Manual"
+                      },
+                      "productType": {
+                        "title": "productType",
+                        "value": "Motylgear"
+                      },
+                      "quality": {
+                        "title": "quality",
+                        "value": ""
+                      },
+                      "viscosity": {
+                        "title": "viscosity",
+                        "value": "75W-85"
+                      },
+                      "application": {
+                        "title": "application",
+                        "value": "Transmissão"
+                      },
+                      "segment": {
+                        "title": "segment",
+                        "value": "Auto"
+                      },
+                      "sku": {
+                        "title": "sku",
+                        "value": "106745"
+                      },
+                      "ean": {
+                        "title": "ean",
+                        "value": "3374650259925"
+                      }
+                    },
+                    "usp": [],
+                    "howToUseImages": []
+                  },
+                  "gallery": {
+                    "106745": [
+                      {
+                        "id": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106745_motylgear_75w85_1l_svb38_png.png",
+                        "src": "https://azupim01.motul.com/media/motulData/IM/bigweb/motul_106745_motylgear_75w85_1l_svb38_png.png",
+                        "mediaType": "image",
+                        "alt": "MOTUL MOTYLGEAR 75W-85 - SKU 106745"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "conditions": {
+          "usage": [
+            {
+              "default": true,
+              "label": "Normal",
+              "comments": []
+            }
+          ]
+        }
+      }
+    ],
+    "conditions": {
+      "mileage": [
+        {
+          "default": true,
+          "label": "-150 000km",
+          "comments": []
+        },
+        {
+          "default": false,
+          "label": "+150 000km",
+          "comments": []
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "http": 422,
+  "json": {
+    "user": {
+      "first_name": "REDACTED",
+      "email": "REDACTED",
+      "cellphone": "REDACTED",
+      "notification": "yes"
+    },
+    "balance": "0,000",
+    "balance_before": "0,000",
+    "tax": "0,000",
+    "status_code": 422,
+    "error": true,
+    "message": "Placa inválida. Use o formato ABC-1234 (antigo) ou ABC1D23 (Mercosul) Nao foi possivel consultar os dados e voce nao foi tarifado."
+  }
+}

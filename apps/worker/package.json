@@ -1,0 +1,28 @@
+{
+  "name": "@select-lub/worker",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "test": "vitest run --exclude \"**/*.live.test.ts\" && vitest run --no-file-parallelism \".live.test.\"",
+    "typecheck": "tsc --build && tsc --noEmit -p tsconfig.test.json",
+    "prefill:score": "tsx ../../packages/core/src/modules/prefill/internal/scripts/score.ts",
+    "backfill:once": "tsx ../../packages/core/scripts/backfill-once.ts"
+  },
+  "dependencies": {
+    "@select-lub/shared-types": "workspace:*",
+    "@ai-sdk/openai": "^4.0.29",
+    "ai": "^7.0.51",
+    "fastify": "^5.5.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "@select-lub/core": "workspace:*"
+  }
+}

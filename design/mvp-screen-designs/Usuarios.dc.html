@@ -1,0 +1,256 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <style>
+/* ===== BEGIN SHARED FOUNDATION — byte-identical across all five artboards. Do not edit one copy alone. ===== */
+    :root {
+      /* yellow-cta palette (apps/web/src/theme.ts ROLE_TABLES["yellow-cta"]) */
+      --primary:#EAB63D; --on-primary:#111111;
+      --primary-container:#FFF3C4; --on-primary-container:#111111;
+      --secondary:#303030; --on-secondary:#FFFFFF;
+      --secondary-container:#E4E2E1; --on-secondary-container:#303030;
+      /* shared roles (identical on both palettes) */
+      --tertiary:#5f5e5e; --on-tertiary:#FFFFFF;
+      --tertiary-container:#e4e2e1; --on-tertiary-container:#474747;
+      --surface:#FFFFFF; --surface-variant:#EDEDED; --on-surface:#111111;
+      --outline:#D9D9D9;
+      --error:#B3261E; --on-error:#FFFFFF;
+      --error-container:#ffe0e0; --on-error-container:#8a1c1c;
+      --success-container:#e6f4ea; --on-success-container:#1e4620;
+      --whatsapp:#25D366; --on-whatsapp:#111111;
+      --read-tick:#1565C0;
+      /* Gold fails AA as text on white (~1.9:1), so text and icons that would
+         read as "primary" use charcoal — theme.ts does the same for yellow-cta
+         via MuiButton text/outlined and MuiLink overrides. Gold stays a FILL. */
+      --on-surface-accent:#303030;
+      /* spacing scale 4/8/12/16/24/32/48/64 */
+      --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-6:24px; --sp-8:32px; --sp-12:48px; --sp-16:64px;
+      /* radii — inputs/chips, cards (theme.shape.borderRadius), pill CTAs (spacing(2)) */
+      --radius-sm:4px; --radius-md:8px; --radius-lg:16px;
+      /* type scale */
+      --t-page:26px; --t-section:18px; --t-subsection:15px; --t-body:13px; --t-caption:11px; --t-metric:30px;
+    }
+    body { margin:0; font-family:'Inter', system-ui, sans-serif; color:var(--on-surface); background:var(--surface-variant); }
+    a { color:var(--on-surface-accent); }
+    a:hover { color:var(--on-surface); }
+    .t-page { font-size:var(--t-page); font-weight:800; letter-spacing:-0.02em; margin:0; }
+    .t-section { font-size:var(--t-section); font-weight:700; letter-spacing:-0.01em; margin:0; }
+    .t-subsection { font-size:var(--t-subsection); font-weight:600; margin:0; }
+    .t-body { font-size:var(--t-body); font-weight:400; }
+    .t-caption { font-size:var(--t-caption); font-weight:400; color:var(--tertiary); }
+    .t-metric { font-size:var(--t-metric); font-weight:800; letter-spacing:-0.02em; }
+    /* shell */
+    .shell { display:flex; align-items:center; gap:var(--sp-4); padding:0 var(--sp-6); height:52px;
+      background:var(--secondary); color:var(--on-secondary); flex-shrink:0; }
+    .shell-title { font-size:var(--t-subsection); font-weight:800; letter-spacing:-0.01em; flex:1; }
+    .palette-group { display:flex; background:var(--surface); border-radius:var(--radius-sm); padding:2px; gap:2px; }
+    .palette-opt { padding:4px 12px; border-radius:2px; font-size:var(--t-caption); font-weight:600; color:var(--tertiary); }
+    .palette-opt-on { background:var(--primary); color:var(--on-primary); }
+    /* page nav */
+    .nav { display:flex; align-items:stretch; gap:var(--sp-6); padding:0 var(--sp-6);
+      background:var(--surface); border-bottom:1px solid var(--outline); flex-shrink:0; }
+    .nav-item { display:flex; align-items:center; padding:var(--sp-3) 0; font-size:var(--t-body); font-weight:500;
+      color:var(--tertiary); border-bottom:2px solid transparent; }
+    .nav-item-on { color:var(--on-surface); font-weight:700; border-bottom-color:var(--primary); }
+    /* Follow-up pendency badge: the total of the four section counts, from the
+       same contract the Follow-up screen and the Relatórios alert read, so the
+       three cannot disagree. Zero — and counts unavailable — draw no badge at
+       all; a permanent "0" teaches the eye to ignore the one place the number
+       matters. Gold is a fill, never text, so the pill is gold with charcoal
+       digits rather than gold numerals. */
+    .nav-badge { display:inline-flex; align-items:center; justify-content:center;
+      min-width:18px; height:18px; padding:0 5px; margin-left:6px; border-radius:9px;
+      background:var(--primary); color:var(--on-primary); font-size:var(--t-caption);
+      font-weight:700; line-height:1; font-variant-numeric:tabular-nums; }
+    /* ===== END SHARED FOUNDATION ===== */
+
+    .page { flex:1; overflow:auto; padding:var(--sp-6); display:flex; flex-direction:column; gap:var(--sp-8); }
+    .band { display:flex; flex-direction:column; gap:var(--sp-3); }
+    .card { background:var(--surface); border-radius:var(--radius-md); padding:var(--sp-4);
+      display:flex; flex-direction:column; gap:var(--sp-3); }
+    .input { padding:10px 12px; border-radius:var(--radius-sm); border:1px solid var(--outline);
+      background:var(--surface); font-size:var(--t-body); }
+    .input-label { font-size:var(--t-caption); font-weight:600; color:var(--tertiary); margin-bottom:var(--sp-1); }
+    .helper { font-size:var(--t-caption); color:var(--tertiary); margin-top:var(--sp-1); }
+    .btn-primary { padding:var(--sp-2) var(--sp-4); border-radius:var(--radius-lg); background:var(--primary);
+      color:var(--on-primary); font-weight:600; font-size:var(--t-body); width:fit-content; }
+    .btn-outline { padding:6px 12px; border-radius:var(--radius-lg); border:1px solid var(--outline);
+      color:var(--on-surface-accent); font-weight:600; font-size:var(--t-caption); width:fit-content; }
+    .unit-chip { display:inline-flex; align-items:center; gap:6px; padding:var(--sp-1) 10px;
+      border-radius:var(--radius-lg); font-size:var(--t-caption); font-weight:600;
+      background:var(--secondary-container); color:var(--on-secondary-container); }
+    .unit-pick { display:inline-flex; align-items:center; gap:6px; padding:var(--sp-1) 10px;
+      border-radius:var(--radius-lg); font-size:var(--t-caption); font-weight:600;
+      border:1px solid var(--outline); color:var(--on-surface-accent); }
+    .unit-pick-on { background:var(--primary-container); color:var(--on-primary-container); border-color:var(--primary); }
+    table.data { width:100%; border-collapse:collapse; font-size:var(--t-body); }
+    table.data th, table.data td { padding:10px var(--sp-3); text-align:left; border-bottom:1px solid var(--outline); vertical-align:middle; }
+    table.data th { font-size:var(--t-caption); font-weight:600; color:var(--tertiary);
+      text-transform:uppercase; letter-spacing:0.04em; }
+    table.data tr:last-child td { border-bottom:none; }
+    .muted { color:var(--tertiary); font-size:var(--t-body); }
+    .notice { padding:var(--sp-2) var(--sp-3); border-radius:var(--radius-sm); font-size:var(--t-body);
+      background:var(--error-container); color:var(--on-error-container); }
+    .ok { padding:var(--sp-2) var(--sp-3); border-radius:var(--radius-sm); font-size:var(--t-body);
+      background:var(--success-container); color:var(--on-success-container); }
+    /* generic shimmer, exempt from the token rule (not a brand or semantic color) */
+    .skel { height:14px; background:linear-gradient(90deg,#eee,#f5f5f5,#eee); border-radius:var(--radius-sm); }
+    .empty { display:flex; flex-direction:column; align-items:center; gap:var(--sp-2); padding:var(--sp-8) var(--sp-4); }
+  </style>
+</helmet>
+
+<div style="width:1120px; height:980px; display:flex; flex-direction:column; background:var(--surface-variant);">
+
+  <!-- ===== BEGIN SHARED FOUNDATION MARKUP ===== -->
+  <div class="shell">
+    <span class="shell-title">Select Lub CRM</span>
+    <div class="palette-group">
+      <span class="palette-opt palette-opt-on">Amarelo</span>
+      <span class="palette-opt">Preto</span>
+    </div>
+  </div>
+  <div class="nav">
+    <span class="nav-item">Conversas</span>
+    <span class="nav-item">Serviços</span>
+    <span class="nav-item">Follow-up<span class="nav-badge">13</span></span>
+    <span class="nav-item">Relatórios</span>
+    <span class="nav-item">Configurações</span>
+    <span class="nav-item nav-item-on">Usuários</span>
+  </div>
+  <!-- ===== END SHARED FOUNDATION MARKUP ===== -->
+
+  <div class="page">
+    <h1 class="t-page">Usuários</h1>
+
+    <!-- ============ USER LIST — the screen's own data, with its three states ============ -->
+    <div class="band">
+      <h2 class="t-section">Equipe</h2>
+
+      <sc-if value="{{list.loading}}" hint-placeholder-val="{{false}}">
+        <div class="card">
+          <div class="skel" style="width:100%; height:32px; margin-bottom:var(--sp-3);"></div>
+          <div class="skel" style="width:100%; height:44px; margin-bottom:var(--sp-2);"></div>
+          <div class="skel" style="width:100%; height:44px; margin-bottom:var(--sp-2);"></div>
+          <div class="skel" style="width:100%; height:44px;"></div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{list.error}}" hint-placeholder-val="{{false}}">
+        <div class="card" style="align-items:flex-start;">
+          <div class="notice">Não foi possível carregar os usuários.</div>
+          <div class="btn-primary">Tentar de novo</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{list.empty}}" hint-placeholder-val="{{false}}">
+        <div class="card">
+          <div class="empty">
+            <div class="t-subsection">Nenhum usuário cadastrado</div>
+            <div class="muted">Crie o primeiro acesso no formulário abaixo.</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{list.populated}}" hint-placeholder-val="{{true}}">
+        <div class="card">
+          <table class="data" aria-label="Usuários">
+            <thead><tr><th>Nome</th><th>E-mail</th><th>Unidades</th><th></th></tr></thead>
+            <tbody>
+              <sc-if value="{{create.pending}}" hint-placeholder-val="{{false}}">
+                <tr style="opacity:0.6;">
+                  <td>Camila Torres</td>
+                  <td>camila.torres@selectlub.example</td>
+                  <td><span class="unit-chip">Centro</span></td>
+                  <td><span class="t-caption">Criando…</span></td>
+                </tr>
+              </sc-if>
+              <tr>
+                <td>Roberta Nunes</td>
+                <td>roberta.nunes@selectlub.example</td>
+                <td><span class="unit-chip">Centro</span> <span class="unit-chip">Norte</span></td>
+                <td><div class="btn-outline">Editar unidades</div></td>
+              </tr>
+              <tr>
+                <td>Marcelo Prado</td>
+                <td>marcelo.prado@selectlub.example</td>
+                <td><span class="unit-chip">Norte</span></td>
+                <td><div class="btn-outline">Editar unidades</div></td>
+              </tr>
+              <tr>
+                <td>Daniela Rocha</td>
+                <td>daniela.rocha@selectlub.example</td>
+                <td><span class="muted">Nenhuma unidade</span></td>
+                <td><div class="btn-outline">Editar unidades</div></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </sc-if>
+    </div>
+
+    <!-- ============ CREATE — units picked by name, never by typed id ============ -->
+    <div class="band">
+      <h2 class="t-section">Criar usuário</h2>
+      <div class="card" style="max-width:560px;">
+        <div><div class="input-label">Nome</div><div class="input">Camila Torres</div></div>
+        <div><div class="input-label">E-mail</div><div class="input">camila.torres@selectlub.example</div></div>
+        <div><div class="input-label">Senha</div><div class="input">••••••••</div></div>
+        <div>
+          <div class="input-label">Unidades</div>
+          <div style="display:flex; gap:var(--sp-2); flex-wrap:wrap;">
+            <span class="unit-pick unit-pick-on">✓ Centro</span>
+            <span class="unit-pick">Norte</span>
+            <span class="unit-pick">Jardim</span>
+            <span class="unit-pick">Oeste</span>
+          </div>
+          <div class="helper">Opcional. Toque para incluir ou remover. Sem unidade, o usuário entra sem acesso a dados.</div>
+        </div>
+        <div class="btn-primary" style="opacity:{{create.btnOpacity}};">{{create.btnLabel}}</div>
+        <sc-if value="{{create.success}}" hint-placeholder-val="{{false}}">
+          <div class="ok">Usuário criado: camila.torres@selectlub.example</div>
+        </sc-if>
+        <sc-if value="{{create.error}}" hint-placeholder-val="{{false}}">
+          <div class="notice">Não foi possível criar o usuário. Verifique se o e-mail já está em uso.</div>
+        </sc-if>
+      </div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+<script data-dc-script data-props='{
+  "listState": {"editor":"enum","default":"Com dados","options":["Com dados","Carregando","Vazio","Erro"],"section":"Estado — lista de usuários"},
+  "createUserState": {"editor":"enum","default":"Neutro","options":["Neutro","Enviando (otimista)","Sucesso","Erro"],"section":"Estado — criar usuário"}
+}'>
+class Component extends DCLogic {
+  renderVals() {
+    const listKey = this.props.listState ?? "Com dados";
+    const createKey = this.props.createUserState ?? "Neutro";
+    const pending = createKey === "Enviando (otimista)";
+    return {
+      list: {
+        populated: listKey === "Com dados",
+        loading: listKey === "Carregando",
+        empty: listKey === "Vazio",
+        error: listKey === "Erro"
+      },
+      create: {
+        pending,
+        btnLabel: pending ? "Criando usuário…" : "Criar usuário",
+        btnOpacity: pending ? 0.6 : 1,
+        success: createKey === "Sucesso",
+        error: createKey === "Erro"
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

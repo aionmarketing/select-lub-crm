@@ -1,0 +1,20 @@
+-- whatsapp_connection.state_observed_at (owner rulings, 2026-09-25): when the
+-- stored connection_state was observed. updateConnectionState writes only when
+-- its observation is not older (a same-millisecond tie goes to the later write), so a connection.update event retried on a
+-- later heartbeat, or a reconcile racing a webhook, can no longer overwrite a
+-- newer state with an older one. Before this the write was last-writer-wins and
+-- the webhook path stamped the time it was PROCESSED.
+--
+-- WHICH CLOCK, AND WHY NOT EVOLUTION'S `date_time`. A webhook's observation is
+-- webhook_event.created_at: when the CRM received it, stamped by this database,
+-- and unchanged by retries. The reconcile's is the instant just before it probes
+-- that connection. Both are CRM clocks, so they compare. Evolution's envelope
+-- `date_time` is NOT used, and must not be "fixed" back to it: in Evolution API
+-- v2.3.7 (src/api/services/channel.service.ts, sendDataWebhook) it is
+--   new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString()
+-- i.e. the Evolution host's LOCAL wall clock labelled "Z" — three hours off on a
+-- host set to America/Sao_Paulo — and the hosted instance's time zone is not
+-- known to us. A connection.update's `data` carries no timestamp of its own.
+--
+-- Nullable, no backfill: the first guarded write to a row sets it.
+ALTER TABLE "whatsapp_connection" ADD COLUMN "state_observed_at" TIMESTAMP(3);

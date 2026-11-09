@@ -1,0 +1,203 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    # Nightly, so drift introduced outside a push is still reported.
+    - cron: "0 6 * * *"
+
+jobs:
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Secret scan (gitleaks)
+        run: |
+          docker run --rm -v "$PWD:/repo" -w /repo \
+            zricethezav/gitleaks:v8.28.0 detect \
+            --source=/repo \
+            --config=/repo/.gitleaks.toml \
+            --verbose
+
+  lint-and-test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: selectlub
+          POSTGRES_PASSWORD: selectlub
+          POSTGRES_DB: selectlub
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd "pg_isready -U selectlub -d selectlub"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://selectlub:selectlub@127.0.0.1:5433/selectlub_test
+      DATABASE_URL_TEST: postgresql://selectlub:selectlub@127.0.0.1:5433/selectlub_test
+      # The live api tests resolve their unit through the WhatsApp connection
+      # named by this variable, and the seed creates that connection under the
+      # same name. There is no .env in CI, so without this the API refuses to
+      # start. It used to fall back to a name nothing seeds, which returned an
+      # empty unit instead of an error. Same value as the playwright job.
+      EVOLUTION_INSTANCE_NAME: Select Lub
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.23.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Validate OpenSpec specs
+        run: pnpm exec openspec validate --specs --no-interactive
+      - run: pnpm lint
+      # Vitest strips types without checking them, so a green `pnpm test` can
+      # sit on top of type errors. Runs before the database because it needs
+      # none — `prisma generate` already ran in postinstall.
+      - run: pnpm typecheck
+      # apps/web's build script is `tsc --build && vite build`. `pnpm typecheck`
+      # above runs the first half; nothing ran the second, so a failure that only
+      # appears at bundle time -- an import tsc accepts but Rollup cannot
+      # resolve, a plugin or asset error, a dependency that breaks when bundled
+      # -- passed the entire gate and first appeared at deploy. Building here is
+      # the cheapest place to find it. No Docker build: that needs a registry.
+      #
+      # `tsc --build` for apps/web emits into `ts-dist`, not Vite's `dist`, so
+      # `vite build` emptying `dist` cannot invalidate the declarations the
+      # buildinfo still vouches for (TS6305). Typecheck after this step is
+      # safe. Keep the step after `pnpm typecheck` anyway: the bundle catch is
+      # still the point.
+      - run: pnpm --filter @select-lub/web build
+      - name: Create selectlub_test and migrate
+        run: |
+          docker exec ${{ job.services.postgres.id }} \
+            psql -U selectlub -d selectlub -c "CREATE DATABASE selectlub_test;"
+          pnpm db:migrate
+      - run: pnpm test:coverage
+      # `pnpm test:coverage` runs vitest in its default mode, which is the
+      # `cursor` UI variant only. The `antigravity` variant has its own
+      # composition files (`*.antigravity.tsx`) and its own mode-gated cases, so
+      # nothing in CI exercised them: on 2026-09-16 six tests were red on `main`
+      # in that mode for an unknown number of days, because the only command
+      # that runs them is one a developer has to remember. Needs no database —
+      # the web suite is jsdom — so it is cheap to keep honest.
+      - run: pnpm test:web:antigravity
+
+  playwright:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: selectlub
+          POSTGRES_PASSWORD: selectlub
+          POSTGRES_DB: selectlub
+        ports:
+          - 5433:5432
+        options: >-
+          --health-cmd "pg_isready -U selectlub -d selectlub"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://selectlub:selectlub@127.0.0.1:5433/selectlub_e2e
+      HOST: 127.0.0.1
+      PORT: "3000"
+      EVOLUTION_INSTANCE_NAME: Select Lub
+      AUTHENTICATION_API_KEY: ci-playwright-mock
+      SERVER_URL: http://127.0.0.1:18080
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+      VITE_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      VITE_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+      VITE_MVP_LOGIN_EMAIL: ${{ secrets.VITE_MVP_LOGIN_EMAIL }}
+      VITE_MVP_LOGIN_PASSWORD: ${{ secrets.VITE_MVP_LOGIN_PASSWORD }}
+      SEED_USER_A_ID: ${{ secrets.SEED_USER_A_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.23.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Create selectlub_e2e, migrate, and seed
+        run: |
+          docker exec ${{ job.services.postgres.id }} \
+            psql -U selectlub -d selectlub -c "CREATE DATABASE selectlub_e2e;"
+          pnpm db:migrate
+          pnpm db:seed
+      - name: Require auto-login secrets
+        run: |
+          if [ -z "${VITE_MVP_LOGIN_EMAIL}" ] || [ -z "${VITE_MVP_LOGIN_PASSWORD}" ] \
+            || [ -z "${SUPABASE_URL}" ] || [ -z "${SUPABASE_ANON_KEY}" ] \
+            || [ -z "${SEED_USER_A_ID}" ]; then
+            echo "Missing GitHub Actions secrets for Playwright auto-login."
+            echo "Add repository secrets: SUPABASE_URL SUPABASE_ANON_KEY VITE_MVP_LOGIN_EMAIL VITE_MVP_LOGIN_PASSWORD SEED_USER_A_ID"
+            exit 1
+          fi
+      - name: Run Playwright
+        run: |
+          pnpm --filter @select-lub/e2e exec playwright install --with-deps chromium
+          pnpm --filter @select-lub/e2e test
+
+  # Reads only. Reports whether the DEPLOYED database has applied every migration
+  # in this repo -- the one thing the ephemeral postgres:16 service above cannot
+  # tell us, because a fresh container always starts in step with the repo. The
+  # plate_lookup migration was applied to the deployed database by hand on
+  # 2026-09-07 and nothing here would have noticed if it had not been.
+  #
+  # Deliberately a separate job with NO test step. A job holding a connection
+  # string to the deployed database AND running pnpm test would run the
+  # database-writing suites against it -- the same hole this change closes,
+  # in a new place. The secret is named distinctly from DATABASE_URL for the
+  # same reason: the live-test gate reads DATABASE_URL, so a differently named
+  # secret cannot be picked up by it even by accident.
+  #
+  # Not triggered on pull_request: fork pull requests do not receive secrets,
+  # and every PR should not reach the deployed instance.
+  deployed-schema-drift:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.23.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Check the deployed database for pending migrations
+        working-directory: packages/core
+        env:
+          # Prisma reads the connection string from DATABASE_URL (schema.prisma
+          # declares env("DATABASE_URL")), so it must carry that name HERE. The
+          # secret is named DEPLOYED_DATABASE_URL so it is never injected into a
+          # job that runs tests; what keeps it away from the writing suites is
+          # that this job has no test step, not the variable name in this step.
+          DATABASE_URL: ${{ secrets.DEPLOYED_DATABASE_URL }}
+        run: |
+          if [ -z "$DATABASE_URL" ]; then
+            echo "::error::DEPLOYED_DATABASE_URL is not configured, so deployed schema" >&2
+            echo "::error::drift is NOT being checked. Add it under Settings > Secrets," >&2
+            echo "::error::or delete this job. Passing silently would make this check" >&2
+            echo "::error::decoration: green because it never ran." >&2
+            exit 1
+          fi
+          # migrate status reports pending migrations and exits non-zero when the
+          # deployed schema is behind. It applies nothing.
+          pnpm exec prisma migrate status --schema prisma/schema

@@ -1,0 +1,73 @@
+{
+  "note": "Domain patterns that can never be an oil-spec source, whatever the searching model classifies them as. prompt.md names forums, social media, generic SEO pages, retailer descriptions and unreferenced generated content as non-authoritative. The `manual mirror` group was added after the 2026-09-10 showcase run: the searching model classified third-party manual re-hosts as `manufacturer_manual` tier 1, and only the fetch cap kept them out. A copy of a manual on someone else's ad-funded site is not the manufacturer's document, and its being a copy is invisible to a classifier reading the page. The `document sharing site` group came out of the second run, where Scribd uploads of the Argo manual were accepted as tier 1 twice: the same reasoning, and the same blind spot. The `parts shop product listing` group is different in kind: pecas.vw.com.br is the manufacturer's OWN domain, so no authority argument excludes it, but the page is a single-SKU listing for one 5W-40 bottle. prompt.md names retailer descriptions as non-authoritative, and a page whose whole subject is one product is the clearest way to make an extractor report that product's grade as the car's specification. A pattern matches the registrable domain and any subdomain of it. This list is the floor, not the ceiling: a domain absent from here still has to be classified into one of the five document classes to be accepted at all.",
+  "patterns": [
+    { "pattern": "*.forum.*", "reason": "forum" },
+    { "pattern": "forum.*", "reason": "forum" },
+    { "pattern": "forums.*", "reason": "forum" },
+    { "pattern": "*forum*.com", "reason": "forum" },
+    { "pattern": "*forum*.com.br", "reason": "forum" },
+    { "pattern": "*clube*.com.br", "reason": "owners club forum" },
+    { "pattern": "reddit.com", "reason": "forum" },
+    { "pattern": "quora.com", "reason": "forum" },
+    { "pattern": "stackexchange.com", "reason": "forum" },
+
+    { "pattern": "facebook.com", "reason": "social network" },
+    { "pattern": "instagram.com", "reason": "social network" },
+    { "pattern": "x.com", "reason": "social network" },
+    { "pattern": "twitter.com", "reason": "social network" },
+    { "pattern": "tiktok.com", "reason": "social network" },
+    { "pattern": "linkedin.com", "reason": "social network" },
+    { "pattern": "pinterest.com", "reason": "social network" },
+    { "pattern": "whatsapp.com", "reason": "social network" },
+
+    { "pattern": "youtube.com", "reason": "video platform" },
+    { "pattern": "youtu.be", "reason": "video platform" },
+    { "pattern": "vimeo.com", "reason": "video platform" },
+    { "pattern": "dailymotion.com", "reason": "video platform" },
+
+    { "pattern": "mercadolivre.com.br", "reason": "marketplace" },
+    { "pattern": "mercadolibre.com", "reason": "marketplace" },
+    { "pattern": "amazon.com.br", "reason": "marketplace" },
+    { "pattern": "amazon.com", "reason": "marketplace" },
+    { "pattern": "americanas.com.br", "reason": "marketplace" },
+    { "pattern": "magazineluiza.com.br", "reason": "marketplace" },
+    { "pattern": "shopee.com.br", "reason": "marketplace" },
+    { "pattern": "aliexpress.com", "reason": "marketplace" },
+    { "pattern": "ebay.com", "reason": "marketplace" },
+    { "pattern": "olx.com.br", "reason": "marketplace" },
+
+    { "pattern": "webmotors.com.br", "reason": "classifieds" },
+    { "pattern": "icarros.com.br", "reason": "classifieds" },
+
+    { "pattern": "*.blogspot.com", "reason": "personal blog" },
+    { "pattern": "*.wordpress.com", "reason": "personal blog" },
+    { "pattern": "medium.com", "reason": "personal blog" },
+    { "pattern": "wikipedia.org", "reason": "encyclopedia, not a technical source" },
+    { "pattern": "answers.com", "reason": "content farm" },
+    { "pattern": "ehow.com", "reason": "content farm" },
+    { "pattern": "wikihow.com", "reason": "content farm" },
+
+    { "pattern": "opinautos.com.br", "reason": "manual mirror" },
+    { "pattern": "opinautos.com", "reason": "manual mirror" },
+    { "pattern": "ownersmanuals2.com", "reason": "manual mirror" },
+    { "pattern": "manualslib.com", "reason": "manual mirror" },
+    { "pattern": "manualdocarro.com.br", "reason": "manual mirror" },
+    { "pattern": "carmanualsonline.info", "reason": "manual mirror" },
+    { "pattern": "manualsdir.com", "reason": "manual mirror" },
+    { "pattern": "*manuals*.la", "reason": "manual mirror" },
+    { "pattern": "scribd.com", "reason": "document sharing site" },
+    { "pattern": "slideshare.net", "reason": "document sharing site" },
+    { "pattern": "docslib.org", "reason": "document sharing site" },
+    { "pattern": "studylib.net", "reason": "document sharing site" },
+    { "pattern": "vdocuments.*", "reason": "document sharing site" },
+    { "pattern": "dokumen.pub", "reason": "document sharing site" },
+
+    { "pattern": "pecas.vw.com.br", "reason": "parts shop product listing" },
+    { "pattern": "pecas.*", "reason": "parts shop product listing" },
+    { "pattern": "loja.*", "reason": "parts shop product listing" },
+    { "pattern": "shop.*", "reason": "parts shop product listing" },
+    { "pattern": "store.*", "reason": "parts shop product listing" },
+
+    { "pattern": "fastoleo.com.br", "reason": "lubricant retailer blog" }
+  ]
+}

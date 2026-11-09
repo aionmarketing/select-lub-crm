@@ -1,0 +1,235 @@
+{
+  "success": true,
+  "data": [
+    {
+      "DescricaoFabricante": "PEUGEOT",
+      "CodigoAplicacao": 184844,
+      "DescricaoAplicacao": "207",
+      "ComplementoAplicacao3_1": "FELINE / PRESENSE / SW",
+      "ComplementoAplicacao3_2": "1.6 16V",
+      "ComplementoAplicacao3_3": "",
+      "ComplementoAplicacao3_4": "",
+      "ComplementoAplicacao3_5": "Flex",
+      "ComplementoAplicacao3_6": [
+        {
+          "CodigoProduto": 265,
+          "TituloProduto": "ACP800"
+        }
+      ],
+      "ComplementoAplicacao3_9": [
+        {
+          "CodigoProduto": 268,
+          "TituloProduto": "ARL5049"
+        }
+      ],
+      "ComplementoAplicacao3_11": [
+        {
+          "CodigoProduto": 54,
+          "TituloProduto": "PEL108"
+        }
+      ],
+      "ComplementoAplicacao3_13": [
+        {
+          "CodigoProduto": 46,
+          "TituloProduto": "GI50/7"
+        }
+      ],
+      "ComplementoAplicacao3_33": ""
+    },
+    {
+      "DescricaoFabricante": "PEUGEOT",
+      "CodigoAplicacao": 184843,
+      "DescricaoAplicacao": "207",
+      "ComplementoAplicacao3_1": "FELINE / PRESENSE / SW",
+      "ComplementoAplicacao3_2": "1.6 16V",
+      "ComplementoAplicacao3_3": "2008",
+      "ComplementoAplicacao3_4": "2015",
+      "ComplementoAplicacao3_5": "Flex",
+      "ComplementoAplicacao3_6": [
+        {
+          "CodigoProduto": 265,
+          "TituloProduto": "ACP800"
+        }
+      ],
+      "ComplementoAplicacao3_9": [
+        {
+          "CodigoProduto": 268,
+          "TituloProduto": "ARL5049"
+        }
+      ],
+      "ComplementoAplicacao3_11": [
+        {
+          "CodigoProduto": 54,
+          "TituloProduto": "PEL108"
+        }
+      ],
+      "ComplementoAplicacao3_13": [
+        {
+          "CodigoProduto": 46,
+          "TituloProduto": "GI50/7"
+        }
+      ],
+      "ComplementoAplicacao3_33": ""
+    },
+    {
+      "DescricaoFabricante": "PEUGEOT",
+      "CodigoAplicacao": 184842,
+      "DescricaoAplicacao": "207",
+      "ComplementoAplicacao3_1": "PRESENCE / SENSATION",
+      "ComplementoAplicacao3_2": "1.4 8V",
+      "ComplementoAplicacao3_3": "2008",
+      "ComplementoAplicacao3_4": "2015",
+      "ComplementoAplicacao3_5": "Flex",
+      "ComplementoAplicacao3_6": [
+        {
+          "CodigoProduto": 265,
+          "TituloProduto": "ACP800"
+        }
+      ],
+      "ComplementoAplicacao3_9": [
+        {
+          "CodigoProduto": 267,
+          "TituloProduto": "ARL5055"
+        }
+      ],
+      "ComplementoAplicacao3_11": [
+        {
+          "CodigoProduto": 54,
+          "TituloProduto": "PEL108"
+        }
+      ],
+      "ComplementoAplicacao3_13": [
+        {
+          "CodigoProduto": 46,
+          "TituloProduto": "GI50/7"
+        }
+      ],
+      "ComplementoAplicacao3_33": ""
+    },
+    {
+      "DescricaoFabricante": "PEUGEOT",
+      "CodigoAplicacao": 197031,
+      "DescricaoAplicacao": "207",
+      "ComplementoAplicacao3_1": "",
+      "ComplementoAplicacao3_2": "",
+      "ComplementoAplicacao3_3": "2008",
+      "ComplementoAplicacao3_4": "2015",
+      "ComplementoAplicacao3_5": "",
+      "ComplementoAplicacao3_33": "TG",
+      "ComplementoAplicacao3_34": [
+        {
+          "CodigoProduto": 2587,
+          "TituloProduto": "TPC26"
+        }
+      ],
+      "ComplementoAplicacao3_35": [
+        {
+          "CodigoProduto": 2579,
+          "TituloProduto": "TPC16"
+        }
+      ],
+      "ComplementoAplicacao3_49": [
+        {
+          "CodigoProduto": 2590,
+          "TituloProduto": "TPT14/1"
+        }
+      ]
+    }
+  ],
+  "totalResultado": "4",
+  "camposSemInformacoes": [
+    "ComplementoAplicacao3_8",
+    "ComplementoAplicacao3_10",
+    "ComplementoAplicacao3_12",
+    "ComplementoAplicacao3_14",
+    "ComplementoAplicacao3_15",
+    "ComplementoAplicacao3_16",
+    "ComplementoAplicacao3_17",
+    "ComplementoAplicacao3_18",
+    "ComplementoAplicacao3_19",
+    "ComplementoAplicacao3_20",
+    "ComplementoAplicacao3_21",
+    "ComplementoAplicacao3_22",
+    "ComplementoAplicacao3_23",
+    "ComplementoAplicacao3_24",
+    "ComplementoAplicacao3_25",
+    "ComplementoAplicacao3_26",
+    "ComplementoAplicacao3_27",
+    "ComplementoAplicacao3_28",
+    "ComplementoAplicacao3_29",
+    "ComplementoAplicacao3_30",
+    "ComplementoAplicacao3_31",
+    "ComplementoAplicacao3_32",
+    "ComplementoAplicacao3_37",
+    "ComplementoAplicacao3_38",
+    "ComplementoAplicacao3_39",
+    "ComplementoAplicacao3_40",
+    "ComplementoAplicacao3_41",
+    "ComplementoAplicacao3_42",
+    "ComplementoAplicacao3_43",
+    "ComplementoAplicacao3_44",
+    "ComplementoAplicacao3_45",
+    "ComplementoAplicacao3_46",
+    "ComplementoAplicacao3_47",
+    "ComplementoAplicacao3_48"
+  ],
+  "quantidadeDetalhada": [
+    {
+      "Descricao": "Especificações",
+      "Tipo": "Especificacoes",
+      "Quantidade": 8
+    },
+    {
+      "Descricao": "Conversões",
+      "Tipo": "Conversoes",
+      "Quantidade": 261
+    },
+    {
+      "Descricao": "Total",
+      "Tipo": "Total",
+      "Quantidade": 4
+    },
+    {
+      "Codigo": 1,
+      "Descricao": "Automóveis",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 4
+    },
+    {
+      "Codigo": 2,
+      "Descricao": "Motocicletas",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 0
+    },
+    {
+      "Codigo": 3,
+      "Descricao": "Ônibus",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 0
+    },
+    {
+      "Codigo": 4,
+      "Descricao": "Caminhões",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 0
+    },
+    {
+      "Codigo": 5,
+      "Descricao": "Colheitadeiras",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 0
+    },
+    {
+      "Codigo": 6,
+      "Descricao": "Máquinas e Equipamentos",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 0
+    },
+    {
+      "Codigo": 7,
+      "Descricao": "Tratores",
+      "Tipo": "TipoAplicacao",
+      "Quantidade": 0
+    }
+  ]
+}

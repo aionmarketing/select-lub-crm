@@ -1,0 +1,7 @@
+{
+  "_note": "Documented API Placas prepaid-limit refusal. HTTP 429 maps to exhausted_balance and is not billed. Not a live capture (task 8.2).",
+  "http": 429,
+  "json": {
+    "error": "Limite de consultas excedido"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "_note": "Documented API Placas success shape from apiplacas.com.br (GET /consulta/{placa}/{token}) and the design.md mapping table. Not a live capture — that account had no credits when the adapter was written (task 8.2).",
+  "http": 200,
+  "json": {
+    "MARCA": "VW",
+    "MODELO": "GOL",
+    "VERSAO": "1.0 FLEX 12V 4P",
+    "SUBMODELO": "GOL 1.0",
+    "anoModelo": 2021,
+    "extra": {
+      "cilindradas": 999,
+      "combustivel": "ALCOOL/GASOLINA"
+    }
+  }
+}

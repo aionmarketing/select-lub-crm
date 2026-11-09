@@ -1,0 +1,140 @@
+{
+  "$comment": [
+    "Table ownership for the modular-monolith slices. One module owns each table and is the",
+    "only thing that may write it; `readableBy` lists the modules that may SELECT it.",
+    "",
+    "This file is the source, not a mirror: `pnpm gen:grants` turns it into",
+    "`db/grants.generated.sql` (one `module_<name>` Postgres role each) and into",
+    "`packages/core/src/kernel/db.modules.generated.ts`. `db:migrate` applies the SQL after",
+    "`prisma migrate deploy`, and the kernel's `db.tx(module, fn)` runs `SET LOCAL ROLE",
+    "module_<name>`, so a write to a foreign table is refused by the database itself.",
+    "",
+    "Names are TABLE names (the Prisma `@@map` value), not model names. The two differ",
+    "throughout: `WhatsAppConnection` maps to `whatsapp_connection`.",
+    "",
+    "`readableBy` is `\"*\"` everywhere for now. Narrowing one is a deliberate act: every read",
+    "the removed module still makes will start failing with `permission denied` the moment the",
+    "grants are regenerated, which is the point.",
+    "",
+    "Derivation and the one judgement call are recorded in",
+    "openspec/changes/adopt-modular-vertical-slices/tasks.md section 1.1 (correction C1)."
+  ],
+  "modules": {
+    "accounts": {
+      "description": "Units, users and the unit membership that scopes every other module's reads.",
+      "tables": ["unit", "user", "user_unit"],
+      "readableBy": "*"
+    },
+    "channel": {
+      "description": "The WhatsApp transport. The only module that talks to Evolution, and the only writer of the outbound queue.",
+      "tables": ["whatsapp_connection", "webhook_event", "outbox_message"],
+      "readableBy": "*"
+    },
+    "conversations": {
+      "description": "Threads, their messages, the tags and templates applied to them, and follow-up bookkeeping.",
+      "tables": [
+        "conversation",
+        "message",
+        "tag",
+        "template",
+        "conversation_tag",
+        "follow_up_closed_entry"
+      ],
+      "readableBy": "*"
+    },
+    "customers": {
+      "description": "Customers, their contact rows and vehicles, plus the ERP field-sync and reconciliation state for both.",
+      "tables": [
+        "customer",
+        "customer_phone",
+        "customer_email",
+        "vehicle",
+        "customer_field_sync",
+        "vehicle_field_sync",
+        "customer_reconciliation_pending",
+        "vehicle_reconciliation_pending"
+      ],
+      "readableBy": "*"
+    },
+    "prefill": {
+      "description": "Assistive cadastro extraction: the job queue and the suggestions an attendant accepts or rejects.",
+      "tables": ["cadastro_prefill_job", "cadastro_prefill_suggestion"],
+      "readableBy": "*"
+    },
+    "services": {
+      "description": "Services performed and their items, the vehicle-return dates computed from them, and the interval rules those dates are computed with.",
+      "tables": ["service", "service_item", "vehicle_return", "interval_rule"],
+      "readableBy": "*"
+    },
+    "scheduling": {
+      "description": "Deferred sends: scheduled messages and the return reminders that produce them.",
+      "tables": ["scheduled_message", "return_reminder_message"],
+      "readableBy": "*"
+    },
+    "quotes": {
+      "description": "Oil quotes and the catalog and compatibility data they are priced from.",
+      "tables": [
+        "oil_quote",
+        "oil_quote_line",
+        "oil_source_candidate",
+        "oil_spec_search_miss",
+        "oil_manual_ingestion",
+        "oil_manual_document",
+        "oil_manual_page",
+        "oil_manual_reading",
+        "oil_research",
+        "oil_research_run",
+        "oil_research_runner",
+        "oil_attendant_fill",
+        "motul_compatibility",
+        "tecfil_compatibility",
+        "catalog_item",
+        "catalog_lubricant",
+        "catalog_filter"
+      ],
+      "readableBy": "*"
+    },
+    "plate-lookup": {
+      "description": "Plate lookups and the per-call ledger the provider is billed against.",
+      "tables": ["plate_lookup", "plate_lookup_call"],
+      "readableBy": "*"
+    },
+    "reports": {
+      "description": "Attribution: the rule in force and the per-service attributions computed under it.",
+      "tables": [
+        "attribution_rule",
+        "service_scheduled_attribution",
+        "service_conversation_attribution",
+        "service_quote_attribution"
+      ],
+      "readableBy": "*"
+    },
+    "erp": {
+      "description": "The ERP transport. Pull bookkeeping, integration errors, and the write-back queue for the two-way ERP.",
+      "tables": ["sync_execution", "integration_error", "erp_outbox"],
+      "readableBy": "*"
+    }
+  },
+  "exemptPaths": {
+    "$comment": [
+      "Paths that write across module lines by design and must NOT be given contracts.",
+      "They run as the login role, which is a member of every module role and so strictly",
+      "more capable than any of them; their own writes do not go through `db.tx`, so no grant",
+      "applies to them. One exception: the demo seed opens vehicle returns by calling services'",
+      "reconcileVehicleReturns contract, which runs under db.tx with module roles, so seeding",
+      "needs the grants `pnpm db:migrate` applies.",
+      "Seeds build a whole world, the scrub deletes across two modules on purpose, and the",
+      "rollback harness seeds under the login role because design.md D2 requires it.",
+      "The role test asserts nothing under packages/core/src/modules/ is listed here."
+    ],
+    "paths": [
+      "packages/core/prisma/seed/**",
+      "packages/core/src/kernel/prisma/catalog-seed.ts",
+      "packages/core/src/kernel/prisma/live-seed-once.ts",
+      "packages/core/src/kernel/prisma/plan-whatsapp-connection-seed.ts",
+      "packages/core/src/kernel/prisma/scrub-live.ts",
+      "packages/core/src/testing/**",
+      "apps/e2e/test/**"
+    ]
+  }
+}

@@ -1,0 +1,174 @@
+// Tables owned by the `customers` module. Ownership is declared in ownership.json;
+// this file and that entry are kept in agreement by schema-ownership.test.ts.
+// Only `module_customers` may write them.
+
+model Customer {
+  id           String                          @id @default(cuid())
+  /// Null when unknown (empty Omie razão social or WhatsApp first-accept). Never "" or "Omie".
+  name         String?
+  omieId       String?                         @unique @map("omie_id")
+  taxId        String?                         @map("tax_id")
+  unitId       String?                         @map("unit_id")
+  unit         Unit?                           @relation(fields: [unitId], references: [id], onDelete: SetNull)
+  givenName    String?                         @map("given_name")
+  familyName   String?                         @map("family_name")
+  mergedIntoId String?                         @map("merged_into_id")
+  mergedInto   Customer?                       @relation("CustomerMerge", fields: [mergedIntoId], references: [id], onDelete: SetNull)
+  mergedFrom   Customer[]                      @relation("CustomerMerge")
+  street       String?
+  streetNumber String?                         @map("street_number")
+  neighborhood String?
+  complement   String?
+  city         String?
+  state        String?
+  postalCode   String?                         @map("postal_code")
+  country      String?
+  origin       String
+  status       String
+  createdAt    DateTime                        @default(now()) @map("created_at")
+  updatedAt    DateTime                        @updatedAt @map("updated_at")
+  phones       CustomerPhone[]
+  emails       CustomerEmail[]
+  vehicles     Vehicle[]
+  fieldSyncs   CustomerFieldSync[]
+  pendings     CustomerReconciliationPending[]
+  services          Service[]
+  scheduledMessages ScheduledMessage[]
+  oilQuotes         OilQuote[]
+
+  @@map("customer")
+}
+
+model CustomerPhone {
+  id         String   @id @default(cuid())
+  customerId String   @map("customer_id")
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  raw        String
+  normalized String
+  isPrimary  Boolean  @map("is_primary")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@unique([customerId, normalized])
+  @@map("customer_phone")
+}
+
+model CustomerEmail {
+  id         String   @id @default(cuid())
+  customerId String   @map("customer_id")
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  raw        String
+  normalized String
+  isPrimary  Boolean  @map("is_primary")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@unique([customerId, normalized])
+  @@map("customer_email")
+}
+
+model Vehicle {
+  id         String                         @id @default(cuid())
+  customerId String                         @map("customer_id")
+  customer   Customer                       @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  omieId     String?                        @map("omie_id")
+  plate      String?
+  make       String?
+  model      String?
+  version    String?
+  year       Int?
+  odometerKm Int?                           @map("odometer_km")
+  origin     String
+  createdAt  DateTime                       @default(now()) @map("created_at")
+  updatedAt  DateTime                       @updatedAt @map("updated_at")
+  fieldSyncs VehicleFieldSync[]
+  pendings   VehicleReconciliationPending[]
+  services   Service[]
+  oilQuotes  OilQuote[]
+  returns    VehicleReturn[]
+
+  @@index([customerId])
+  @@map("vehicle")
+}
+
+model CustomerFieldSync {
+  id                    String    @id @default(cuid())
+  customerId            String    @map("customer_id")
+  customer              Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  fieldKey              String    @map("field_key")
+  origin                String
+  localVersion          Int       @default(0) @map("local_version")
+  externalVersion       Int       @default(0) @map("external_version")
+  syncedLocalVersion    Int       @default(0) @map("synced_local_version")
+  syncedExternalVersion Int       @default(0) @map("synced_external_version")
+  lastOmieWire          String?   @map("last_omie_wire")
+  lastAttemptedAt       DateTime? @map("last_attempted_at")
+  lastResult            String?   @map("last_result")
+  lastError             String?   @map("last_error")
+  changedBy             String?   @map("changed_by")
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+
+  @@unique([customerId, fieldKey])
+  @@map("customer_field_sync")
+}
+
+model VehicleFieldSync {
+  id                    String    @id @default(cuid())
+  vehicleId             String    @map("vehicle_id")
+  vehicle               Vehicle   @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  fieldKey              String    @map("field_key")
+  origin                String
+  localVersion          Int       @default(0) @map("local_version")
+  externalVersion       Int       @default(0) @map("external_version")
+  syncedLocalVersion    Int       @default(0) @map("synced_local_version")
+  syncedExternalVersion Int       @default(0) @map("synced_external_version")
+  lastOmieWire          String?   @map("last_omie_wire")
+  lastAttemptedAt       DateTime? @map("last_attempted_at")
+  lastResult            String?   @map("last_result")
+  lastError             String?   @map("last_error")
+  changedBy             String?   @map("changed_by")
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+
+  @@unique([vehicleId, fieldKey])
+  @@map("vehicle_field_sync")
+}
+
+model CustomerReconciliationPending {
+  id               String   @id @default(cuid())
+  customerId       String   @map("customer_id")
+  customer         Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  fieldKey         String   @map("field_key")
+  crmValue         String   @map("crm_value")
+  omieValue        String   @map("omie_value")
+  localVersion     Int      @map("local_version")
+  externalVersion  Int      @map("external_version")
+  status           String
+  reason           String?
+  resolvedByUserId String?  @map("resolved_by_user_id") @db.Uuid
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  @@index([customerId, fieldKey])
+  @@map("customer_reconciliation_pending")
+}
+
+model VehicleReconciliationPending {
+  id               String   @id @default(cuid())
+  vehicleId        String   @map("vehicle_id")
+  vehicle          Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  fieldKey         String   @map("field_key")
+  crmValue         String   @map("crm_value")
+  omieValue        String   @map("omie_value")
+  localVersion     Int      @map("local_version")
+  externalVersion  Int      @map("external_version")
+  status           String
+  reason           String?
+  resolvedByUserId String?  @map("resolved_by_user_id") @db.Uuid
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  @@index([vehicleId, fieldKey])
+  @@map("vehicle_reconciliation_pending")
+}

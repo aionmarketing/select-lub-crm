@@ -1,0 +1,27 @@
+{
+  "name": "@select-lub/api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "test": "vitest run --exclude \"**/*.live.test.ts\" && vitest run --no-file-parallelism \".live.test.\"",
+    "demo:oil-retrieval": "tsx --env-file=../../.env ../../packages/core/src/modules/quotes/internal/scripts/demo-retrieval.ts",
+    "demo:oil-conflict": "tsx --env-file=../../.env ../../packages/core/src/modules/quotes/internal/scripts/demo-conflict.ts",
+    "demo:oil-web-search": "tsx --env-file=../../.env ../../packages/core/src/modules/quotes/internal/scripts/demo-web-search.ts",
+    "typecheck": "tsc --build && tsc --noEmit -p tsconfig.test.json"
+  },
+  "dependencies": {
+    "@select-lub/shared-types": "workspace:*",
+    "fastify": "^5.5.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "@select-lub/core": "workspace:*"
+  }
+}

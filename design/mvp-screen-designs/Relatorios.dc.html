@@ -1,0 +1,558 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+  <style>
+    /* ===== BEGIN SHARED FOUNDATION — byte-identical across all five artboards. Do not edit one copy alone. ===== */
+    :root {
+      /* yellow-cta palette (apps/web/src/theme.ts ROLE_TABLES["yellow-cta"]) */
+      --primary:#EAB63D; --on-primary:#111111;
+      --primary-container:#FFF3C4; --on-primary-container:#111111;
+      --secondary:#303030; --on-secondary:#FFFFFF;
+      --secondary-container:#E4E2E1; --on-secondary-container:#303030;
+      /* shared roles (identical on both palettes) */
+      --tertiary:#5f5e5e; --on-tertiary:#FFFFFF;
+      --tertiary-container:#e4e2e1; --on-tertiary-container:#474747;
+      --surface:#FFFFFF; --surface-variant:#EDEDED; --on-surface:#111111;
+      --outline:#D9D9D9;
+      --error:#B3261E; --on-error:#FFFFFF;
+      --error-container:#ffe0e0; --on-error-container:#8a1c1c;
+      --success-container:#e6f4ea; --on-success-container:#1e4620;
+      --whatsapp:#25D366; --on-whatsapp:#111111;
+      --read-tick:#1565C0;
+      /* Gold fails AA as text on white (~1.9:1), so text and icons that would
+         read as "primary" use charcoal — theme.ts does the same for yellow-cta
+         via MuiButton text/outlined and MuiLink overrides. Gold stays a FILL. */
+      --on-surface-accent:#303030;
+      /* spacing scale 4/8/12/16/24/32/48/64 */
+      --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-6:24px; --sp-8:32px; --sp-12:48px; --sp-16:64px;
+      /* radii — inputs/chips, cards (theme.shape.borderRadius), pill CTAs (spacing(2)) */
+      --radius-sm:4px; --radius-md:8px; --radius-lg:16px;
+      /* type scale */
+      --t-page:26px; --t-section:18px; --t-subsection:15px; --t-body:13px; --t-caption:11px; --t-metric:30px;
+    }
+    body { margin:0; font-family:'Inter', system-ui, sans-serif; color:var(--on-surface); background:var(--surface-variant); }
+    a { color:var(--on-surface-accent); }
+    a:hover { color:var(--on-surface); }
+    .t-page { font-size:var(--t-page); font-weight:800; letter-spacing:-0.02em; margin:0; }
+    .t-section { font-size:var(--t-section); font-weight:700; letter-spacing:-0.01em; margin:0; }
+    .t-subsection { font-size:var(--t-subsection); font-weight:600; margin:0; }
+    .t-body { font-size:var(--t-body); font-weight:400; }
+    .t-caption { font-size:var(--t-caption); font-weight:400; color:var(--tertiary); }
+    .t-metric { font-size:var(--t-metric); font-weight:800; letter-spacing:-0.02em; }
+    /* shell */
+    .shell { display:flex; align-items:center; gap:var(--sp-4); padding:0 var(--sp-6); height:52px;
+      background:var(--secondary); color:var(--on-secondary); flex-shrink:0; }
+    .shell-title { font-size:var(--t-subsection); font-weight:800; letter-spacing:-0.01em; flex:1; }
+    .palette-group { display:flex; background:var(--surface); border-radius:var(--radius-sm); padding:2px; gap:2px; }
+    .palette-opt { padding:4px 12px; border-radius:2px; font-size:var(--t-caption); font-weight:600; color:var(--tertiary); }
+    .palette-opt-on { background:var(--primary); color:var(--on-primary); }
+    /* page nav */
+    .nav { display:flex; align-items:stretch; gap:var(--sp-6); padding:0 var(--sp-6);
+      background:var(--surface); border-bottom:1px solid var(--outline); flex-shrink:0; }
+    .nav-item { display:flex; align-items:center; padding:var(--sp-3) 0; font-size:var(--t-body); font-weight:500;
+      color:var(--tertiary); border-bottom:2px solid transparent; }
+    .nav-item-on { color:var(--on-surface); font-weight:700; border-bottom-color:var(--primary); }
+    /* Follow-up pendency badge: the total of the four section counts, from the
+       same contract the Follow-up screen and the Relatórios alert read, so the
+       three cannot disagree. Zero — and counts unavailable — draw no badge at
+       all; a permanent "0" teaches the eye to ignore the one place the number
+       matters. Gold is a fill, never text, so the pill is gold with charcoal
+       digits rather than gold numerals. */
+    .nav-badge { display:inline-flex; align-items:center; justify-content:center;
+      min-width:18px; height:18px; padding:0 5px; margin-left:6px; border-radius:9px;
+      background:var(--primary); color:var(--on-primary); font-size:var(--t-caption);
+      font-weight:700; line-height:1; font-variant-numeric:tabular-nums; }
+    /* ===== END SHARED FOUNDATION ===== */
+
+    /* Relatórios-only semantic tokens (declared, not inlined at point of use) */
+    :root {
+      --funnel-1:#EAB63D; --funnel-2:#eec25c; --funnel-3:#f2ce7c; --funnel-4:#f7db9d;
+    }
+
+    .page { flex:1; overflow:auto; padding:var(--sp-6); display:flex; flex-direction:column; gap:var(--sp-6); }
+    .band { display:flex; flex-direction:column; gap:var(--sp-3); }
+    .band-head { display:flex; align-items:baseline; gap:var(--sp-2); }
+    .card { background:var(--surface); border-radius:var(--radius-md); padding:var(--sp-4);
+      display:flex; flex-direction:column; gap:var(--sp-2); }
+    .metric-label { font-size:var(--t-caption); font-weight:600; color:var(--tertiary); text-transform:uppercase; letter-spacing:0.04em; }
+    .delta { font-size:var(--t-caption); font-weight:700; padding:2px 8px; border-radius:var(--radius-sm); width:fit-content; }
+    .delta-up { background:var(--success-container); color:var(--on-success-container); }
+    .delta-down { background:var(--error-container); color:var(--on-error-container); }
+    .filter { min-width:132px; padding:var(--sp-2) var(--sp-3); border:1px solid var(--outline);
+      border-radius:var(--radius-sm); background:var(--surface); font-size:var(--t-body); }
+    .filter-label { font-size:var(--t-caption); font-weight:600; color:var(--tertiary); margin-bottom:var(--sp-1); }
+    .alert { background:var(--primary-container); color:var(--on-primary-container); border-radius:var(--radius-md);
+      padding:var(--sp-3) var(--sp-4); display:flex; gap:var(--sp-2); flex-wrap:wrap; align-items:center; }
+    .alert-chip { background:var(--surface); border-radius:var(--radius-lg); padding:var(--sp-1) var(--sp-3);
+      font-size:var(--t-body); font-weight:600; color:var(--on-surface-accent); text-decoration:none; }
+    .chevron { height:44px; display:flex; align-items:center; justify-content:center; color:var(--on-primary);
+      font-size:var(--t-subsection); font-weight:800;
+      clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%, 14px 50%); }
+    .chevron-first { clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 0 100%); }
+    table.data { width:100%; border-collapse:collapse; font-size:var(--t-body); }
+    table.data th, table.data td { padding:var(--sp-2) var(--sp-3); text-align:left; border-bottom:1px solid var(--outline); }
+    table.data th:not(:first-child), table.data td:not(:first-child) { text-align:right; }
+    table.data th { font-size:var(--t-caption); font-weight:600; color:var(--tertiary); text-transform:uppercase; letter-spacing:0.04em; }
+    table.data tr:last-child td { border-bottom:none; }
+    .rev { font-weight:700; }
+    .hot { background:var(--primary-container); }
+    .kv { display:flex; justify-content:space-between; font-size:var(--t-body); padding:var(--sp-1) 0; }
+    .btn { padding:var(--sp-2) var(--sp-4); border-radius:var(--radius-lg); background:var(--primary);
+      color:var(--on-primary); font-weight:600; font-size:var(--t-body); width:fit-content; }
+    /* generic shimmer, exempt from the token rule (not a brand or semantic color) */
+    .skel { height:14px; background:linear-gradient(90deg,#eee,#f5f5f5,#eee); border-radius:var(--radius-sm); }
+    .notice { padding:var(--sp-2) var(--sp-3); border-radius:var(--radius-sm); font-size:var(--t-body);
+      background:var(--error-container); color:var(--on-error-container); }
+
+    .card-head { display:flex; align-items:center; justify-content:space-between; gap:var(--sp-2); }
+    /* One mark per metric. It answers "what does this count?" and "what is
+       behind it?" — the two questions the leftovers bin used to hold apart. */
+    .why { width:16px; height:16px; border-radius:50%; border:1px solid var(--outline);
+      display:flex; align-items:center; justify-content:center; cursor:pointer;
+      color:var(--tertiary); flex-shrink:0; }
+    .why:hover { border-color:var(--on-surface-accent); color:var(--on-surface-accent); }
+    .why-on { border-color:var(--on-surface-accent); background:var(--secondary-container);
+      color:var(--on-secondary-container); }
+    .why-body { border-top:1px solid var(--outline); margin-top:var(--sp-2); padding-top:var(--sp-2);
+      font-size:var(--t-body); line-height:1.5; color:var(--on-surface); }
+    .why-detail { margin-top:var(--sp-3); padding-top:var(--sp-3); border-top:1px solid var(--outline);
+      display:flex; flex-direction:column; gap:var(--sp-2); }
+    .detail-label { font-size:var(--t-caption); font-weight:600; color:var(--tertiary);
+      text-transform:uppercase; letter-spacing:0.04em; }
+    .stat-line { display:flex; gap:var(--sp-6); }
+    .cover { font-size:var(--t-caption); color:var(--tertiary); border-top:1px solid var(--outline);
+      margin-top:var(--sp-2); padding-top:var(--sp-2); }
+    .alert-off { background:var(--surface-variant); color:var(--tertiary); }
+    .now-note { font-size:var(--t-caption); color:var(--on-primary-container); opacity:0.8; }
+    .filter-on { border-color:var(--on-surface-accent); background:var(--secondary-container);
+      color:var(--on-secondary-container); font-weight:600; }
+    .filter-clear { display:flex; align-items:center; gap:6px; padding:var(--sp-2) var(--sp-3);
+      border-radius:var(--radius-sm); border:1px solid var(--outline); background:var(--surface);
+      font-size:var(--t-body); font-weight:600; color:var(--on-surface-accent); cursor:pointer;
+      white-space:nowrap; align-self:flex-end; }
+    .basis-line { font-size:var(--t-caption); color:var(--tertiary); }
+    .stage { cursor:pointer; }
+    .stage:hover .chevron { outline:2px solid var(--on-surface-accent); outline-offset:2px; }
+    .stage-go { font-size:var(--t-caption); font-weight:600; color:var(--on-surface-accent);
+      margin-top:var(--sp-1); }
+    .retention { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--sp-1);
+      margin-top:var(--sp-2); }
+    .ret { text-align:center; font-size:var(--t-caption); font-weight:700; color:var(--tertiary); }
+    .ret-drop { color:var(--on-error-container); }
+    tr.clickable { cursor:pointer; }
+    tr.clickable:hover td { background:var(--surface-variant); }
+    .go-cell { font-size:var(--t-caption); font-weight:600; color:var(--on-surface-accent);
+      white-space:nowrap; }
+    .scrim { position:absolute; inset:0; background:rgba(0,0,0,0.32); display:flex;
+      align-items:center; justify-content:center; z-index:30; }
+    .panel { width:560px; background:var(--surface); border-radius:var(--radius-md);
+      padding:var(--sp-5); display:flex; flex-direction:column; gap:var(--sp-3);
+      box-shadow:0 8px 32px rgba(0,0,0,0.24); }
+    .panel-head { display:flex; justify-content:space-between; align-items:center; }
+    .panel-close { cursor:pointer; color:var(--tertiary); font-weight:600; }
+    .fchip { display:inline-flex; align-items:center; gap:6px; padding:4px 10px;
+      border-radius:var(--radius-lg); background:var(--secondary-container);
+      color:var(--on-secondary-container); font-size:var(--t-caption); font-weight:600; }
+    .mock-row { display:flex; justify-content:space-between; gap:var(--sp-3);
+      padding:var(--sp-2) 0; border-bottom:1px solid var(--outline); font-size:var(--t-body); }
+    .mock-row:last-child { border-bottom:none; }
+  </style>
+</helmet>
+
+<div style="width:1440px; height:1560px; display:flex; flex-direction:column; background:var(--surface-variant); position:relative;">
+
+  <!-- ===== BEGIN SHARED FOUNDATION MARKUP ===== -->
+  <div class="shell">
+    <span class="shell-title">Select Lub CRM</span>
+    <div class="palette-group">
+      <span class="palette-opt palette-opt-on">Amarelo</span>
+      <span class="palette-opt">Preto</span>
+    </div>
+  </div>
+  <div class="nav">
+    <span class="nav-item">Conversas</span>
+    <span class="nav-item">Serviços</span>
+    <span class="nav-item">Follow-up<span class="nav-badge">13</span></span>
+    <span class="nav-item nav-item-on">Relatórios</span>
+    <span class="nav-item">Configurações</span>
+    <span class="nav-item">Usuários</span>
+  </div>
+  <!-- ===== END SHARED FOUNDATION MARKUP ===== -->
+
+  <div class="page">
+    <h1 class="t-page">Relatórios</h1>
+
+    <!-- ACIMA DA BARRA. A posição é o que diz que isto não é do recorte — e por
+         estar acima, nada abaixo precisa avisar que é. -->
+    <sc-if value="{{strip.counts}}" hint-placeholder-val="{{true}}">
+      <div class="alert" aria-label="Alertas de follow-up">
+        <a class="alert-chip" href="#">3 retornos vencidos</a>
+        <a class="alert-chip" href="#">5 orçamentos sem resposta</a>
+        <a class="alert-chip" href="#">8 mensagens aguardando resposta</a>
+        <span class="now-note">deste momento · não muda com os filtros abaixo</span>
+      </div>
+    </sc-if>
+    <sc-if value="{{strip.down}}" hint-placeholder-val="{{false}}">
+      <div class="alert alert-off" aria-label="Alertas de follow-up">
+        <span>Não foi possível carregar os contadores de follow-up.</span>
+        <a class="alert-chip" href="#">Abrir Follow-up</a>
+      </div>
+    </sc-if>
+
+    <div style="display:flex; gap:var(--sp-3); flex-wrap:wrap; align-items:flex-end;">
+      <div><div class="filter-label">Início</div><div class="filter">01/08/2026</div></div>
+      <div><div class="filter-label">Fim</div><div class="filter">28/08/2026</div></div>
+      <div><div class="filter-label">Granularidade</div><div class="filter">Semana</div></div>
+      <div><div class="filter-label">Origem</div><div class="filter {{f.origem}}">{{f.origemLabel}}</div></div>
+      <div><div class="filter-label">Tag</div><div class="filter">Todas</div></div>
+      <div><div class="filter-label">Campanha/Anúncio</div><div class="filter {{f.campanha}}">{{f.campanhaLabel}}</div></div>
+      <sc-if value="{{f.set}}" hint-placeholder-val="{{true}}">
+        <span class="filter-clear" onClick="{{go.limpar}}">Limpar 2 filtros</span>
+      </sc-if>
+    </div>
+
+    <sc-if value="{{screen.loading}}" hint-placeholder-val="{{false}}">
+      <div style="display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--sp-4);">
+        <div class="card"><div class="skel" style="width:60%;"></div><div class="skel" style="height:30px; width:45%;"></div></div>
+        <div class="card"><div class="skel" style="width:60%;"></div><div class="skel" style="height:30px; width:45%;"></div></div>
+        <div class="card"><div class="skel" style="width:60%;"></div><div class="skel" style="height:30px; width:45%;"></div></div>
+        <div class="card"><div class="skel" style="width:60%;"></div><div class="skel" style="height:30px; width:45%;"></div></div>
+      </div>
+      <div class="card"><div class="skel" style="height:44px;"></div></div>
+    </sc-if>
+
+    <sc-if value="{{screen.empty}}" hint-placeholder-val="{{false}}">
+      <div class="card" style="align-items:center; gap:var(--sp-3); padding:var(--sp-12) var(--sp-6);">
+        <div class="t-subsection">Nenhuma conversa no recorte selecionado</div>
+        <div class="t-body" style="color:var(--tertiary); text-align:center; max-width:460px;">Ajuste o período ou os filtros acima. Dois filtros estão ativos — Origem e Campanha —, e "Limpar 2 filtros" volta tudo ao padrão.</div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{screen.error}}" hint-placeholder-val="{{false}}">
+      <div class="card" style="align-items:flex-start; gap:var(--sp-3);">
+        <div class="notice">Não foi possível carregar os relatórios.</div>
+        <div class="btn">Tentar de novo</div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{screen.reduced}}" hint-placeholder-val="{{false}}">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-4);">
+        <div class="card">
+          <span class="metric-label">Tempo Médio de Resposta</span>
+          <div class="t-metric" style="color:var(--tertiary);">—</div>
+          <div class="t-caption" style="color:var(--error);">Cobertura insuficiente: eventos de saída não observados para este recorte.</div>
+        </div>
+        <div class="card">
+          <span class="metric-label">Tempo de resposta ao longo da conversa</span>
+          <div class="t-metric" style="color:var(--tertiary);">—</div>
+          <div class="t-caption" style="color:var(--error);">Cobertura insuficiente: eventos de saída não observados para este recorte.</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{screen.hasData}}" hint-placeholder-val="{{true}}">
+
+    <div class="band">
+      <h2 class="t-section">Indicadores principais</h2>
+      <div class="basis-line">Os deltas comparam com <strong>04/07 a 31/07/2026</strong> — o período imediatamente anterior, do mesmo tamanho e sob os mesmos filtros. Sem período anterior, ou com valor anterior zero, o card fica sem chip em vez de mostrar 0%.</div>
+      <div style="display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--sp-4);">
+        <div class="card">
+          <div class="card-head">
+            <span class="metric-label">Total de Leads</span>
+            <span class="why {{why.leads.cls}}" onClick="{{go.tleads}}" aria-label="O que esta métrica conta e o detalhe por trás dela"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 11v6"/><path d="M12 7h.01"/></svg></span>
+          </div>
+          <div class="t-metric">20</div><div class="delta delta-up">+100%</div>
+          <sc-if value="{{why.leads.open}}" hint-placeholder-val="{{false}}">
+            <div class="why-body">Conversas iniciadas no período, contadas pela hora da primeira mensagem do cliente no WhatsApp — não pela hora em que o CRM importou a conversa.
+              <div class="why-detail">
+                <span class="detail-label">Por período</span>
+                <table class="data" aria-label="Conversas por período">
+                  <thead><tr><th>Semana</th><th>Novas</th><th>Ativas</th></tr></thead>
+                  <tbody>
+                    <tr><td>03/08</td><td>12</td><td>20</td></tr>
+                    <tr><td>10/08</td><td>8</td><td>18</td></tr>
+                  </tbody>
+                </table></div></div>
+          </sc-if>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <span class="metric-label">Taxa de Conversão</span>
+            <span class="why {{why.conv.cls}}" onClick="{{go.tconv}}" aria-label="O que esta métrica conta e o detalhe por trás dela"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 11v6"/><path d="M12 7h.01"/></svg></span>
+          </div>
+          <div class="t-metric">12%</div><div class="delta delta-up">+20%</div>
+          <sc-if value="{{why.conv.open}}" hint-placeholder-val="{{false}}">
+            <div class="why-body">Das conversas do período ligadas a um cliente, a fatia que virou serviço. Conversas sem cliente ficam de fora da conta, não entram como zero.
+              <div class="why-detail">
+                <span class="detail-label">Como a atribuição funciona</span>
+                <span>Janela de 30 dias, versão 1 da regra. Um serviço conta para uma conversa quando acontece dentro da janela depois dela — é associação no tempo, não causalidade.</span></div></div>
+          </sc-if>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <span class="metric-label">Receita Gerada</span>
+            <span class="why {{why.receita.cls}}" onClick="{{go.treceita}}" aria-label="O que esta métrica conta e o detalhe por trás dela"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 11v6"/><path d="M12 7h.01"/></svg></span>
+          </div>
+          <div class="t-metric">R$ 4.320</div><div class="delta delta-down">−8%</div>
+          <sc-if value="{{why.receita.open}}" hint-placeholder-val="{{false}}">
+            <div class="why-body">Soma do valor dos serviços de origem Omie atribuídos a conversas do período e realizados dentro dele.
+              <div class="why-detail">
+                <span class="detail-label">Como a atribuição funciona</span>
+                <span>Janela de 30 dias, versão 1 da regra. Um serviço conta para uma conversa quando acontece dentro da janela depois dela — é associação no tempo, não causalidade.</span></div></div>
+          </sc-if>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <span class="metric-label">Tempo Médio de Resposta</span>
+            <span class="why {{why.tempo.cls}}" onClick="{{go.ttempo}}" aria-label="O que esta métrica conta e o detalhe por trás dela"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 11v6"/><path d="M12 7h.01"/></svg></span>
+          </div>
+          <div class="t-metric">1m 12s</div>
+          <div class="delta delta-up">−15%</div>
+          <sc-if value="{{why.tempo.open}}" hint-placeholder-val="{{false}}">
+            <div class="why-body">Média do tempo entre a primeira mensagem do cliente e a primeira resposta da equipe, em tempo corrido — horário comercial não entra no MVP.<div class="why-detail">
+                <span class="detail-label">Primeira resposta</span>
+                <div class="stat-line">
+                  <div><div class="t-subsection">48s</div><div class="t-caption">mediana</div></div>
+                  <div><div class="t-subsection">4m</div><div class="t-caption">p90</div></div>
+                </div>
+                <span class="detail-label">Ao longo da conversa</span>
+                <div class="stat-line">
+                  <div><div class="t-subsection">2m</div><div class="t-caption">média</div></div>
+                  <div><div class="t-subsection">1m</div><div class="t-caption">mediana</div></div>
+                  <div><div class="t-subsection">8m</div><div class="t-caption">p90</div></div>
+                </div>
+                </div></div>
+          </sc-if>
+          <div class="cover">Cobertura 87% — conversas sem evento de saída observado ficam de fora.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="card-head" style="align-items:baseline;">
+        <h2 class="t-section">Funil de Vendas</h2>
+        <span class="why {{why.funil.cls}}" onClick="{{go.tfunil}}" aria-label="O que este funil conta"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 11v6"/><path d="M12 7h.01"/></svg></span>
+      </div>
+      <sc-if value="{{why.funil.open}}" hint-placeholder-val="{{false}}">
+        <div class="card"><div class="why-body" style="border-top:none; margin-top:0; padding-top:0;">Quatro etapas sobre as conversas iniciadas no período, cada uma um subconjunto da anterior: iniciadas, com pelo menos uma resposta da equipe, com orçamento enviado, e com serviço atribuído.</div></div>
+      </sc-if>
+      <div class="card">
+        <div style="display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--sp-1);">
+          <div class="stage" onClick="{{go.abrir}}">
+            <div class="chevron chevron-first" style="background:var(--funnel-1);">100</div>
+            <div class="t-caption" style="margin-top:var(--sp-2);">Novos Contatos</div>
+            <div class="stage-go">ver as 100</div>
+          </div>
+          <div class="stage" onClick="{{go.abrir}}">
+            <div class="chevron" style="background:var(--funnel-2);">80</div>
+            <div class="t-caption" style="margin-top:var(--sp-2);">Em atendimento</div>
+            <div class="stage-go">ver as 80</div>
+          </div>
+          <div class="stage" onClick="{{go.abrir}}">
+            <div class="chevron" style="background:var(--funnel-3);">30</div>
+            <div class="t-caption" style="margin-top:var(--sp-2);">Orçamento Enviado</div>
+            <div class="stage-go">ver as 30</div>
+          </div>
+          <div class="stage" onClick="{{go.abrir}}">
+            <div class="chevron" style="background:var(--funnel-4);">12</div>
+            <div class="t-caption" style="margin-top:var(--sp-2);">Serviços Feitos</div>
+            <div class="stage-go">ver as 12</div>
+          </div>
+        </div>
+        <div class="retention">
+          <div class="ret"></div>
+          <div class="ret">80% seguem</div>
+          <div class="ret ret-drop">37,5% seguem</div>
+          <div class="ret">40% seguem</div>
+        </div>
+        <div class="t-caption">A maior queda é de Em atendimento para Orçamento Enviado: de 80 conversas atendidas, 30 receberam orçamento.</div>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="card-head" style="align-items:baseline;">
+        <h2 class="t-section">Tabela de Origem</h2>
+        <span class="why {{why.origem.cls}}" onClick="{{go.torigem}}" aria-label="O que esta tabela conta e o detalhe por trás dela"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 11v6"/><path d="M12 7h.01"/></svg></span>
+      </div>
+      <sc-if value="{{why.origem.open}}" hint-placeholder-val="{{false}}">
+        <div class="card"><div class="why-body" style="border-top:none; margin-top:0; padding-top:0;">Uma linha por classificação de origem — anúncio, orgânica e desconhecida. Leads são as conversas iniciadas no período com aquela origem; Conversão são as que viraram serviço; Receita é a soma do valor desses serviços.<div class="why-detail">
+                <span class="detail-label">Por campanha ou anúncio</span>
+                <div class="kv"><span>Promoção de Verão (Instagram)</span><span>41</span></div>
+                <div class="kv"><span>Sem campanha identificada</span><span>19</span></div>
+            </div></div></div>
+      </sc-if>
+      <div class="card">
+        <table class="data" aria-label="Tabela de Origem">
+          <thead><tr><th>Origem</th><th>Leads</th><th>Conversão</th><th>Receita</th><th></th></tr></thead>
+          <tbody>
+            <tr class="hot clickable" onClick="{{go.abrir}}"><td>Anúncio</td><td>60</td><td>10 (17%)</td><td class="rev">R$ 3.200</td><td class="go-cell">ver as 60 →</td></tr>
+            <tr class="clickable" onClick="{{go.abrir}}"><td>Orgânica</td><td>30</td><td>2 (7%)</td><td class="rev">R$ 1.120</td><td class="go-cell">ver as 30 →</td></tr>
+            <tr class="clickable" onClick="{{go.abrir}}"><td>Desconhecida</td><td>10</td><td>0 (0%)</td><td class="rev">R$ 0</td><td class="go-cell">ver as 10 →</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="band">
+      <h2 class="t-section">Atendimento e clientes</h2>
+      <div style="display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--sp-4);">
+        <div class="card">
+          <div class="card-head">
+            <span class="metric-label">Conversas sem resposta</span>
+            <span class="why {{why.sem.cls}}" onClick="{{go.tsem}}" aria-label="O que esta métrica conta e o detalhe por trás dela"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 11v6"/><path d="M12 7h.01"/></svg></span>
+          </div>
+          <div class="t-metric">14</div><div class="t-caption">espera média 2h18</div>
+          <sc-if value="{{why.sem.open}}" hint-placeholder-val="{{false}}">
+            <div class="why-body">Conversas do período com uma mensagem do cliente marcada como "pede resposta" e nenhuma saída depois dela. Não confundir com as 8 do alerta no topo, que são deste momento e não do período.</div>
+          </sc-if>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <span class="metric-label">Taxa de Aprovação</span>
+            <span class="why {{why.aprov.cls}}" onClick="{{go.taprov}}" aria-label="O que esta métrica conta e o detalhe por trás dela"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 11v6"/><path d="M12 7h.01"/></svg></span>
+          </div>
+          <div class="t-metric">—</div><div class="t-caption">nenhum orçamento enviado no recorte</div>
+          <sc-if value="{{why.aprov.open}}" hint-placeholder-val="{{false}}">
+            <div class="why-body">Orçamentos enviados no período cujo envio é seguido por um serviço de origem Omie daquele cliente dentro da janela de atribuição. Sem orçamento enviado, fica ausente — nunca 0% nem 100%.</div>
+          </sc-if>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <span class="metric-label">Clientes perdidos no período</span>
+            <span class="why {{why.perdidos.cls}}" onClick="{{go.tperdidos}}" aria-label="O que esta métrica conta e o detalhe por trás dela"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 11v6"/><path d="M12 7h.01"/></svg></span>
+          </div>
+          <div class="t-metric">7</div><div class="t-caption">18% dos 39 clientes com serviço</div>
+          <sc-if value="{{why.perdidos.open}}" hint-placeholder-val="{{false}}">
+            <div class="why-body">Clientes cujo retorno venceu dentro do período e que não voltaram. Renomeado: enquanto o número obedece ao filtro, ele conta um evento do período — quem venceu agora — e não o estado geral da base, que seria outra métrica.</div>
+          </sc-if>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <span class="metric-label">Receita média por cliente</span>
+            <span class="why {{why.media.cls}}" onClick="{{go.tmedia}}" aria-label="O que esta métrica conta e o detalhe por trás dela"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 11v6"/><path d="M12 7h.01"/></svg></span>
+          </div>
+          <div class="t-metric">R$ 890</div><div class="t-caption">entre os 39 clientes com serviço</div>
+          <sc-if value="{{why.media.open}}" hint-placeholder-val="{{false}}">
+            <div class="why-body">Soma dos serviços de origem Omie do período, dividida pelos clientes que tiveram serviço nele. Renomeado: filtrar "valor de vida" por um mês produz receita média no mês, não valor de vida — o nome antigo passaria a mentir assim que o filtro passasse a valer.</div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+
+    <!-- Os dois que não explicam nenhuma métrica acima. Seção própria, com nome,
+         em vez de porão: eles não são menos importantes, são de outro assunto. -->
+    <div class="band">
+      <h2 class="t-section">Tags e mensagens programadas</h2>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-4);">
+        <div class="card">
+          <span class="metric-label">Conversas por tag</span>
+          <div class="kv"><span>Em atendimento</span><span>58</span></div>
+          <div class="kv"><span>Concluído</span><span>203</span></div>
+        </div>
+        <div class="card">
+          <span class="metric-label">Mensagens programadas por situação</span>
+          <div class="kv"><span>Programadas</span><span>22</span></div>
+          <div class="kv"><span>Enviadas</span><span>96</span></div>
+          <div class="kv"><span>Canceladas</span><span>4</span></div>
+          <div class="kv"><span>Com falha</span><span>1</span></div>
+        </div>
+      </div>
+    </div>
+
+    </sc-if>
+
+    <div class="t-caption" style="color:var(--tertiary);">Não existe mais uma seção "Detalhe". Ela nunca foi uma categoria — era um porão de sobras, e recolhê-la fazia parecer que aquelas métricas valiam menos. Cada peça foi para a métrica que ela explica: os buckets por período estão no card de Leads, a janela de atribuição em Conversão e Receita, mediana e p90 no Tempo Médio, e as campanhas na Tabela de Origem. Clique num "i" para ver. As duas que não explicavam nenhuma métrica ganharam seção com nome no fim.</div>
+
+  </div>
+
+  <sc-if value="{{drill.open}}" hint-placeholder-val="{{false}}">
+    <div class="scrim">
+      <div class="panel">
+        <div class="panel-head">
+          <span class="t-section">Conversas</span>
+          <span class="panel-close" onClick="{{go.fechar}}">✕</span>
+        </div>
+        <div style="display:flex; gap:var(--sp-2); flex-wrap:wrap;">
+          <span class="fchip">Etapa: Orçamento Enviado ✕</span>
+          <span class="fchip">01/08 – 28/08/2026 ✕</span>
+          <span class="fchip">Origem: Anúncio ✕</span>
+        </div>
+        <div class="t-caption">30 conversas — exatamente as que a etapa contou, sob o mesmo período e os mesmos filtros.</div>
+        <div>
+          <div class="mock-row"><span>Roberto Aparecido</span><span class="t-caption">orçamento enviado 28/08</span></div>
+          <div class="mock-row"><span>Marina Costa</span><span class="t-caption">orçamento enviado 25/08</span></div>
+          <div class="mock-row"><span class="t-caption" style="color:var(--tertiary);">…mais 28</span><span></span></div>
+        </div>
+        <div class="t-caption" style="color:var(--tertiary);">Os filtros aplicados ficam visíveis e cada um sai sozinho — quem chega de um relatório precisa saber por que a lista está curta.</div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script data-dc-script data-props='{
+  "screenState": {"editor":"enum","default":"Com dados","options":["Com dados","Carregando","Vazio","Cobertura reduzida","Erro"],"section":"Estado do relatório"},
+  "stripState": {"editor":"enum","default":"Contadores disponíveis","options":["Contadores disponíveis","Contadores indisponíveis"],"section":"Alerta do topo (leitura independente)"},
+  "filtrosState": {"editor":"enum","default":"Dois filtros ativos","options":["Dois filtros ativos","Tudo no padrão"],"section":"Barra de filtros"}
+}'>
+class Component extends DCLogic {
+  state = { open: "", drill: false };
+
+  toggler(key) {
+    return () => this.setState({ open: this.state.open === key ? "" : key });
+  }
+
+  renderVals() {
+    const st = this.props.screenState ?? "Com dados";
+    const strip = this.props.stripState ?? "Contadores disponíveis";
+    const filtros = (this.props.filtrosState ?? "Dois filtros ativos") === "Dois filtros ativos";
+
+    const KEYS = ["leads", "conv", "receita", "tempo", "sem", "aprov", "perdidos", "media",
+                  "funil", "origem"];
+    const why = {};
+    const go = {};
+    for (const k of KEYS) {
+      const isOpen = this.state.open === k;
+      why[k] = { open: isOpen, cls: isOpen ? "why-on" : "" };
+      go["t" + k] = this.toggler(k);
+    }
+
+    return {
+      screen: {
+        hasData: st === "Com dados",
+        loading: st === "Carregando",
+        empty: st === "Vazio",
+        reduced: st === "Cobertura reduzida",
+        error: st === "Erro"
+      },
+      strip: {
+        counts: strip === "Contadores disponíveis",
+        down: strip === "Contadores indisponíveis"
+      },
+      f: {
+        set: filtros,
+        origem: filtros ? "filter-on" : "",
+        origemLabel: filtros ? "Anúncio" : "Todas",
+        campanha: filtros ? "filter-on" : "",
+        campanhaLabel: filtros ? "Promoção de Verão" : "Todas"
+      },
+      why,
+      drill: { open: this.state.drill },
+      go: Object.assign(go, {
+        abrir: () => this.setState({ drill: true }),
+        fechar: () => this.setState({ drill: false }),
+        limpar: () => this.forceUpdate()
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

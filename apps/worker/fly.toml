@@ -1,0 +1,29 @@
+app = "select-lub-crm-worker"
+primary_region = "gru"
+# Time to release an oil research run back to the queue before the machine stops
+# (background-oil-research D19): the release is written at once on the stop signal (Fly's
+# default kill_signal, SIGINT; the worker stops the same way on SIGTERM).
+kill_timeout = 30
+
+[build]
+  dockerfile = "../../Dockerfile.worker"
+
+[env]
+  WORKER_HOST = "0.0.0.0"
+  WORKER_PORT = "3001"
+  # Background oil research, on in production only (background-oil-research D9).
+  # Its key, OPENAI_API_KEY, is a secret on this app.
+  OIL_RESEARCH_ENABLED = "true"
+
+[http_service]
+  internal_port = 3001
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ["app"]
+
+[[vm]]
+  memory = "1024mb"
+  cpu_kind = "shared"
+  cpus = 1

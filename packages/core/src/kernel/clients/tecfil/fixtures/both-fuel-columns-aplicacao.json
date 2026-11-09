@@ -1,0 +1,20 @@
+{
+  "success": true,
+  "data": [
+    {
+      "DescricaoFabricante": "FIAT",
+      "CodigoAplicacao": 900101,
+      "DescricaoAplicacao": "STRADA",
+      "ComplementoAplicacao3_1": "",
+      "ComplementoAplicacao3_2": "1.4 8V FLEX",
+      "ComplementoAplicacao3_3": "2016",
+      "ComplementoAplicacao3_4": ">",
+      "ComplementoAplicacao3_5": "Flex",
+      "ComplementoAplicacao3_11": [{ "CodigoProduto": 9101, "TituloProduto": "PSL789" }],
+      "ComplementoAplicacao3_13": [{ "CodigoProduto": 9110, "TituloProduto": "GI40/1" }],
+      "ComplementoAplicacao3_14": [{ "CodigoProduto": 9111, "TituloProduto": "GI40/2" }]
+    }
+  ],
+  "totalResultado": "1",
+  "quantidadeDetalhada": []
+}

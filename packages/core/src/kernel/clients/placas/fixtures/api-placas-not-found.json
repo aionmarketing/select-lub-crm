@@ -1,0 +1,7 @@
+{
+  "_note": "Documented API Placas no-result. HTTP 406 maps to not_found. Not a live capture (task 8.2).",
+  "http": 406,
+  "json": {
+    "error": "Placa não encontrada"
+  }
+}

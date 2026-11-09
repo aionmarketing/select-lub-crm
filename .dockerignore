@@ -1,0 +1,24 @@
+.git
+.github
+.cursor
+.claude
+.vscode
+notes
+openspec
+coverage
+**/coverage
+node_modules
+**/node_modules
+**/dist
+**/*.tsbuildinfo
+.env
+.env.local
+.env.*.local
+# Never in a build context: holds the production database password.
+.env.hosted-backup
+artifacts
+apps/e2e
+playwright-report
+test-results
+blob-report
+**/.vite

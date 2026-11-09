@@ -1,0 +1,99 @@
+{
+  "artboards": [
+    {
+      "file": "Main.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 1440,
+      "h": 1040,
+      "title": "Conversas — Main, Veículo e todos os painéis"
+    },
+    {
+      "file": "Servicos.dc.html",
+      "x": 1560,
+      "y": 0,
+      "w": 1440,
+      "h": 1040,
+      "title": "Serviços — todos os clientes"
+    },
+    {
+      "file": "Relatorios.dc.html",
+      "x": 0,
+      "y": 1160,
+      "w": 1440,
+      "h": 1560,
+      "title": "Relatórios"
+    },
+    {
+      "file": "Configuracoes.dc.html",
+      "x": 1560,
+      "y": 1160,
+      "w": 1120,
+      "h": 1180,
+      "title": "Configurações"
+    },
+    {
+      "file": "Usuarios.dc.html",
+      "x": 2760,
+      "y": 1160,
+      "w": 1120,
+      "h": 980,
+      "title": "Usuários"
+    },
+    {
+      "file": "FollowUp.dc.html",
+      "x": 0,
+      "y": 2900,
+      "w": 1320,
+      "h": 1720,
+      "title": "Follow-up"
+    }
+  ],
+  "annotations": [
+    {
+      "id": "note-foundation",
+      "x": 0,
+      "y": -300,
+      "w": 1440,
+      "text": "FUNDAÇÃO COMPARTILHADA — o bloco entre os comentários BEGIN/END SHARED FOUNDATION é compartilhado pelos seis artboards: o CSS byte a byte, e a marcação idêntica em estrutura e conteúdo, variando só em qual item leva nav-item-on. Nenhum artboard tem clique na navegação: cada tela confirmada tem o seu próprio arquivo, e artboards não compartilham runtime, então um onClick ali seria sempre binding órfão. A navegação é um desenho da navegação do app; quem revisa troca de tela deslocando o canvas. Traz: barra escura do app com o título e o seletor de paleta Amarelo/Preto (RequireAuth.tsx envolve toda rota autenticada), linha de navegação com as seis telas confirmadas, escala tipográfica 26/18/15/13/11 com 30 para valores de métrica, e os tokens do yellow-cta de apps/web/src/theme.ts. Regra de contraste: o dourado #EAB63D nunca é cor de texto ou ícone (AGENTS.md §1, ~1,9:1 no branco) — ele é preenchimento; texto que leria como primário usa --on-surface-accent (#303030), o mesmo que theme.ts aplica no yellow-cta.\n\nSELO DE PENDÊNCIAS (02/09/2026): o item Follow-up da linha de navegação carrega o total das quatro seções da fila daquela unidade, lido do mesmo contrato de contadores que a tela de Follow-up e o alerta de Relatórios leem. Zero não desenha selo, e contador indisponível também não — um \"0\" permanente ensina o olho a ignorar o lugar onde o número importa. Faz parte da fundação, então está nos seis artboards, e o dourado é preenchimento com dígitos em charcoal, nunca numeral dourado."
+    },
+    {
+      "id": "note-conversas",
+      "x": 0,
+      "y": -180,
+      "w": 1440,
+      "text": "CONVERSAS — uma única cópia navegável, agora com uma tela só: a Serviços (autônoma) saiu para o seu próprio artboard em 01/09/2026, e com ela o swap de tela inteira. Veículo, Serviços (Ver tudo), Mensagens programadas (Ver tudo) e o detalhe de um serviço ou de uma mensagem são drill-ins no rail — seis valores de railView, nenhum popup, porque painel é para fluxo e rail é para o que está sendo mostrado. Painéis (Nova conversa, pendências Omie, Montar orçamento, Programar mensagem, Adicionar veículo) abrem por clique real e sobrepõem a tela ativa. NESTA REVISÃO: status derivado do funil (REP-15) no cabeçalho da conversa, ao lado do nome e sem afordância para editar — as tags continuam múltiplas e separadas dele; as sugestões saíram do card próprio e aparecem no campo a que se referem (ponto no campo preenchido, valor fantasma no campo vazio, linha fantasma com ✓/✕ na edição, e linha fantasma / riscada para veículo sugerido ou removido); o rail ganhou Mensagens programadas espelhando Serviços, com Ver tudo nos dois; o formulário de Programar passou a ter texto editável e hora, e a lista saiu dele para o rail; Adicionar veículo virou um destino real; e as pendências do Omie viraram uma comparação campo a campo com a diferença marcada. Rail alargado para 440px para caber as seis seções."
+    },
+    {
+      "id": "note-relatorios",
+      "x": 0,
+      "y": 1050,
+      "w": 1440,
+      "text": "RELATÓRIOS — revisado e aprovado em 02/09/2026 (change rework-follow-up-and-relatorios-ux; decisões em decisions.md dessa change).\n\nALERTA ACIMA DA BARRA: a faixa de pendências do Follow-up fica entre o título e os filtros. A posição é o que diz que ela não é do recorte — e por estar acima, nada abaixo precisa avisar que é. Ela é desenhada FORA de todo switch de estado, porque lê o contrato de contadores do Follow-up, outra requisição, que não falhou quando o relatório falhou. Quando os contadores não carregam, ela diz isso em português em vez de mostrar zeros.\n\nORDEM: alerta → filtros → Indicadores principais → Funil de Vendas → Tabela de Origem → Atendimento e clientes → Tags e mensagens programadas. Responde perguntas em cadeia: o que está pegando fogo, o recorte, como foi, onde quebra (o funil vem logo depois da taxa de conversão que ele explica), de onde veio, como atendemos e se ficaram.\n\nSEM IDENTIFICADOR REP EM LUGAR NENHUM: nem no repouso do card, nem na explicação, nem na folha de estilo. A marca no canto de cada métrica abre, em português, o que ela conta — e o detalhe por trás dela.\n\nNÃO EXISTE SEÇÃO \"DETALHE\": ela era um porão de sobras, e recolhê-la fazia parecer que aquelas métricas valiam menos. Cada peça mora na métrica que explica — buckets por período em Leads, janela de atribuição em Conversão e Receita, mediana e p90 no Tempo Médio, campanhas na Tabela de Origem. As duas que não explicavam métrica nenhuma têm seção própria com nome.\n\nTUDO ABAIXO DA BARRA OBEDECE À BARRA. Churn e LTV foram renomeados para \"Clientes perdidos no período\" e \"Receita média por cliente\" justamente por isso: filtrar valor de vida por um mês produz receita média no mês, e o nome antigo passaria a mentir.\n\nEtapas do funil e linhas de origem abrem a Conversas filtrada naquele conjunto, com os filtros visíveis e removíveis um a um. O funil mostra a retenção entre etapas. Filtros fora do padrão ficam marcados, e o limpar só aparece quando há o que limpar."
+    },
+    {
+      "id": "note-config-usuarios",
+      "x": 1560,
+      "y": 1050,
+      "w": 1120,
+      "text": "CONFIGURAÇÕES e USUÁRIOS — cada seção que carrega da sua própria fonte tem carregando, vazio e erro próprios: em Configurações, Tags e Templates têm switches separados, então pôr Tags em Carregando não deixa mais Templates renderizado como se estivesse populado. O esqueleto de carregamento agora tem a forma da seção real, não uma barra só. Em Usuários entrou a lista da equipe (com carregando, vazio e erro) que a tela não tinha, e a atribuição de unidades passou a ser por nome — nada de digitar ID de usuário ou lista de IDs separada por vírgula."
+    },
+    {
+      "id": "note-open-scope",
+      "x": 3120,
+      "y": 0,
+      "w": 1120,
+      "text": "SERVIÇOS — lista e detalhe, com o filtro de retorno adicionado em 02/09/2026.\n\nO filtro Situação ganhou \"Retorno vencido\" e \"Retorno se aproximando\", sob cabeçalho próprio no menu: são estado do RETORNO do veículo, não situação da OS, e misturá-los faria parecer que existem cinco situações de OS.\n\nDUAS REGRAS: o filtro lê o retorno aberto de cada veículo — a mesma linha que o Follow-up lê, uma definição de \"vencido\" e não duas. E só o ÚLTIMO serviço do veículo casa: um serviço antigo de um carro vencido não está ele próprio vencido, e sem essa regra o mesmo carro apareceria uma vez por troca de óleo passada."
+    },
+    {
+      "id": "note-follow-up",
+      "x": 0,
+      "y": 2720,
+      "w": 1320,
+      "text": "FOLLOW-UP — revisado e aprovado em 02/09/2026 (change rework-follow-up-and-relatorios-ux; o registro das decisões está em decisions.md dessa change).\n\nCONTADORES E FILTRO: os quatro cards são filtro de seção, não âncora — clicar num mostra só aquela seção, clicar de novo desmarca. \"Mensagens aguardando resposta\" é o primeiro card e NÃO tem seção na visão padrão: Conversas é onde se responde uma mensagem, então listá-las aqui de novo seria uma segunda caixa de entrada. O número continua importando, e o card abre a lista quando se pede. No estado de Erro os contadores permanecem (vêm da própria leitura deles, que não falhou) e cada seção diz que não carregou — nunca 0/0/0/0.\n\nLINHAS: a legenda principal é o tempo decorrido (\"48 dias em atraso\"), a data absoluta é secundária, e cada seção declara a ordem ao lado do título.\n\nRETORNOS: calculados por veículo, a partir do último serviço daquele carro, e lidos do vehicle_return armazenado. Retorno vencido agrupa por cliente (uma mensagem para uma pessoa, citando os carros atrasados dela); Retorno se aproximando é uma linha por par cliente+veículo, da mais iminente para a menos — agrupar destruiria a ordem que faz a seção servir. Os contadores seguem cada formato: vencido conta clientes, aproximando conta linhas.\n\nLEMBRETES: \"Criar lembrete\" abre o formulário sobre a própria tela. O selo diz quantos lembretes o retorno tem e quando cai o próximo, nas DUAS seções de retorno, e é ele que abre as mensagens daquele retorno para editar.\n\nARQUIVAR: o X do veículo arquiva aquele retorno, o do cliente arquiva os abertos dele naquele momento. Arquivar PAUSA os lembretes não enviados; desarquivar reativa os que ainda não passaram. O confirm aparece só quando há lembrete a pausar. A faixa no pé da seção só existe quando aquela seção tem algo arquivado."
+    }
+  ],
+  "launch": {
+    "view": "canvas"
+  }
+}

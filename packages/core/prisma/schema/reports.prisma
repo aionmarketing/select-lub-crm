@@ -1,0 +1,51 @@
+// Tables owned by the `reports` module. Ownership is declared in ownership.json;
+// this file and that entry are kept in agreement by schema-ownership.test.ts.
+// Only `module_reports` may write them.
+
+model AttributionRule {
+  id         String   @id @default(cuid())
+  version    Int      @unique
+  windowDays Int      @map("window_days")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@map("attribution_rule")
+}
+
+model ServiceScheduledAttribution {
+  id                 String           @id @default(cuid())
+  serviceId          String           @map("service_id")
+  service            Service          @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  scheduledMessageId String           @map("scheduled_message_id")
+  scheduledMessage   ScheduledMessage @relation(fields: [scheduledMessageId], references: [id], onDelete: Cascade)
+  ruleVersion        Int              @map("rule_version")
+  createdAt          DateTime         @default(now()) @map("created_at")
+
+  @@unique([serviceId, scheduledMessageId])
+  @@map("service_scheduled_attribution")
+}
+
+model ServiceConversationAttribution {
+  id             String       @id @default(cuid())
+  serviceId      String       @map("service_id")
+  service        Service      @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  conversationId String       @map("conversation_id")
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  ruleVersion    Int          @map("rule_version")
+  createdAt      DateTime     @default(now()) @map("created_at")
+
+  @@unique([serviceId, conversationId])
+  @@map("service_conversation_attribution")
+}
+
+model ServiceQuoteAttribution {
+  id          String   @id @default(cuid())
+  serviceId   String   @unique @map("service_id")
+  service     Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  quoteId     String   @map("quote_id")
+  quote       OilQuote @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  ruleVersion Int      @map("rule_version")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@map("service_quote_attribution")
+}

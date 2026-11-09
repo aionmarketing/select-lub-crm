@@ -1,0 +1,12 @@
+// Datasource and generator only. Every model lives in the .prisma file of the
+// module that owns its table, per ownership.json; the Prisma CLI reads this
+// folder as one schema (`--schema prisma/schema`).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
